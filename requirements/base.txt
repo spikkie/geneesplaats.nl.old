@@ -1,0 +1,8 @@
+django-environ
+django-extensions
+django-url-checks
+Django
+djangorestframework
+ipython
+pytz
+whitenoise

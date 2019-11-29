@@ -1,0 +1,12 @@
+-r base.txt
+
+django-test-plus
+factory_boy
+Faker
+flake8
+flake8-bugbear
+flake8-docstrings
+jupyter
+pep8-naming
+pre-commit
+psycopg2-binary
