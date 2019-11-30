@@ -1,0 +1,32 @@
+{% extends parent_template|default:"todo/base.html" %}
+
+{% block title %}
+  {{ block.super }} - Todo
+{% endblock %}
+
+{% block content %}
+  <p><a href="{% url 'todo_create' %}">Write Todo</a><p>
+  {% for todo in todo_list %}
+    <article>
+      <header>
+        <h2>
+          <a href="{{ todo.get_absolute_url }}">
+            {{ todo.title|title }}</a>
+        </h2>
+        <p>
+          Written on:
+          <time datetime="{{ todo.pub_date|date:"Y-m-d" }}">
+            {{ todo.pub_date|date:"l, F j, Y" }}
+          </time>
+        </p>
+      </header>
+      <p>{{ todo.text|truncatewords:20 }}</p>
+      <p>
+        <a href="{{ todo.get_absolute_url }}">
+          Read more…</a>
+      </p>
+    </article>
+  {% empty %}
+    <p><em>No Todos Available</em></p>
+  {% endfor %}
+{% endblock %}

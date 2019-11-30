@@ -17,6 +17,5 @@ COPY requirements  /tmp/requirements
 RUN python3.8 -m pip install -U --no-cache-dir -r /tmp/requirements/development.txt
 
 COPY docker/django/entrypoint.sh /usr/local/bin/entrypoint.sh
-COPY ./src/  ./
 RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]

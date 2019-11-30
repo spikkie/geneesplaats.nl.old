@@ -6,3 +6,4 @@ djangorestframework
 ipython
 pytz
 whitenoise
+django-rest-auth

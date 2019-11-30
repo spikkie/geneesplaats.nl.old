@@ -1,0 +1,18 @@
+{% extends parent_template|default:"todo/base.html" %}
+
+{% block title %}
+  {{ block.super }} - {% if update %}Update{% else %}Create{% endif %} Todo
+{% endblock %}
+
+{% block content %}
+  <form
+      action="."
+      method="todo"
+  >
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">
+      {% if update %}Update{% else %}Create{% endif %} Todo
+    </button>
+  </form>
+{% endblock %}

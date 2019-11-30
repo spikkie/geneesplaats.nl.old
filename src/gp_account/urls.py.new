@@ -1,0 +1,17 @@
+from rest_framework import routers
+from .api import ( 
+    FriendViewSet, 
+	BelongingViewSet,
+	BorrowedViewSet,
+)
+
+
+#router.register(r'friends/', myapp_views.FriendViewset)
+#router.register(r'belongings/', myapp_views.BelongingViewset)
+#router.register(r'borrowings/', myapp_views.BorrowedViewset)
+router = routers.DefaultRouter()
+router.register("friend", FriendViewSet, base_name="api-friend")
+router.register("belonging", BelongingViewSet, base_name="api-belonging")
+router.register("borrowed", BorrowedViewSet, base_name="api-borrowed")
+
+urlpatterns = router.urls
