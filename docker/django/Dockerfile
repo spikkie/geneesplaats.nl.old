@@ -13,6 +13,7 @@ RUN  apt-get -y install build-essential libssl-dev libffi-dev python-dev apt-uti
 RUN  apt-get -y install libpq-dev
 RUN  apt-get -y install gcc
 
+RUN echo copy requirements
 COPY requirements  /tmp/requirements
 RUN python3.8 -m pip install -U --no-cache-dir -r /tmp/requirements/development.txt
 
