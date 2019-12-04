@@ -6,6 +6,11 @@ from . import serializers
 class IsOwner(permissions.BasePermission):
     message = "Not an owner."
 
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return request.user == obj.owner
+
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer

@@ -1,0 +1,83 @@
+version: "3.7"
+
+volumes:
+  postgres_data_dev: {}
+  postgres_backup_dev: {}
+
+services:
+  postgres:
+    #image: postgres:12.1-alpine
+    image: postgres:${POSTGRES_VERSION:-latest}
+    env_file: ./.docker-env
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+      - postgres_backup_dev:/backups
+    networks:
+      - postgres_network
+
+  django:
+    container_name: django_geneesplaats_nl
+    image: spikkie/django_geneesplaats_nl:${DJANGO_GENEESPLAATS_NL_VERSION:-latest}
+    build:
+      context: .
+      dockerfile: ./docker/django/Dockerfile
+    depends_on:
+      - postgres
+    env_file: ./.docker-env
+
+    #Development/production 
+    #expose: 8001 replaces ports: - "8001:8001"
+    #ports:
+    #  - "8001:8001"
+    
+    volumes:
+      - type: bind
+        source: ./src
+        target: /app
+
+    #todo
+        #static: ./static_cdn
+        #media:  ./media_cdn
+        
+    expose:
+      - 8001
+    networks:
+      - nginx_network
+      - postgres_network
+
+
+        #from https://dev.to/lewiskori/deploying-a-python-django-application-using-docker-3d09
+        #
+        #command: bash -c "python manage.py collectstatic --no-input && 
+        #                  python manage.py makemigrations && 
+        #                  python manage.py migrate && 
+        #                  gunicorn --workers=3 projectname.wsgi -b 0.0.0.0:8080"
+        #
+
+  nginx:
+    restart: always
+    image: nginx_geneesplaats_nl:${NGINX_GENEESPLAATS_NL_VERSION:-latest}
+    container_name: nginx_geneesplaats_nlserver
+    build: ./docker/nginx/
+
+    #todo
+    #volumes:
+    #  - ./nginx/:/etc/nginx/conf.d
+    #  - ./logs/:/code/logs
+
+    #- static:/code/static_cdn
+    #- media:/code/media_cdn
+    #
+    
+    ports:
+      - 8001:80
+    depends_on:
+      - django 
+    networks:
+      - nginx_network
+
+networks:
+  nginx_network:
+    driver: bridge
+  postgres_network:
+    driver: bridge

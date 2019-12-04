@@ -2,4 +2,5 @@
 
 Brotli
 gunicorn
-psycopg2>=2.7,<2.8 --no-binary psycopg2
+psycopg2 --no-binary psycopg2
+django_wsgi
