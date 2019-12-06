@@ -1,0 +1,73 @@
+version: "3.7"
+
+
+services:
+  postgres:
+    restart: always
+    container_name: postgres_geneesplaats_nl_${ENVIRONMENT}
+    #image: postgres:12.1-alpine
+    image: postgres:${POSTGRES_GENEESPLAATS_NL_VERSION}
+    env_file: ./.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - postgres_backup:/backups
+    networks:
+      - postgres_network
+
+
+  django:
+    container_name: django_geneesplaats_nl_${ENVIRONMENT}
+    image: spikkie/django_geneesplaats_nl:${DJANGO_GENEESPLAATS_NL_VERSION}
+    build:
+      context: .
+      dockerfile: ./docker/django/Dockerfile
+    depends_on:
+      - postgres
+    env_file: ./.env
+    volumes:
+      - .:/app
+      - static_volume:/app/static_cdn/static_root/
+      - media_volume:/app/static_cdn/media_root/
+    expose:
+      - 8001
+    networks:
+      - nginx_network
+      - postgres_network
+
+
+  nginx:
+    restart: always
+    image: nginx_geneesplaats_nl:${NGINX_GENEESPLAATS_NL_VERSION}
+    container_name: nginx_geneesplaats_nl
+    build: ./docker/nginx/
+
+    #todo
+    #volumes:
+    #  - ./nginx/:/etc/nginx/conf.d
+    #  - ./logs/:/code/logs
+
+    volumes:
+      - static_volume:/app/static_cdn/static_root/
+      - media_volume:/app/static_cdn/media_root/
+    
+    ports:
+      - 8001:80
+    depends_on:
+      - django 
+    env_file: ./.env
+    networks:
+      - nginx_network
+
+volumes:
+  postgres_data: {}
+  postgres_backup: {}
+  static_volume: {}
+  media_volume: {}
+
+
+networks:
+  nginx_network:
+    driver: bridge
+  postgres_network:
+    driver: bridge
+

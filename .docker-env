@@ -5,3 +5,4 @@ DATABASE_URL=postgres://geneesplaats_nl_user:5eM4SJKbY16j@postgres:5432/geneespl
 SECRET_KEY=sHBzYnwDOhDAEkqVZIskUtw8PNt1ZhtqfGIbup6a1h5a0Q7ttG
 DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
 DEBUG=1
+PRODUCTION=false
