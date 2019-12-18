@@ -1,0 +1,15 @@
+# the upstream component nginx needs to connect to
+
+upstream geneesplaat_nl {
+    server unix:///tmp/geneesplaat_nl.sock;
+}
+
+server {
+    listen      80;
+    server_name  127.0.0.1 0.0.0.0;    
+
+    location / {        
+        include     /etc/nginx/uwsgi_params;        
+        uwsgi_pass  geneesplaat_nl;    
+    }
+}

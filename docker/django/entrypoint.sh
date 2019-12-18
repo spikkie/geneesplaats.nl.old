@@ -30,13 +30,39 @@ done;
 
 >&2 echo "Postgres is available"
 
+cd src
+
 if [ "$#" = 0 ]
 then
-    >&2 echo "No command detected; running default commands"
-    >&2 echo "Running migrations"
-    python3.8 manage.py migrate --noinput
-    >&2 echo "\n\nStarting development server: 127.0.0.1:8001\n\n"
-    python3.8 manage.py runserver 0.0.0.0:8001
+
+    if [ "${PRODUCTION}" = 'true' ]
+    then
+        >&2 echo "production"
+        >&2 echo "No command detected; running default commands"
+        >&2 echo "Running collectstatic"
+        python manage.py collectstatic --no-input
+        >&2 echo "Running makemigrations"
+        python manage.py makemigrations
+        >&2 echo "Running migrate"
+        python manage.py migrate
+        >&2 echo "Running gunicorn with config.wsgi:application"
+        gunicorn --workers=3 config.wsgi:application --bind :8001
+
+#From https://dev.to/lewiskori/deploying-a-python-django-application-using-docker-3d09
+#command: bash -c "python manage.py collectstatic --no-input && 
+        #                  python manage.py makemigrations && 
+        #                  python manage.py migrate && 
+        #                  gunicorn --workers=3 projectname.wsgi -b 0.0.0.0:8080"
+    else
+        >&2 echo "devlopment"
+        >&2 echo "No command detected; running default commands"
+        >&2 echo "Running migrations"
+        python manage.py migrate --noinput
+        >&2 echo "\n\nStarting development server: 127.0.0.1:8001\n\n"
+        #todo developent/production
+        python manage.py runserver 0.0.0.0:8001
+    fi
+
 else
     >&2 echo "Command detected; running command"
     exec "$@"
