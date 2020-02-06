@@ -18,9 +18,6 @@ services:
   django:
     container_name: django_geneesplaats_nl_${ENVIRONMENT}
     image: spikkie/django_geneesplaats_nl:${DJANGO_GENEESPLAATS_NL_VERSION}
-    build:
-      context: .
-      dockerfile: ./docker/django/Dockerfile
     depends_on:
       - postgres
     env_file: ./.env
@@ -29,7 +26,7 @@ services:
       - static_volume:/app/static_cdn/static_root/
       - media_volume:/app/static_cdn/media_root/
     expose:
-      - 80
+      - 8001
     networks:
       - nginx-network
       - postgres-network
@@ -39,7 +36,6 @@ services:
     restart: always
     image: spikkie/nginx_geneesplaats_nl:${NGINX_GENEESPLAATS_NL_VERSION}
     container_name: nginx_geneesplaats_nl
-    build: ./docker/nginx/
 
     #todo
     #volumes:
@@ -51,7 +47,7 @@ services:
       - media_volume:/app/static_cdn/media_root/
     
     ports:
-      - 80:80
+      - 8001:80
     depends_on:
       - django 
     env_file: ./.env

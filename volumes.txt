@@ -1,0 +1,60 @@
+kind
+ ConfigMap
+ Deployment
+ NetworkPolicy
+ PersistentVolumeClaim
+ Service
+
+
+
+nginx-deployment.yaml
+        volumeMounts:
+        - mountPath: /app/static_cdn/static_root/
+          name: static-volume
+        - mountPath: /app/static_cdn/media_root/
+          name: media-volume
+
+      volumes:
+      - name: static-volume
+        persistentVolumeClaim:
+          claimName: static-volume
+      - name: media-volume
+        persistentVolumeClaim:
+          claimName: media-volume
+
+
+django-deployment.yaml
+        volumeMounts:
+        - mountPath: /app
+          name: django-claim0
+        - mountPath: /app/static_cdn/static_root/
+          name: static-volume
+        - mountPath: /app/static_cdn/media_root/
+          name: media-volume
+
+      volumes:
+      - name: django-claim0
+        persistentVolumeClaim:
+          claimName: django-claim0
+      - name: static-volume
+        persistentVolumeClaim:
+          claimName: static-volume
+      - name: media-volume
+        persistentVolumeClaim:
+          claimName: media-volume
+
+postgres-deployment.yaml
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgres-data
+        - mountPath: /backups
+          name: postgres-backup
+
+      volumes:
+      - name: postgres-data
+        persistentVolumeClaim:
+          claimName: postgres-data
+      - name: postgres-backup
+        persistentVolumeClaim:
+          claimName: postgres-backup
+

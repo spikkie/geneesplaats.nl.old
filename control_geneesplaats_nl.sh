@@ -2,28 +2,12 @@
 set -x 
 set -e
 
-Functions=('build' 'deploy' 'release' 'stop' 'clean')
+Functions=('build' 'deploy' 'release' 'stop' 'clean' 'kompose_up' 'kompose_convert')
 Environments=('development' 'testing' 'stash' 'production')
 
 
-
-build() {
-    echo build
-}
-
-deploy() {
-    echo deploy
-}
-
-stop() {
-    echo stop
-}
-
-clean() {
-    echo clean
-}
-
-release() {
+generate_env() {
+    echo generate environment
     #check if we have configuration set
     if [[ ! -f ./.docker-env-$ENVIRONMENT ]]; then
         #not set so lets generate it
@@ -31,15 +15,63 @@ release() {
     fi
     echo Release geneesplaats.nl for $ENVIRONMENT environment -- release $RELEASE_VERSION
 
-    echo environment variabels:
+    echo set environment variabels:
     cat ./.env
     . ./.env
+}
+
+build() {
+    generate_env
+    echo build
+    docker-compose -f docker-compose-$ENVIRONMENT.yml build
+}
+
+deploy() {
+    generate_env
+    echo deploy
+}
+
+stop() {
+    generate_env
+    echo stop
+}
+
+clean() {
+    generate_env
+    echo clean
+}
+
+release() {
+    generate_env
     docker-compose -f docker-compose-$ENVIRONMENT.yml  up --no-build
 
     #todo
     #docker stack deploy my-stack --compose-file docker-compose.yml --with-registry-auth
 }
 
+kompose_up() {
+    echo kompose up
+    generate_env
+    kompose up -v -f docker-compose-$ENVIRONMENT.yml
+}
+
+kompose_convert() {
+    echo kompose convert
+    generate_env
+    if [[ -d kompose_$ENVIRONMENT ]]; then
+        rm -rf kompose_$ENVIRONMENT
+    fi
+    mkdir kompose_$ENVIRONMENT
+
+    kompose convert -v -f docker-compose-$ENVIRONMENT.yml -o kompose_$ENVIRONMENT
+}
+
+kubectl_apply() {
+    echo kubectl apply 
+    generate_env
+    #get all files in directory kompose_$ENVIRONMENT and make a comma separated list out of it
+    kubectl apply -f 
+}
 
 if [[ $# < 2 ]]; then
     echo Error: at least 2 parameter are required identifying the environment
@@ -82,6 +114,10 @@ elif [[ ${FUNCTION} == 'stop' ]];then
     stop
 elif [[ ${FUNCTION} == 'clean' ]];then
     clean
+elif [[ ${FUNCTION} == 'kompose_up' ]];then
+   kompose_up 
+elif [[ ${FUNCTION} == 'kompose_convert' ]];then
+   kompose_convert
 else
     echo Error: none of the functions as defined in Functions:
     echo     ${Functions[@]}

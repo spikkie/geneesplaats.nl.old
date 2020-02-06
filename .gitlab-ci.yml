@@ -1,3 +1,5 @@
-build:
+job1:
+    tags:
+        - kubernetes-1
     script:
         - /bin/true

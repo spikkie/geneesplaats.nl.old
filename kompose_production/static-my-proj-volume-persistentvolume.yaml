@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: static-my-proj-volume-pv
+  labels:
+    type: local
+    mnt: static-my-proj-volume-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: manual
+  hostPath:
+    path: "/mnt/static-my-proj-volume-pv"

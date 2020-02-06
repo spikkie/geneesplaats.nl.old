@@ -16,6 +16,9 @@ RUN  apt-get -y install libpq-dev gcc gunicorn
 #RUN  apt-get -y install  postgresql-dev musl-dev
 #Todo what is the usage for these packages
 
+#Copy Geneesplaats.nl sources
+COPY src .
+
 COPY requirements  /tmp/requirements
 #Todo development/production
 #RUN python -m pip install -U --no-cache-dir -r /tmp/requirements/development.txt

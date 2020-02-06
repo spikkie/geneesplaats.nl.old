@@ -8,10 +8,10 @@ from .api import (
 )
 
 router = routers.DefaultRouter()
-router.register("profile", ProfileViewSet, base_name="api-profile")
-router.register("therapyrequest", TherapyRequestViewSet, base_name="api-therapyrequest")
-router.register("therapyoffer", TherapyOfferViewSet, base_name="api-therapyoffer")
-router.register("therapysearcher", TherapySearcherViewSet, base_name="api-therapysearcher")
-router.register("therapist", TherapistViewSet, base_name="api-therapist")
+router.register("profile", ProfileViewSet, basename="api-profile")
+router.register("therapyrequest", TherapyRequestViewSet, basename="api-therapyrequest")
+router.register("therapyoffer", TherapyOfferViewSet, basename="api-therapyoffer")
+router.register("therapysearcher", TherapySearcherViewSet, basename="api-therapysearcher")
+router.register("therapist", TherapistViewSet, basename="api-therapist")
 
 urlpatterns = router.urls

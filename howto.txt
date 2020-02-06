@@ -1,0 +1,49 @@
+yaml files created by command
+./control_geneesplaats_nl.sh kompose_convert production
+then updated some file
+added to git
+
+
+started by command
+~/projects/geneesplaats-nl/kompose_production
+kubectl  apply -f $(ls .| tr '\n' ','  | sed 's/.$//') 
+
+
+types of yaml file
+~/projects/geneesplaats-nl/kompose_production$ ll| grep -v persistentvolumeclaim.yaml| grep -v deployment.yaml | grep -v env-configmap.yaml| grep -v network-networkpolicy.yaml | grep -v service.yaml
+
+env-configmap.yaml
+persistentvolumeclaim.yaml
+deployment.yaml
+network-networkpolicy.yaml
+service.yaml
+
+
+
+--
+docker hub credentials
+
+see
+https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+
+kubectl create secret generic regcred \
+    --from-file=.dockerconfigjson=<path/to/.docker/config.json> \
+    --type=kubernetes.io/dockerconfigjson
+
+spikkie@master-node:~/projects/geneesplaats-nl/kompose_production$ kubectl create secret generic regcred  --from-file=.dockerconfigjson=/home/spikkie/.docker/config.json --type=kubernetes.io/dockerconfigjson
+secret/regcred created
+
+
+also
+https://managedkube.com/kubernetes/k8sbot/troubleshooting/imagepullbackoff/2019/02/23/imagepullbackoff.html
+
+
+--
+
+
+connect frontend to backend
+https://kubernetes.io/docs/tasks/access-application-cluster/connecting-frontend-backend/
+
+The key to connecting a frontend to a backend is the backend Service. A Service creates a persistent IP address and DNS name entry so that the backend microservice can always be reached. A Service uses selectors to find the Pods that it routes traffic to.
+
+
