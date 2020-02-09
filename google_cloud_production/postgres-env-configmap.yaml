@@ -2,7 +2,7 @@ apiVersion: v1
 data:
   DATABASE_URL: postgres://production_geneesplaats_nl_user:n7fseDI0vw42@postgres:5432/production_geneesplaats_nl
   DEBUG: "1"
-  DJANGO_ALLOWED_HOSTS: localhost 127.0.0.1 [::1]
+  DJANGO_ALLOWED_HOSTS: .geneesplaats.nl
   DJANGO_EXPOSE_PORT: "80"
   DJANGO_GENEESPLAATS_NL_VERSION: latest
   DJANGO_SETTINGS_MODULE: config.settings.production

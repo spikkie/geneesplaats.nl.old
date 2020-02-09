@@ -49,20 +49,14 @@ then
         python manage.py migrate
         >&2 echo "Running gunicorn with config.wsgi:application"
         gunicorn --workers=3 config.wsgi:application --bind :80
-
-#From https://dev.to/lewiskori/deploying-a-python-django-application-using-docker-3d09
-#command: bash -c "python manage.py collectstatic --no-input && 
-        #                  python manage.py makemigrations && 
-        #                  python manage.py migrate && 
-        #                  gunicorn --workers=3 projectname.wsgi -b 0.0.0.0:80"
     else
-        >&2 echo "devlopment"
+        >&2 echo "development"
         >&2 echo "No command detected; running default commands"
         >&2 echo "Running migrations"
         python manage.py migrate --noinput
-        >&2 echo "\n\nStarting development server: 127.0.0.1:80\n\n"
+        >&2 echo "\n\nStarting development server: 127.0.0.1:8001\n\n"
         #todo developent/production
-        python manage.py runserver 0.0.0.0:80
+        python manage.py runserver 0.0.0.0:8001
     fi
 
 else

@@ -5,7 +5,7 @@ from .base import *  # noqa: F401 F403
 # PRODUCTION SETTINGS
 ######################################################################
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.geneesplaats.nl']
 
 ADMINS = MANAGERS = [
      ('Bas Spikmans', 'spikkie@gmail.com'),
