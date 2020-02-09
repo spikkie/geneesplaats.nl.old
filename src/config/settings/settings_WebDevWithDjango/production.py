@@ -7,8 +7,7 @@ from .base import *  # noqa: F401 F403
 
 DEBUG = True
 
-#ALLOWED_HOSTS = [".herokuapp.com"]
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['geneesplaats.nl']
 
 ADMINS = MANAGERS = [
      ('Bas Spikmans', 'spikkie@gmail.com'),
