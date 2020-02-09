@@ -109,17 +109,15 @@ spec:
           - containerPort: 5432
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
-          name: postgres-data
+          name: postgres-data-emptydir
         - mountPath: /backups
-          name: postgres-backup
+          name: postgres-backup-emptydir
       restartPolicy: Always
       volumes:
-      - name: postgres-data
-        persistentVolumeClaim:
-          claimName: postgres-data
-      - name: postgres-backup
-        persistentVolumeClaim:
-          claimName: postgres-backup
+      - name: postgres-data-emptydir
+        emptyDir: {}
+      - name: postgres-backup-emptydir
+        emptyDir: {}
       imagePullSecrets:
         - name: regcred
 
