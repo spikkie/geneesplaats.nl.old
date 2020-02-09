@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
 
 
-  name: static-my-proj-volume
+  name: static-my-proj-volume-emptydir
 spec:
   storageClassName: manual
   accessModes:

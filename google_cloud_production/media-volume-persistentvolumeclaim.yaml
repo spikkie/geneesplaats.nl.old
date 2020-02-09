@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
  
-  name: media-volume
+  name: media-volume-emptydir
 spec:
   storageClassName: manual
   accessModes:

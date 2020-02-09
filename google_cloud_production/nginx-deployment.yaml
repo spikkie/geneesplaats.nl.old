@@ -108,17 +108,15 @@ spec:
         resources: {}
         volumeMounts:
         - mountPath: /app/static_cdn/static_root/
-          name: static-volume
+          name: static-volume-emptydir
         - mountPath: /app/static_cdn/media_root/
-          name: media-volume
+          name: media-volume-emptydir
       restartPolicy: Always
       volumes:
-      - name: static-volume
-        persistentVolumeClaim:
-          claimName: static-volume
-      - name: media-volume
-        persistentVolumeClaim:
-          claimName: media-volume
+        - name: static-volume-emptydir
+          emptyDir: {}
+        - name: media-volume-emptydir
+          emptyDir: {}
       imagePullSecrets:
         - name: regcred
 status: {}
