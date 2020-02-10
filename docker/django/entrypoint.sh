@@ -48,7 +48,7 @@ then
         >&2 echo "Running migrate"
         python manage.py migrate
         >&2 echo "Running gunicorn with config.wsgi:application"
-        gunicorn --workers=3 config.wsgi:application --bind :80
+        gunicorn --workers=3 config.wsgi:application --bind :8001
     else
         >&2 echo "development"
         >&2 echo "No command detected; running default commands"
