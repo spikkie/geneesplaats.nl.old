@@ -108,7 +108,7 @@ spec:
         ports:
           - containerPort: 5432
         volumeMounts:
-        - mountPath: /var/lib/postgresql/data
+        - mountPath: /var/lib/postgresql/mydata
           name: postgres-data
         - mountPath: /backups
           name: postgres-backup
@@ -116,10 +116,10 @@ spec:
       volumes:
       - name: postgres-data
         persistentVolumeClaim:
-          claimName: postgres-data
+          claimName: postgres-data-claim
       - name: postgres-backup
         persistentVolumeClaim:
-          claimName: postgres-backup
+          claimName: postgres-backup-claim
       imagePullSecrets:
         - name: regcred
 

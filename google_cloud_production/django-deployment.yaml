@@ -130,12 +130,12 @@ spec:
       volumes:
       - name: static-volume
         persistentVolumeClaim:
-          claimName: static-volume
+          claimName: static-volume-claim
       - name: media-volume
         persistentVolumeClaim:
-          claimName: media-volume
+          claimName: media-volume-claim
       - name: static-my-proj-volume
         persistentVolumeClaim:
-          claimName: static-my-proj-volume
+          claimName: static-my-proj-volume-claim
       imagePullSecrets:
         - name: regcred

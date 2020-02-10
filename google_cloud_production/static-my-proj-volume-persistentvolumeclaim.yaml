@@ -1,9 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-
-
-  name: static-my-proj-volume
+  name: static-my-proj-volume-claim
 spec:
 
   accessModes:
