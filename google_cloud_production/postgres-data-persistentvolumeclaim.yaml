@@ -1,9 +1,8 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: postgres-data-emptydir
+  name: postgres-data
 spec:
-  storageClassName: manual
   accessModes:
   - ReadWriteOnce
   resources:

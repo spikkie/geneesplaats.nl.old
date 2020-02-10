@@ -121,18 +121,21 @@ spec:
             containerPort: 80
         volumeMounts:
         - mountPath: /app/static_cdn/static_root/
-          name: static-volume-emptydir
+          name: static-volume
         - mountPath: /app/static_cdn/media_root/
-          name: media-volume-emptydir
+          name: media-volume
         - mountPath: /app/static_my_proj/
-          name: static-my-proj-volume-emptydir
+          name: static-my-proj-volume
       restartPolicy: Always
       volumes:
-      - name: static-volume-emptydir
-        emptyDir: {}
-      - name: media-volume-emptydir
-        emptyDir: {}
-      - name: static-my-proj-volume-emptydir
-        emptyDir: {}
+      - name: static-volume
+        persistentVolumeClaim:
+          claimName: static-volume
+      - name: media-volume
+        persistentVolumeClaim:
+          claimName: media-volume
+      - name: static-my-proj-volume
+        persistentVolumeClaim:
+          claimName: static-my-proj-volume
       imagePullSecrets:
         - name: regcred
