@@ -1,4 +1,10 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: django-env
+  name: django-env
 data:
   DATABASE_URL: postgres://production_geneesplaats_nl_user:n7fseDI0vw42@postgres:5432/production_geneesplaats_nl
   DEBUG: "0"
@@ -14,9 +20,3 @@ data:
   POSTGRES_USER: production_geneesplaats_nl_user
   PRODUCTION: "true"
   SECRET_KEY: ZT7i5QmzQTUUldzm1nU8XTrBz1lwCkyssMCt96q1ipmexs6I0E
-kind: ConfigMap
-metadata:
-  creationTimestamp: null
-  labels:
-    io.kompose.service: django-env
-  name: django-env
