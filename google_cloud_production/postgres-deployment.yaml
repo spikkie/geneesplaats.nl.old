@@ -1,10 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -v -f docker-compose-production.yml -o kompose_production
-    kompose.version: 1.20.0 (f3d54d784)
-  creationTimestamp: null
   labels:
     io.kompose.service: postgres
   name: postgres
@@ -13,20 +9,12 @@ spec:
   selector:
     matchLabels:
       app: postgres
-      tier: backend
-      track: stable
   strategy:
     type: Recreate
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert -v -f docker-compose-production.yml -o kompose_production
-        kompose.version: 1.20.0 (f3d54d784)
-      creationTimestamp: null
       labels:
         app: postgres
-        tier: backend
-        track: stable
         io.kompose.network/nginx-network: "true"
         io.kompose.network/postgres-network: "true"
         io.kompose.service: postgres

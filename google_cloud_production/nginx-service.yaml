@@ -1,21 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -v -f docker-compose-production.yml -o kompose_production
-    kompose.version: 1.20.0 (f3d54d784)
-  creationTimestamp: null
   labels:
     io.kompose.service: nginx
   name: nginx
 spec:
   selector:
     app: django
-    tier: frontend
   ports:
   - protocol: "TCP"
     port: 80
     targetPort: 80
-    nodePort: 30444 
   type: LoadBalancer
 
