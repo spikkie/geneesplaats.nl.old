@@ -17,7 +17,7 @@ ENV = Env()
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = Path(__file__) - 3
+BASE_DIR = Path(__file__) - 2
 
 
 # Quick-start development settings - unsuitable for production
