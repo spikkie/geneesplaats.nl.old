@@ -1,0 +1,42 @@
+installation from
+https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/
+
+github
+https://github.com/nginxinc/kubernetes-ingress/releases
+
+
+git checkout v1.6.2
+
+
+
+3. Deploy the Ingress Controller
+
+We include two options for deploying the Ingress controller:
+
+    Deployment. Use a Deployment if you plan to dynamically change the number of Ingress controller replicas.
+    DaemonSet. Use a DaemonSet for deploying the Ingress controller on every node or a subset of nodes.
+
+
+I will use Deployment.
+kubectl apply -f deployment/nginx-ingress.yaml
+
+
+
+#Apply all manifests
+cd  ~/projects/geneesplaats.nl/google_cloud_production/NGINX_Ingress_controller/
+ kubectl  apply -f $(ls .| tr '\n' ','  | sed 's/.$//')
+
+
+3.2 Check that the Ingress Controller is Running
+
+Run the following command to make sure that the Ingress controller pods are running:
+
+$ kubectl get pods --namespace=nginx-ingress
+
+
+
+#need to create a name-space
+kubectl create namespace nginx-ingress
+
+
+
