@@ -2,7 +2,7 @@
 set -x 
 set -e
 
-Functions=('build' 'deploy' 'release' 'stop' 'clean' 'kompose_up' 'kompose_convert')
+Functions=('build' 'force_build' 'deploy' 'release' 'stop' 'clean' 'kompose_up' 'kompose_convert')
 Environments=('development' 'testing' 'stash' 'production')
 
 
@@ -24,6 +24,12 @@ build() {
     generate_env
     echo build
     docker-compose -f docker-compose-$ENVIRONMENT.yml build
+}
+
+force_build() {
+    generate_env
+    echo force_build
+    docker-compose -f docker-compose-$ENVIRONMENT.yml build --no-cache
 }
 
 deploy() {
@@ -106,6 +112,8 @@ if [[ -z $RELEASE_VERSION ]];then
 fi
 if [[ ${FUNCTION} == 'build' ]];then
     build
+elif [[ ${FUNCTION} == 'force_build' ]];then
+   force_build 
 elif [[ ${FUNCTION} == 'deploy' ]];then
     deploy
 elif [[ ${FUNCTION} == 'release' ]];then
