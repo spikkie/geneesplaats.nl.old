@@ -39,4 +39,32 @@ $ kubectl get pods --namespace=nginx-ingress
 kubectl create namespace nginx-ingress
 
 
+#apply all the manifests
+from  directorie
+/home/spikkie/projects/geneesplaats.nl/google_cloud_production/NGINX_Ingress_controller
+run
+ kubectl apply -f $(ls .| tr '\n' ','  | sed 's/.$//')
+
+
+
+7-loadbalancer.yaml
+
+
+
+Use the public IP of the load balancer to access the Ingress controller. To get the public IP:
+kubectl get svc nginx-ingress --namespace=nginx-ingress
+
+
+
+Uninstall the Ingress Controller
+
+    Delete the nginx-ingress namespace to uninstall the Ingress controller along with all the auxiliary resources that were created:
+
+    $ kubectl delete namespace nginx-ingress
+
+    Delete the ClusterRole and ClusterRoleBinding created in that step:
+
+    $ kubectl delete clusterrole nginx-ingress
+    $ kubectl delete clusterrolebinding nginx-ingress
+
 

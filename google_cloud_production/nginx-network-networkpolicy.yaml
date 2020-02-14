@@ -3,6 +3,7 @@ kind: NetworkPolicy
 metadata:
   creationTimestamp: null
   name: nginx-network
+  namespace: nginx-ingress
 spec:
   ingress:
   - from:

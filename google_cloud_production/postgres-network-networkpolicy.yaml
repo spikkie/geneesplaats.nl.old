@@ -3,6 +3,7 @@ kind: NetworkPolicy
 metadata:
   creationTimestamp: null
   name: postgres-network
+  namespace: nginx-ingress
 spec:
   ingress:
   - from:

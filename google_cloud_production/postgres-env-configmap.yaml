@@ -5,6 +5,7 @@ metadata:
   labels:
     io.kompose.service: postgres-env
   name: postgres-env
+  namespace: nginx-ingress
 data:
   DATABASE_URL: postgres://production_geneesplaats_nl_user:n7fseDI0vw42@postgres:5432/production_geneesplaats_nl
   DEBUG: "0"
@@ -13,7 +14,6 @@ data:
   DJANGO_GENEESPLAATS_NL_VERSION: latest
   DJANGO_SETTINGS_MODULE: config.settings.production
   ENVIRONMENT: production
-  NGINX_GENEESPLAATS_NL_VERSION: latest
   POSTGRES_DB: production_geneesplaats_nl
   POSTGRES_GENEESPLAATS_NL_VERSION: latest
   POSTGRES_PASSWORD: n7fseDI0vw42

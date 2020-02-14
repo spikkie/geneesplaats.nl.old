@@ -4,6 +4,7 @@ metadata:
   labels:
     io.kompose.service: postgres
   name: postgres
+  namespace: nginx-ingress
 spec:
   replicas: 1
   selector:
@@ -56,11 +57,6 @@ spec:
             configMapKeyRef:
               key: ENVIRONMENT
               name: postgres-env
-        - name: NGINX_GENEESPLAATS_NL_VERSION
-          valueFrom:
-            configMapKeyRef:
-              key: NGINX_GENEESPLAATS_NL_VERSION
-              name: postgres-env
         - name: POSTGRES_DB
           valueFrom:
             configMapKeyRef:
@@ -109,5 +105,5 @@ spec:
         persistentVolumeClaim:
           claimName: postgres-backup-claim
       imagePullSecrets:
-        - name: regcred
+        - name: regcred-nginx-ingress
 

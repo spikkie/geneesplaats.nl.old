@@ -2,8 +2,8 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: static-volume-claim
+  namespace: nginx-ingress
 spec:
-
   accessModes:
   - ReadWriteOnce
   resources:
