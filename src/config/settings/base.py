@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 from environ import Env, Path
+from google.oauth2 import service_account
 
 ENV = Env()
 
@@ -141,9 +142,27 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static_cdn", "static_root" )
 
-STATICFILES_STORAGE = (
-    "django.contrib.staticfiles.storage.StaticFilesStorage"
+#STATICFILES_STORAGE = (
+#    "django.contrib.staticfiles.storage.StaticFilesStorage"
+#)
+
+#Google Cloud Storage
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BUCKET_NAME = 'geneesplaats-nl-static'
+GS_PROJECT_ID = 'stoked-axle-267521'
+
+#To allow django-admin.py collectstatic to automatically put your static files in your bucket set the following in your settings.py:
+STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+
+#To use gcloud set:
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+
+#The OAuth 2 credentials to use for the connection. If unset, falls back to the default inferred from the environment (i.e. GOOGLE_APPLICATION_CREDENTIALS)
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    "/app/spikkie-service-account--stoked-axle-267521.iam.gserviceaccount.json"
 )
+
+
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static_my_proj"),
