@@ -86,4 +86,7 @@ __pycache__/
 local_settings.py
 
 .env
+.docker-env-base-development
 db.sqlite3
+
+src/static_cdn/
