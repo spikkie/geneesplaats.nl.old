@@ -2,7 +2,7 @@
 set -x 
 set -e
 
-Functions=('build' 'force_build' 'deploy' 'release' 'stop' 'clean' 'kompose_up' 'kompose_convert')
+Functions=('build' 'force_build' 'deploy' 'release' 'down' 'stop' 'clean' 'kompose_up' 'kompose_convert')
 Environments=('development' 'testing' 'stash' 'production')
 
 
@@ -53,6 +53,11 @@ release() {
 
     #todo
     #docker stack deploy my-stack --compose-file docker-compose.yml --with-registry-auth
+}
+
+down() {
+    generate_env
+    docker-compose -f docker-compose-$ENVIRONMENT.yml  down
 }
 
 kompose_up() {
@@ -118,6 +123,8 @@ elif [[ ${FUNCTION} == 'deploy' ]];then
     deploy
 elif [[ ${FUNCTION} == 'release' ]];then
     release 
+elif [[ ${FUNCTION} == 'down' ]];then
+    down 
 elif [[ ${FUNCTION} == 'stop' ]];then
     stop
 elif [[ ${FUNCTION} == 'clean' ]];then

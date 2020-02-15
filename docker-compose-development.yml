@@ -6,15 +6,20 @@ volumes:
 
 services:
   postgres:
-    image: postgres:12.1-alpine
     restart: always
+    container_name: postgres_geneesplaats_nl_${ENVIRONMENT}
+    image: postgres:${POSTGRES_GENEESPLAATS_NL_VERSION}
+
     env_file: ./.env
     volumes:
       - postgres_data_dev:/var/lib/postgresql/data
       - postgres_backup_dev:/backups
+    networks:
+      - postgres-network
 
   django:
-    image: spikkie/django_geneesplaats_nl
+    container_name: django_geneesplaats_nl_${ENVIRONMENT}
+    image: spikkie/django_geneesplaats_nl:${DJANGO_GENEESPLAATS_NL_VERSION}
     restart: always
     build:
       context: .
@@ -28,4 +33,13 @@ services:
       - type: bind
         source: ./src
         target: /app
-
+    networks:
+      - postgres-network
+      
+volumes:
+  postgres_data_dev: {}
+  postgres_backup_dev: {}
+  
+networks:
+  postgres-network:
+    driver: bridge
