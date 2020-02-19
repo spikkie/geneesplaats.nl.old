@@ -2,7 +2,7 @@
 set -x 
 set -e
 
-Functions=('build' 'force_build' 'deploy' 'release' 'down' 'stop' 'clean' 'kompose_up' 'kompose_convert')
+Functions=('build' 'force_build' 'deploy' 'up' 'down' 'stop' 'clean' 'kompose_up' 'kompose_convert')
 Environments=('development' 'testing' 'stash' 'production')
 
 
@@ -13,7 +13,7 @@ generate_env() {
         #not set so lets generate it
         ./generate_docker_env.sh $ENVIRONMENT $RELEASE_VERSION
     fi
-    echo Release geneesplaats.nl for $ENVIRONMENT environment -- release $RELEASE_VERSION
+    echo generate geneesplaats.nl for $ENVIRONMENT environment -- release $RELEASE_VERSION
 
     echo set environment variabels:
     cat ./.env
@@ -47,7 +47,7 @@ clean() {
     echo clean
 }
 
-release() {
+up() {
     generate_env
     docker-compose -f docker-compose-$ENVIRONMENT.yml  up --no-build
 
@@ -121,8 +121,8 @@ elif [[ ${FUNCTION} == 'force_build' ]];then
    force_build 
 elif [[ ${FUNCTION} == 'deploy' ]];then
     deploy
-elif [[ ${FUNCTION} == 'release' ]];then
-    release 
+elif [[ ${FUNCTION} == 'up' ]];then
+    up 
 elif [[ ${FUNCTION} == 'down' ]];then
     down 
 elif [[ ${FUNCTION} == 'stop' ]];then

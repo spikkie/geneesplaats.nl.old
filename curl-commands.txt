@@ -1,0 +1,5 @@
+curl -X POST -d '{"username": "spikkie", "password": "22222222"}' -H 'Content-Type: application/json'  http://127.0.0.1:8001/api/v1/rest-auth/token/login
+
+curl -X POST -H "Content-Type: application/json" -d '{"username": "spikkie", "password": "22222222"}' 127.0.0.1:8001/api/v1/token/
+
+curl  -H "Authorization: Bearer TOKEN"  127.0.0.1:8001/api/v1/

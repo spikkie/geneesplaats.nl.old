@@ -1,0 +1,51 @@
+Django
+port to 3.0
+
+
+
+
+--Django React Testing
+from: https://www.valentinog.com/blog/drf/
+Do not test what is already tested! So what should I test? Have you added a custom method to a Django model? Test it! Do you have a custom view? Test it! But how do I know what to test exactly?
+
+Do yourself a favour. Install coverage:
+
+pip install coverage
+
+Then, every time you add some code to your application run coverage with:
+
+coverage run --source='.' manage.py test
+
+and generate the report:
+
+coverage html
+
+
+
+
+chwek authenticatin
+https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication
+from
+https://sunscrapers.com/blog/django-rest-framework-login-and-authentication/
+
+---
+React
+
+https://www.valentinog.com/blog/drf/
+How to glue Django and React together?
+
+Dockerizing React
+https://mherman.org/blog/dockerizing-a-react-app/
+
+
+Kubernetes, Docker, React
+https://dev.to/rieckpil/deploy-a-react-application-to-kubernetes-in-5-easy-steps-516j
+
+---
+
+Node 
+
+install
+npm install -g create-react-app@3.4.0
+
+

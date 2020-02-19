@@ -4,16 +4,3 @@ Brotli
 gunicorn
 psycopg2 --no-binary psycopg2
 django_wsgi
-asgiref
-cachetools
-django-storages
-google-api-core
-google-auth
-google-cloud-core
-google-cloud-storage
-google-resumable-media
-googleapis-common-protos
-protobuf
-pyasn1
-pyasn1-modules
-rsa

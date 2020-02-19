@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  awesome-project:
+    container_name: awesome-project
+    build:
+      context: .
+      dockerfile: ../../docker/react/Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - '3001:3000'
+    environment:
+      - NODE_ENV=development
+

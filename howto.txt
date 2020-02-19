@@ -39,11 +39,28 @@ https://managedkube.com/kubernetes/k8sbot/troubleshooting/imagepullbackoff/2019/
 
 
 --
+React
 
+installation
+https://www.techomoro.com/how-to-install-and-setup-a-react-app-on-ubuntu-18-04-1/
 
 connect frontend to backend
 https://kubernetes.io/docs/tasks/access-application-cluster/connecting-frontend-backend/
 
 The key to connecting a frontend to a backend is the backend Service. A Service creates a persistent IP address and DNS name entry so that the backend microservice can always be reached. A Service uses selectors to find the Pods that it routes traffic to.
+
+
+---
+Django + React 
+Creating an app with React and Django
+https://blog.logrocket.com/creating-an-app-with-react-and-django/
+
+#How To Build a Modern Web Application to Manage Customer Information with Django and React on Ubuntu 18.04
+https://www.digitalocean.com/community/tutorials/how-to-build-a-modern-web-application-to-manage-customer-information-with-django-and-react-on-ubuntu-18-04
+---
+
+
+Django Rest Framework with React : JWT Authentication part 1
+https://medium.com/swlh/django-rest-framework-with-react-jwt-authentication-part-1-a24b24fa83cd
 
 

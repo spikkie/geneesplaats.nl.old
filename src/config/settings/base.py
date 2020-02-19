@@ -46,6 +46,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+     #https://pypi.org/project/django-cors-headers/
+     'corsheaders',
+
     # third party
     'django_extensions',
 
@@ -62,9 +66,19 @@ INSTALLED_APPS = [
     'gp_account',
 ]
 
+#corsheaders.middleware.CorsMiddleware
+#They correspond to a filter that’ll intercept all of our application’s requests and apply CORS logic to them.
+#However, since we’re working full localhost, we’ll disable the CORS feature by adding the following to the same file:
+#CORS_ORIGIN_WHITELIST = (
+#    'http://localhost:3000',
+#)
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -177,8 +191,9 @@ PROTECTED_ROOT = os.path.join(BASE_DIR, "static_cdn", "protected_media")
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',

@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+>&2 echo "django entrypoint version 0.1"
+
 if [ "$#" = 0 ]
 then
     python3.8 -m pip freeze
@@ -32,28 +34,23 @@ done;
 
 >&2 echo $(pwd)
 
-cd src
-
 if [ "$#" = 0 ]
 then
+
+    >&2 echo "Running collectstatic"
+    python manage.py collectstatic --no-input
+    >&2 echo "Running makemigrations"
+    python manage.py makemigrations
+    >&2 echo "Running migrate"
+    python manage.py migrate
 
     if [ "${PRODUCTION}" = 'true' ]
     then
         >&2 echo "production"
-        >&2 echo "No command detected; running default commands"
-        >&2 echo "Running collectstatic"
-        python manage.py collectstatic --no-input
-        >&2 echo "Running makemigrations"
-        python manage.py makemigrations
-        >&2 echo "Running migrate"
-        python manage.py migrate
         >&2 echo "Running gunicorn with config.wsgi:application"
         gunicorn --workers=3 config.wsgi:application --bind :8001
     else
         >&2 echo "development"
-        >&2 echo "No command detected; running default commands"
-        >&2 echo "Running migrations"
-        python manage.py migrate --noinput
         >&2 echo "\n\nStarting development server: 127.0.0.1:8001\n\n"
         #todo developent/production
         python manage.py runserver 0.0.0.0:8001

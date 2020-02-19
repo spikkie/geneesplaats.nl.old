@@ -20,6 +20,11 @@ from django.views.generic import TemplateView
 from .views import RootApiView
 from rest_auth import views as rest_auth_views
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 
 
 root_api_url = [
@@ -35,8 +40,13 @@ urlpatterns = [
         name="site_root",
     ),
     path("api/v1/", include(api_urls)),
+
     path("api/v1/rest-auth/", include('rest_auth.urls')),
     path("api/v1/rest-auth/registration/", include('rest_auth.registration.urls')),
+
+    path('api/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
     path("api/v1/gp_account/", include('gp_account.urls')),
 ]
 #Todo
