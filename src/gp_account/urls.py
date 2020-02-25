@@ -1,4 +1,7 @@
+from django.urls import include, path
 from rest_framework import routers
+from .views import get_current_user, CreateUserView
+
 from .api import ( 
     ProfileViewSet,
     TherapyRequestViewSet,
@@ -15,3 +18,8 @@ router.register("therapysearcher", TherapySearcherViewSet, basename="api-therapy
 router.register("therapist", TherapistViewSet, basename="api-therapist")
 
 urlpatterns = router.urls
+
+urlpatterns += [
+    path('current_user/', get_current_user),
+    path('users/create', CreateUserView.as_view()),
+]

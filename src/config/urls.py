@@ -20,10 +20,9 @@ from django.views.generic import TemplateView
 from .views import RootApiView
 from rest_auth import views as rest_auth_views
 
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
+from rest_framework.schemas import get_schema_view
+
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
 
 
@@ -39,15 +38,17 @@ urlpatterns = [
         TemplateView.as_view(template_name="root.html"),
         name="site_root",
     ),
+    path("api/v1/schema", get_schema_view()),
     path("api/v1/", include(api_urls)),
 
     path("api/v1/rest-auth/", include('rest_auth.urls')),
     path("api/v1/rest-auth/registration/", include('rest_auth.registration.urls')),
 
-    path('api/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/v1/token/', obtain_jwt_token),
+    path('api/v1/token/refresh/', refresh_jwt_token ),
 
     path("api/v1/gp_account/", include('gp_account.urls')),
+    path("api/v1/debugcode/", include('debugcode.urls')),
 ]
 #Todo
 # create a documentation list like done with

@@ -62,5 +62,25 @@ https://www.digitalocean.com/community/tutorials/how-to-build-a-modern-web-appli
 
 Django Rest Framework with React : JWT Authentication part 1
 https://medium.com/swlh/django-rest-framework-with-react-jwt-authentication-part-1-a24b24fa83cd
+part 2 also
+sources:
+https://github.com/keshavvinayak01/django-api-oauth
+
+
+Full stack Django: Quick start with JWT auth and React/Redux (Part I)
+https://medium.com/netscape/full-stack-django-quick-start-with-jwt-auth-and-react-redux-part-i-37853685ab57
+
+
+Simple Docker Authentication
+https://simpleisbetterthancomplex.com/tutorial/2018/12/19/how-to-use-jwt-authentication-with-django-rest-framework.html
+
+http post http://127.0.0.1:8001/api/v1/token/ username=spikkie password=22222222
+http  http://127.0.0.1:8001/api/v1/debugcode/hello/ "Authorization: Bearer ...."
+#after 5 minutes use refresh to get new token which will last for 24 hours
+http post http://127.0.0.1:8001/api/v1/token/refresh/ refresh=eyJ0eXAiOiJ
+
+
+
+---
 
 

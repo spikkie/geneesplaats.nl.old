@@ -1,5 +1,9 @@
 Django
-port to 3.0
+port to 3.0 // already running Django 3.0
+
+freeze to constant versions
+
+API documentation
 
 
 
