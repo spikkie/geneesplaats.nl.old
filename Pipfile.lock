@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "57836b250056fe0e327e2de26b9558bbe2a99b9278149835a0aef143d47b6e92"
+            "sha256": "1a106e5a69117e5304ebec0b9168dc2bceade9f8e45b13d48f7178f8798d887c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -50,7 +50,8 @@
         "bleach": {
             "hashes": [
                 "sha256:213336e49e102af26d9cde77dd2d0397afabc5a6bf2fed985dc35b5d1e285a16",
-                "sha256:3fdf7f77adcf649c9911387df51254b813185e32b2c6619f690b593a617e19fa"
+                "sha256:3fdf7f77adcf649c9911387df51254b813185e32b2c6619f690b593a617e19fa",
+                "sha256:4ca3ec10244c9f11ec129b054912e8bc9ecefc2e0b6bf0dab273f0e72cf381e4"
             ],
             "index": "pypi",
             "version": "==3.1.0"
@@ -190,6 +191,14 @@
             ],
             "index": "pypi",
             "version": "==3.2.1"
+        },
+        "django-cors-middleware": {
+            "hashes": [
+                "sha256:5bbdea85e22909d596e26f6e0dbc174d5521429fa3943ae02a2c6c48e76c88c7",
+                "sha256:856dbe4d7aae65844ccc68acb49c6da7dbf7cbacaf5bcf37019f4c0c60b3be84"
+            ],
+            "index": "pypi",
+            "version": "==1.5.0"
         },
         "django-environ": {
             "hashes": [
@@ -433,11 +442,11 @@
         },
         "ipython": {
             "hashes": [
-                "sha256:d9459e7237e2e5858738ff9c3e26504b79899b58a6d49e574d352493d80684c6",
-                "sha256:f6689108b1734501d3b59c84427259fd5ac5141afe2e846cfa8598eb811886c9"
+                "sha256:ca478e52ae1f88da0102360e57e528b92f3ae4316aabac80a2cd7f7ab2efb48a",
+                "sha256:eb8d075de37f678424527b5ef6ea23f7b80240ca031c2dd6de5879d687a65333"
             ],
             "index": "pypi",
-            "version": "==7.12.0"
+            "version": "==7.13.0"
         },
         "ipython-genutils": {
             "hashes": [
@@ -656,11 +665,11 @@
         },
         "pre-commit": {
             "hashes": [
-                "sha256:5295fb6d652a6c5e0b4636cd2c73183efdf253d45b657ce7367183134e806fe1",
-                "sha256:5387b53bb84ad9abc9b0845775dddd4e3243fd64cdcddaa6db28d3da6fbf06c2"
+                "sha256:09ebe467f43ce24377f8c2f200fe3cd2570d328eb2ce0568c8e96ce19da45fa6",
+                "sha256:f8d555e31e2051892c7f7b3ad9f620bd2c09271d87e9eedb2ad831737d6211eb"
             ],
             "index": "pypi",
-            "version": "==2.1.0"
+            "version": "==2.1.1"
         },
         "prometheus-client": {
             "hashes": [

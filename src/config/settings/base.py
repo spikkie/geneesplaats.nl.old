@@ -36,6 +36,7 @@ DEBUG = ENV.bool("DEBUG", default=False)
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
+ALLOWED_HOSTS = ['django','0.0.0.0', '127.0.0.1']
 
 # Application definition
 

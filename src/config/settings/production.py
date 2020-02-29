@@ -5,7 +5,8 @@ from .base import *  # noqa: F401 F403
 # PRODUCTION SETTINGS
 ######################################################################
 
-ALLOWED_HOSTS = ['.geneesplaats.nl']
+#ALLOWED_HOSTS = ['.geneesplaats.nl']
+ALLOWED_HOSTS = ['*']
 
 ADMINS = MANAGERS = [
      ('Bas Spikmans', 'spikkie@gmail.com'),
@@ -39,20 +40,12 @@ ADMINS = MANAGERS = [
 
 #X_FRAME_OPTIONS = "DENY"
 
-REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": (
-        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
-    )
-    #disable the browseable API 
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-    )
-}
+
 
 #todo
 #see https://github.com/adamchainz/django-cors-headers#configuration
 CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ORIGIN_WHITELIST = (
-       'localhost:3000',
+        'http://react:3000',
 )

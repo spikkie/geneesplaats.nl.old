@@ -1,5 +1,5 @@
 # base image
-FROM node:12.2.0-alpine
+FROM node
 
 # set working directory
 WORKDIR /app
@@ -16,9 +16,6 @@ RUN npm install react-scripts@latest -g --silent
 
 # Bundle app source
 COPY . .
-
-
-EXPOSE 3000
 
 # start app
 CMD ["npm", "start"]

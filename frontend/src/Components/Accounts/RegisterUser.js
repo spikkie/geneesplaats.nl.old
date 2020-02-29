@@ -7,7 +7,11 @@ const maxLength = (len, val) => (val.length > len);
 const isEqual = (p1, p2) => p1 === p2
 
 //const base_url = window.SERVER_ADDRESS
-const base_url = "http://127.0.0.1:8001/"
+//const base_url = "http://localhost:8001/"
+//const base_url = "http://django/"
+//const base_url = "http://0.0.0.0:8001/"
+//const base_url = "django"
+
 class RegisterUser extends Component {
     constructor(props) {
         super(props)
@@ -80,7 +84,7 @@ class RegisterUser extends Component {
         e.preventDefault()
         const {first_name, last_name, username, password} = this.state
         if(this.isValid()){
-            Axios.post(base_url + 'api/v1/gp_account/users/create', {
+            Axios.post('/api/v1/gp_account/users/create', {
                 'user' : {
                     'first_name' : first_name,
                     'last_name' : last_name,
@@ -96,7 +100,6 @@ class RegisterUser extends Component {
             })
             this.clearForm()
         }
-                
     }
     
     changeHandler = (event) => {

@@ -107,6 +107,7 @@ django-cors-headers = "*"
 djangorestframework-jwt = "*"
 djangorestframework-simplejwt = "*"
 pyyaml = "*"
+django-cors-middleware = "*"
 
 [requires]
 python_version = "3.8"

@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 
 class OwnedModel(models.Model):
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default='0')
 
     class Meta:
         abstract = True

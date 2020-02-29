@@ -3,7 +3,12 @@ import './App.css';
 import NavComponent from './Components/NavComponent';
 
 //const base_url = window.SERVER_ADDRESS
-const base_url = "http://127.0.0.1:8001/"
+//const base_url = "http://django/"
+//const base_url = "http://localhost:8001/"
+//const base_url = "django:8001/"
+//const base_url = "http://0.0.0.0:8001/"
+//const base_url = "django"
+
 class App extends Component {
 	constructor(props) {
 		super(props)
@@ -17,7 +22,7 @@ class App extends Component {
 
 	componentDidMount(){
 		if(this.state.logged_in){
-			fetch(base_url + 'api/v1/gp_account/current_user/', {
+			fetch('/api/v1/gp_account/current_user/', {
 				method : 'GET',
 				headers : {
 					Authorization : `JWT ${localStorage.getItem('token')}`
@@ -51,7 +56,7 @@ class App extends Component {
 	handleLogin = (e, data) => {
 		e.preventDefault();
 		console.log(data)
-		fetch(base_url + 'api/v1/token/', {
+		fetch('/api/v1/token/', {
 			crossDomain : true,
 			withCredentials : true,
 			async : true,

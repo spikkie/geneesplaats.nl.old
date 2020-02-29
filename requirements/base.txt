@@ -11,6 +11,7 @@ django-rest-auth
 django-allauth
 django-environ
 django-cors-headers
+django-cors-middleware
 asgiref
 cachetools
 django-storages

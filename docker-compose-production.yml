@@ -5,7 +5,6 @@ services:
   postgres:
     restart: always
     container_name: postgres_geneesplaats_nl_${ENVIRONMENT}
-    #image: postgres:12.1-alpine
     image: postgres:${POSTGRES_GENEESPLAATS_NL_VERSION}
     env_file: ./.env
     volumes:
@@ -24,17 +23,34 @@ services:
     depends_on:
       - postgres
     env_file: ./.env
+    ports:
+      - "8001:8001"
     volumes:
-      - .:/app
+   
       - static_volume:/app/static_cdn/static_root/
       - media_volume:/app/static_cdn/media_root/
-    expose:
-      - 80
+ 
     networks:
-      - nginx-network
       - postgres-network
 
 
+      
+  react:
+    container_name: react_geneesplaats_nl_${ENVIRONMENT}
+    image: spikkie/react_geneesplaats_nl:${DJANGO_GENEESPLAATS_NL_VERSION}
+    restart: always
+    build:
+      context: ./frontend
+      dockerfile: ../docker/react/Dockerfile
+    depends_on:
+      - django 
+    env_file: ./.env
+    expose:
+      - 3000    
+
+    networks:
+      - postgres-network
+      
   nginx:
     restart: always
     image: spikkie/nginx_geneesplaats_nl:${NGINX_GENEESPLAATS_NL_VERSION}
@@ -53,10 +69,10 @@ services:
     ports:
       - 80:80
     depends_on:
-      - django 
+      - react
     env_file: ./.env
     networks:
-      - nginx-network
+      - postgres-network
 
 volumes:
   postgres_data: {}
@@ -66,8 +82,6 @@ volumes:
 
 
 networks:
-  nginx-network:
-    driver: bridge
   postgres-network:
     driver: bridge
 

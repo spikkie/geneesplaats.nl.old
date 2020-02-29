@@ -1,8 +1,6 @@
 version: '3.7'
 
-volumes:
-  postgres_data_dev: {}
-  postgres_backup_dev: {}
+
 
 services:
   postgres:
@@ -27,6 +25,8 @@ services:
     depends_on:
       - postgres
     env_file: ./.env
+    expose:
+      - "8001"
     ports:
       - "8001:8001"
     volumes:
@@ -46,8 +46,14 @@ services:
     depends_on:
       - django 
     env_file: ./.env
+    expose:
+      - "3000"
     ports:
       - "3000:3000"
+    volumes:
+      - type: bind
+        source: ./frontend/src
+        target: /app/src
     networks:
       - postgres-network
 
