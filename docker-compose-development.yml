@@ -35,6 +35,7 @@ services:
         target: /app
     networks:
       - postgres-network
+      - react-network
       
   react:
     container_name: react_geneesplaats_nl_${ENVIRONMENT}
@@ -55,7 +56,7 @@ services:
         source: ./frontend/src
         target: /app/src
     networks:
-      - postgres-network
+      - react-network
 
 volumes:
   postgres_data_dev: {}
@@ -63,4 +64,6 @@ volumes:
   
 networks:
   postgres-network:
+    driver: bridge
+  react-network:
     driver: bridge
