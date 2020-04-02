@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 from environ import Env, Path
 from google.oauth2 import service_account
+from datetime import timedelta
 
 ENV = Env()
 
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
      #https://pypi.org/project/django-cors-headers/
      'corsheaders',
@@ -54,18 +56,22 @@ INSTALLED_APPS = [
     # third party
     'django_extensions',
 
-    "rest_framework",
+    'rest_framework',
     'rest_framework.authtoken',
-    "rest_auth",
-    'rest_auth.registration',
-    'django.contrib.sites',
+    'djoser',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.twitter',
-    'gp_account',
+
+    #My applications
+	'accounts',
+	'events',
+
+        #todo merge code 
+    #'gp_account',
     'debugcode',
+    'idea',
 ]
 
 #corsheaders.middleware.CorsMiddleware
@@ -178,22 +184,19 @@ GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
     os.path.join(BASE_DIR, "spikkie-service-account--stoked-axle-267521.iam.gserviceaccount.json")
 )
 
-
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static_my_proj"),
 ]
-
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "static_cdn", "media_root")
 
 PROTECTED_ROOT = os.path.join(BASE_DIR, "static_cdn", "protected_media")
 
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
@@ -202,6 +205,16 @@ REST_FRAMEWORK = {
     ),
 }
 
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
+   'USER_CREATE_PASSWORD_RETYPE': True,
+   'JWT_ALLOW_REFRESH': True,
+   'JWT_EXPIRATION_DELTA': timedelta(hours=1),
+   'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=14),
+}
+
+LOGIN_URL = 'login'
+
 # Authentication https://django-allauth.readthedocs.io/en/latest/installation.html
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -209,14 +222,45 @@ AUTHENTICATION_BACKENDS = (
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 )
+
 SITE_ID = 1
 
-LOGIN_REDIRECT_URL = 'home'
-
-JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'gp_account.utils.custom_jwt_response_handler',
+DJOSER = {
+    'LOGIN_FIELD' : 'email',
+    #'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+    #'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
+    #'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    #'SEND_ACTIVATION_EMAIL': True,
+    #'SERIALIZERS': {},
 }
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'home'
 
+#todo check why we need LOGIN_REDIRECT_URL
+#LOGIN_REDIRECT_URL = '/'
+# LOGIN_REDIRECT_URL = 'main:home'
+# LOGOUT_REDIRECT_URL = 'main:home'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'spikkie@gmail.com'
+EMAIL_HOST_PASSWORD = 'Bessabessabessa34!!'
+EMAIL_PORT = 587
+
+#todo  use os.environ.get
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+
+#todo combine with gp_accounts
+AUTH_USER_MODEL = 'accounts.CustomUser'
+#https://django-allauth.readthedocs.io/en/latest/configuration.html
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_UNIQUE_EMAIL = True

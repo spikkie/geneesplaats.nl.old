@@ -1,9 +1,23 @@
 Django
-port to 3.0 // already running Django 3.0
 
+-
+port to 3.0 // 
+ANSWER: already running Django 3.0
+
+-
 freeze to constant versions
 
+-
 API documentation
+
+-
+authentication/authorization JWT ising cookies
+store them in a cookie: token expire time
+
+
+-
+ Django REST API
+
 
 
 
@@ -16,13 +30,11 @@ Do yourself a favour. Install coverage:
 
 pip install coverage
 
-Then, every time you add some code to your application run coverage with:
-
+hen, every time you add some code to your application run coverage with:
 coverage run --source='.' manage.py test
-
 and generate the report:
 
-coverage html
+coverage 
 
 
 
@@ -53,3 +65,15 @@ install
 npm install -g create-react-app@3.4.0
 
 
+
+--- error messages
+1)
+postgres_geneesplaats_nl_development | 2020-04-01 05:39:05.219 UTC [28] LOG:  using stale statistics instead of current ones because stats collector is not responding
+postgres_geneesplaats_nl_development | 2020-04-01 05:39:15.631 UTC [850] LOG:  using stale statistics instead of current ones because stats collector is not responding
+
+
+
+
+---------------------------------
+Investigate
+http://james1345.github.io/django-rest-knox/installation/

@@ -50,6 +50,15 @@ https://kubernetes.io/docs/tasks/access-application-cluster/connecting-frontend-
 The key to connecting a frontend to a backend is the backend Service. A Service creates a persistent IP address and DNS name entry so that the backend microservice can always be reached. A Service uses selectors to find the Pods that it routes traffic to.
 
 
+!!!!
+How to set state of response from axios in react
+https://stackoverflow.com/questions/41194866/how-to-set-state-of-response-from-axios-in-react
+
+!!!
+Handling State in React: Four Immutable Approaches to Consider
+https://www.freecodecamp.org/news/handling-state-in-react-four-immutable-approaches-to-consider-d1f5c00249d5/
+
+
 ---
 Django + React 
 Creating an app with React and Django
@@ -57,6 +66,15 @@ https://blog.logrocket.com/creating-an-app-with-react-and-django/
 
 #How To Build a Modern Web Application to Manage Customer Information with Django and React on Ubuntu 18.04
 https://www.digitalocean.com/community/tutorials/how-to-build-a-modern-web-application-to-manage-customer-information-with-django-and-react-on-ubuntu-18-04
+
+
+email as login name /authentication
+https://medium.com/@ramykhuffash/django-authentication-with-just-an-email-and-password-no-username-required-33e47976b517
+From this point on instead of referencing the user model with User, 
+you should use either “settings.AUTH_USER_MODEL” or “get_user_model()”. You can learn when to use either here.
+see
+https://docs.djangoproject.com/en/3.0/topics/auth/customizing/
+
 ---
 
 
@@ -82,5 +100,26 @@ http post http://127.0.0.1:8001/api/v1/token/refresh/ refresh=eyJ0eXAiOiJ
 
 
 ---
+
+Django REST
+generate schema 
+In Docker container
+root@7b8d833cfdc5:/app# python manage.py generateschema --format openapi-json
+
+
+---
+Django User model
+Exdending User Model
+https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html
+
+now using this installation 
+https://pypi.org/project/django-username-email/
+https://www.fomfus.com/articles/how-to-use-email-as-username-for-django-authentication-removing-the-username
+https://github.com/jmfederico/django-use-email-as-username/#readme
+
+
+#How to make email field unique in model User from contrib.auth in Django
+https://stackoverflow.com/questions/1160030/how-to-make-email-field-unique-in-model-user-from-contrib-auth-in-django
+https://testdriven.io/blog/django-custom-user-model/  !!!!
 
 

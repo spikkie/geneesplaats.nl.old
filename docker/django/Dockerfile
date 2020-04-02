@@ -11,6 +11,7 @@ RUN python3.8 -m pip install -U pip setuptools
 RUN  apt-get -y update 
 RUN  apt-get -y install build-essential libssl-dev libffi-dev python-dev apt-utils python-psycopg2
 RUN  apt-get -y install libpq-dev gcc gunicorn
+RUN apt-get -y install vim
 
 #from https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/
 #RUN  apt-get -y install  postgresql-dev musl-dev
@@ -26,4 +27,8 @@ RUN python -m pip install -U --no-cache-dir -r /tmp/requirements/production.txt
 
 COPY docker/django/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
+
+#Additional Installations
+#RUN apt-get -y install psql
+
 ENTRYPOINT ["entrypoint.sh"]

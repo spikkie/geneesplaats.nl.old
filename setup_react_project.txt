@@ -1,0 +1,86 @@
+create-react-app --use-npm .
+cat package.json 
+npm install --save-dev webpack webpack-dev-serveri
+npm install --save-dev webpack webpack-dev-server
+
+#creating a fairly similar environment as created with create-react-app
+vi index.html    - add basic html struc
+
+#for images etc
+mkdir src/assets
+mkdir src/components
+mkdir src/containers
+
+#create a React application
+add index.js   // already created by create-react-app
+add index.css   // already created by create-react-app
+                    for some global styling
+
+add App.js   // already created by create-react-app
+                 Root component
+
+#Create a basic React project with routing and lazy loading, just to see it is
+working and it simulates a lot of functionality which you have in a normal App
+
+
+#in containers folder 2 files
+Users.js and Pizza.js
+
+#in components folder 1 folder and 2 files
+components/PizzaImage/PizzaImage.js
+components/PizzaImage/PizzaImage.css
+
+#fill PizzaImage.js with code to serve the pizza image html code
+Each JS class is returning html (actually JSX code)
+
+
+#We have two containers   Pizza and users
+
+In App.js we will use routing to the two containers
+also using HOC asyncComponent.js to lazy load the Users component
+
+Setting up routing inside the App.js
+
+finally update index.js mounting App.js to be rendered
+
+------
+
+Creating all the dependencies is the next step
+1) production dependencies:  core libraries
+npm install --save react react-dom react-router-dom 
+
+#now update package.json with code so we can work with Webpack or actualz let
+Webpack do the work for us
+for webpack we need also webpack-cli
+npm install --save-dev webpack-cli
+
+We need a webpack configuration file for webpack to uinderstand what and how to
+run
+
+configure webpack.config.js
+
+bable tool is used in combination of webpack
+install
+npm install --save-dev @babel/core @babel/preset-env @babel/preset-react @babel/preset-stage-2 babel-loader @babel/plugin-proposal-class-properties
+
+updated webpack.config.js for usage of babel
+
+add .babelrc file with babel cfg 
+
+for css we need tow different tools
+npm install --save-dev style-loader css-loader
+and
+npm install --save-dev postcss-loader
+npm install --save-dev autoprefixer
+
+#support for images css
+npm install --save-dev  url-loader
+npm install --save-dev  file-loader
+
+One crucial package is missing
+inject all css and scripts into the index.html 
+for this we use html-webpack-plugin
+npm install --save-dev  html-webpack-plugin
+
+
+

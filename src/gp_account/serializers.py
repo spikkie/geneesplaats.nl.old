@@ -79,3 +79,5 @@ class TherapistSerializer(serializers.ModelSerializer):
         model = models.Therapist
         fields = ('__all__')
 
+
+

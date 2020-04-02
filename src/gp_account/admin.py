@@ -1,6 +1,10 @@
 from django.contrib import admin
 from .models import Profile,TherapyRequest,TherapyOffer,TherapySearcher,Therapist
 
+#@admin.register(User)
+#class UserAdmin(admin.ModelAdmin):
+#    list_display = ['email']
+#    #list_display = [field.name for field in User._meta.get_fields()]
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):

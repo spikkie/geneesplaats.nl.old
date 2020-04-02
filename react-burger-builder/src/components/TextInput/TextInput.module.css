@@ -1,0 +1,15 @@
+.text-input {
+    width: 100%;
+}
+
+.warning {
+    height: 22220px;
+    border-color: orange;
+    border: 1px solid black;
+}
+
+.error {
+    height: 2000px;
+    border-color: red;
+    border: 100px solid black;
+}

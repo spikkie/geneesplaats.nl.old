@@ -1,107 +1,61 @@
-import React, { Component } from 'react';
-import './App.css';
-import NavComponent from './Components/NavComponent';
-
-//const base_url = window.SERVER_ADDRESS
-//const base_url = "http://django/"
-//const base_url = "http://localhost:8001/"
-//const base_url = "django:8001/"
-//const base_url = "http://0.0.0.0:8001/"
-//const base_url = "django"
+import React, { Component } from "react";
+import "./App.css";
+import Axios from "axios";
+import TopNav from "./components/TopNav";
+import Home from "./components/Home";
+import Footer from "./components/Footer";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import DebugData from "./components/DebugData";
+import Login from "./components/TopNav/Login";
 
 class App extends Component {
-	constructor(props) {
-		super(props)
+    constructor(props) {
+        super(props);
 
-		this.state = {
-			 logged_in : localStorage.getItem('token') ? true : false,
-			 username : '',
-			 displayed_form : ''
-		}
-	}
-
-	componentDidMount(){
-		if(this.state.logged_in){
-			fetch('/api/v1/gp_account/current_user/', {
-				method : 'GET',
-				headers : {
-					Authorization : `JWT ${localStorage.getItem('token')}`
-				}
-			})
-			.then(res => res.json())
-			.then(resp => {
-				this.setState({ username : resp.username })
-			})
-			.catch(err => console.log(err));
-		}
-	}
-
-	display_form = (formName) => {
-        this.setState({
-            displayed_form : formName
-        });
+        this.state = {
+            ideaData: null
+        };
     }
 
-	handleLoginChange = event => {
-        this.setState({
-            [event.target.name] : event.target.value
-        })
-	}
-	
-	handleLogout = () => {
-		localStorage.removeItem('token');
-		this.setState({logged_in : false, username : ''})
-	}
+    componentDidMount() {
+        Axios.get("http://127.0.0.1:8001/api/v1/idea/idea/")
+            .then(response => {
+                console.log(response);
+                this.setState({ ideaData: response.data });
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
 
-	handleLogin = (e, data) => {
-		e.preventDefault();
-		console.log(data)
-		fetch('/api/v1/token/', {
-			crossDomain : true,
-			withCredentials : true,
-			async : true,
-			method : 'POST',
-			headers : {
-				'Content-Type' : 'application/json',
-			},
-			body : JSON.stringify(data)
-		})
-		.then(response => response.json())
-		.then(json => {
-			localStorage.setItem('token', json.token);
-			this.setState({
-				logged_in : true,
-				username : json.user.username
-			})
-		})
-		.catch(error => {
-			console.log(error)
-		})
-		this.setState({
-			displayed_form : ''
-		})
-	}
-	render() {
-		const { logged_in, username, displayed_form } = this.state;
-		return (
-			<div>
-				<NavComponent
-				logged_in = {logged_in}
-				handleLogin = {this.handleLogin}
-				handleLoginChange = {this.handleLoginChange}
-				handleLogout = {this.handleLogout}
-				username = {username}
-				displayed_form = {displayed_form}
-				display_form = {this.display_form}
-				 />
-				<h3>{
-					this.state.logged_in
-					? `Hello ${this.state.username}`
-					: 'Please log in'
-				}</h3>
-			</div>
-		)
-	}
+    render() {
+        if (this.state.ideaData) {
+            return (
+                <Router>
+                    <div className="App">
+                        <TopNav ideaData={this.state.ideaData} />
+                        <div className="contentArea">
+                            <Route
+                                exact
+                                path="/"
+                                render={props => (
+                                    <Home
+                                        {...props}
+                                        ideaData={this.state.ideaData}
+                                    />
+                                )}
+                            />
+                            <Route path="/debugdata" component={DebugData} />
+                            <Route path="/Login" component={Login} />
+                        </div>
+                        <Footer />
+                    </div>
+                </Router>
+            );
+        } else {
+            return <h4>Loading Data...</h4>;
+        }
+    }
 }
 
 export default App;

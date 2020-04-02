@@ -18,11 +18,12 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 
 from .views import RootApiView
-from rest_auth import views as rest_auth_views
-
 from rest_framework.schemas import get_schema_view
 
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token, ObtainJSONWebToken
+
+#todo
+#from gp_account.rest_framework_jwt_serializers import CustomJWTSerializer
 
 
 
@@ -38,18 +39,45 @@ urlpatterns = [
         TemplateView.as_view(template_name="root.html"),
         name="site_root",
     ),
-    path("api/v1/schema", get_schema_view()),
     path("api/v1/", include(api_urls)),
+    path("api/v1/schema", get_schema_view()),
 
-    path("api/v1/rest-auth/", include('rest_auth.urls')),
-    path("api/v1/rest-auth/registration/", include('rest_auth.registration.urls')),
+    #djoser
+    path("api/v1/auth/", include('djoser.urls')),
+    path("api/v1/auth/", include('djoser.urls.authtoken')),
+    path("api/v1/auth/", include('djoser.urls.jwt')),
+    # Available Endpoints
+    # /users/
+    # /users/me/
+    # /users/confirm/
+    # /users/resend_activation/
+    # /users/set_password/
+    # /users/reset_password/
+    # /users/reset_password_confirm/
+    # /users/set_username/
+    # /users/reset_username/
+    # /users/reset_username_confirm/
+    #      Not used /token/login/ (Token Based Authentication)
+    #      Not used /token/logout/ (Token Based Authentication)
+    # /jwt/create/ (JSON Web Token Authentication)
+    # /jwt/refresh/ (JSON Web Token Authentication)
+    # /jwt/verify/ (JSON Web Token Authentication)
 
-    path('api/v1/token/', obtain_jwt_token),
-    path('api/v1/token/refresh/', refresh_jwt_token ),
+    #Supported authentication backends
+    # JSON Web Token authentication from django-rest-framework-simplejwt
 
-    path("api/v1/gp_account/", include('gp_account.urls')),
+
+    #path to our account's app endpoints
+    path("api/v1/accounts/",include("accounts.urls")),
+    path("api/v1/events/",include("events.urls")),
+
+    #My Applications
+    #gp_account
+    #path("api/v1/gp_account/", include('gp_account.urls')),
+
+    #debugcode
     path("api/v1/debugcode/", include('debugcode.urls')),
+    #idea
+    path("api/v1/idea/", include('idea.urls')),
 ]
-#Todo
-# create a documentation list like done with
-# python manage.py generateschema  | grep "/api/v1/"
+

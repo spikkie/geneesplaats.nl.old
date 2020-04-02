@@ -1,0 +1,69 @@
+version: '3.7'
+
+
+
+services:
+  postgres:
+    restart: always
+    container_name: postgres_geneesplaats_nl_${ENVIRONMENT}
+    image: postgres:${POSTGRES_GENEESPLAATS_NL_VERSION}
+
+    env_file: ./.env
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+      - postgres_backup_dev:/backups
+    networks:
+      - postgres-network
+
+  django:
+    container_name: django_geneesplaats_nl_${ENVIRONMENT}
+    image: spikkie/django_geneesplaats_nl:${DJANGO_GENEESPLAATS_NL_VERSION}
+    restart: always
+    build:
+      context: .
+      dockerfile: ./docker/django/Dockerfile
+    depends_on:
+      - postgres
+    env_file: ./.env
+    expose:
+      - "8001"
+    ports:
+      - "8001:8001"
+    volumes:
+      - type: bind
+        source: ./src
+        target: /app
+    networks:
+      - postgres-network
+      - react-network
+      
+  react:
+    container_name: react_geneesplaats_nl_${ENVIRONMENT}
+    image: spikkie/react_geneesplaats_nl:${DJANGO_GENEESPLAATS_NL_VERSION}
+    restart: always
+    build:
+      context: ./frontend
+      dockerfile: ../docker/react/Dockerfile
+    depends_on:
+      - django 
+    env_file: ./.env
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    volumes:
+      - type: bind
+        source: ./frontend/src
+        target: /app/src
+    networks:
+      - react-network
+
+volumes:
+  postgres_data_dev: {}
+  postgres_backup_dev: {}
+  
+networks:
+  postgres-network:
+    driver: bridge
+  react-network:
+    driver: bridge

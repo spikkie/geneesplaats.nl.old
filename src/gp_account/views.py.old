@@ -20,7 +20,7 @@ def user_login(request):
         if form.is_valid():
             cd = form.cleaned_data
             user = authenticate(request,
-                                username=cd['username'],
+                                email=cd['email'],
                                 password=cd['password'])
             if user is not None:
                 if user.is_active:
@@ -111,9 +111,9 @@ def user_list(request):
 
 
 @login_required
-def user_detail(request, username):
+def user_detail(request, email):
     user = get_object_or_404(User,
-                             username=username,
+                             email=email,
                              is_active=True)
     return render(request,
                   'account/user/detail.html',

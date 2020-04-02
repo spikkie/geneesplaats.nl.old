@@ -22,11 +22,12 @@ class RootApiView(APIView):
         """Build & display links to other endpoints"""
         api_endpoints = [
             # (name, url_name),
-            ("profile", "api-profile-list"),
-            ("therapyrequest", "api-therapyrequest-list"),
-            ("therapyoffer", "api-therapyoffer-list"),
-            ("therapysearcher", "api-therapysearcher-list"),
-            ("therapist", "api-therapist-list"),
+            ("idea", "api-idea-list"),
+            #("profile", "api-profile-list"),
+            #("therapyrequest", "api-therapyrequest-list"),
+            #("therapyoffer", "api-therapyoffer-list"),
+            #("therapysearcher", "api-therapysearcher-list"),
+            #("therapist", "api-therapist-list"),
         ]
         data = {
             name: reverse(
