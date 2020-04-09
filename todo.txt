@@ -20,6 +20,12 @@ store them in a cookie: token expire time
 
 
 
+--Django Testing
+add jwt/refresh test
+
+test fav_color in User Model
+test fav_color in Token
+
 
 
 --Django React Testing
@@ -74,6 +80,10 @@ postgres_geneesplaats_nl_development | 2020-04-01 05:39:15.631 UTC [850] LOG:  u
 
 
 
+
+
 ---------------------------------
 Investigate
 http://james1345.github.io/django-rest-knox/installation/
+
+UI maybe the same as https://www.pluralsight.com

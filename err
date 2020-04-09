@@ -1,0 +1,247 @@
+[22;0t]0;IPython: /appCreating test database for alias 'default' ('test_development_geneesplaats_nl')...
+[36;1mOperations to perform:[0m
+[1m  Synchronize unmigrated apps: [0mallauth, django_extensions, djoser, messages, rest_framework, staticfiles
+[1m  Apply all migrations: [0maccount, accounts, admin, auth, authtoken, contenttypes, corsheaders, debugcode, events, idea, sessions, sites, socialaccount
+Running pre-migrate handlers for application admin
+Running pre-migrate handlers for application auth
+Running pre-migrate handlers for application contenttypes
+Running pre-migrate handlers for application sessions
+Running pre-migrate handlers for application sites
+Running pre-migrate handlers for application corsheaders
+Running pre-migrate handlers for application django_extensions
+Running pre-migrate handlers for application authtoken
+Running pre-migrate handlers for application allauth
+Running pre-migrate handlers for application account
+Running pre-migrate handlers for application socialaccount
+Running pre-migrate handlers for application accounts
+Running pre-migrate handlers for application events
+Running pre-migrate handlers for application debugcode
+Running pre-migrate handlers for application idea
+[36;1mSynchronizing apps without migrations:[0m
+  Creating tables...
+    Running deferred SQL...
+[36;1mRunning migrations:[0m
+  Applying contenttypes.0001_initial...[32;1m OK (0.040s)[0m
+  Applying contenttypes.0002_remove_content_type_name...[32;1m OK (0.019s)[0m
+  Applying auth.0001_initial...[32;1m OK (0.131s)[0m
+  Applying auth.0002_alter_permission_name_max_length...[32;1m OK (0.016s)[0m
+  Applying auth.0003_alter_user_email_max_length...[32;1m OK (0.024s)[0m
+  Applying auth.0004_alter_user_username_opts...[32;1m OK (0.022s)[0m
+  Applying auth.0005_alter_user_last_login_null...[32;1m OK (0.020s)[0m
+  Applying auth.0006_require_contenttypes_0002...[32;1m OK (0.011s)[0m
+  Applying auth.0007_alter_validators_add_error_messages...[32;1m OK (0.018s)[0m
+  Applying auth.0008_alter_user_username_max_length...[32;1m OK (0.021s)[0m
+  Applying auth.0009_alter_user_last_name_max_length...[32;1m OK (0.020s)[0m
+  Applying auth.0010_alter_group_name_max_length...[32;1m OK (0.023s)[0m
+  Applying auth.0011_update_proxy_permissions...[32;1m OK (0.016s)[0m
+  Applying accounts.0001_initial...[32;1m OK (0.369s)[0m
+  Applying account.0001_initial...[32;1m OK (0.105s)[0m
+  Applying account.0002_email_max_length...[32;1m OK (0.036s)[0m
+  Applying admin.0001_initial...[32;1m OK (0.107s)[0m
+  Applying admin.0002_logentry_remove_auto_add...[32;1m OK (0.040s)[0m
+  Applying admin.0003_logentry_add_action_flag_choices...[32;1m OK (0.022s)[0m
+  Applying authtoken.0001_initial...[32;1m OK (0.044s)[0m
+  Applying authtoken.0002_auto_20160226_1747...[32;1m OK (0.129s)[0m
+  Applying corsheaders.0001_initial...[32;1m OK (0.019s)[0m
+  Applying debugcode.0001_initial...[32;1m OK (0.015s)[0m
+  Applying events.0001_initial...[32;1m OK (0.326s)[0m
+  Applying idea.0001_initial...[32;1m OK (0.067s)[0m
+  Applying sessions.0001_initial...[32;1m OK (0.032s)[0m
+  Applying sites.0001_initial...[32;1m OK (0.022s)[0m
+  Applying sites.0002_alter_domain_unique...[32;1m OK (0.025s)[0m
+  Applying socialaccount.0001_initial...[32;1m OK (0.404s)[0m
+  Applying socialaccount.0002_token_max_lengths...[32;1m OK (0.155s)[0m
+  Applying socialaccount.0003_extra_data_default_dict...[32;1m OK (0.072s)[0m
+Running post-migrate handlers for application admin
+Adding content type 'admin | logentry'
+Adding permission 'Permission object (1)'
+Adding permission 'Permission object (2)'
+Adding permission 'Permission object (3)'
+Adding permission 'Permission object (4)'
+Running post-migrate handlers for application auth
+Adding content type 'auth | permission'
+Adding content type 'auth | group'
+Adding permission 'Permission object (5)'
+Adding permission 'Permission object (6)'
+Adding permission 'Permission object (7)'
+Adding permission 'Permission object (8)'
+Adding permission 'Permission object (9)'
+Adding permission 'Permission object (10)'
+Adding permission 'Permission object (11)'
+Adding permission 'Permission object (12)'
+Running post-migrate handlers for application contenttypes
+Adding content type 'contenttypes | contenttype'
+Adding permission 'Permission object (13)'
+Adding permission 'Permission object (14)'
+Adding permission 'Permission object (15)'
+Adding permission 'Permission object (16)'
+Running post-migrate handlers for application sessions
+Adding content type 'sessions | session'
+Adding permission 'Permission object (17)'
+Adding permission 'Permission object (18)'
+Adding permission 'Permission object (19)'
+Adding permission 'Permission object (20)'
+Running post-migrate handlers for application sites
+Adding content type 'sites | site'
+Adding permission 'Permission object (21)'
+Adding permission 'Permission object (22)'
+Adding permission 'Permission object (23)'
+Adding permission 'Permission object (24)'
+Creating example.com Site object
+Resetting sequence
+Running post-migrate handlers for application corsheaders
+Adding content type 'corsheaders | corsmodel'
+Adding permission 'Permission object (25)'
+Adding permission 'Permission object (26)'
+Adding permission 'Permission object (27)'
+Adding permission 'Permission object (28)'
+Running post-migrate handlers for application django_extensions
+Running post-migrate handlers for application authtoken
+Adding content type 'authtoken | token'
+Adding permission 'Permission object (29)'
+Adding permission 'Permission object (30)'
+Adding permission 'Permission object (31)'
+Adding permission 'Permission object (32)'
+Running post-migrate handlers for application allauth
+Running post-migrate handlers for application account
+Adding content type 'account | emailaddress'
+Adding content type 'account | emailconfirmation'
+Adding permission 'Permission object (33)'
+Adding permission 'Permission object (34)'
+Adding permission 'Permission object (35)'
+Adding permission 'Permission object (36)'
+Adding permission 'Permission object (37)'
+Adding permission 'Permission object (38)'
+Adding permission 'Permission object (39)'
+Adding permission 'Permission object (40)'
+Running post-migrate handlers for application socialaccount
+Adding content type 'socialaccount | socialaccount'
+Adding content type 'socialaccount | socialapp'
+Adding content type 'socialaccount | socialtoken'
+Adding permission 'Permission object (41)'
+Adding permission 'Permission object (42)'
+Adding permission 'Permission object (43)'
+Adding permission 'Permission object (44)'
+Adding permission 'Permission object (45)'
+Adding permission 'Permission object (46)'
+Adding permission 'Permission object (47)'
+Adding permission 'Permission object (48)'
+Adding permission 'Permission object (49)'
+Adding permission 'Permission object (50)'
+Adding permission 'Permission object (51)'
+Adding permission 'Permission object (52)'
+Running post-migrate handlers for application accounts
+Adding content type 'accounts | customuser'
+Adding content type 'accounts | userprofile'
+Adding permission 'Permission object (53)'
+Adding permission 'Permission object (54)'
+Adding permission 'Permission object (55)'
+Adding permission 'Permission object (56)'
+Adding permission 'Permission object (57)'
+Adding permission 'Permission object (58)'
+Adding permission 'Permission object (59)'
+Adding permission 'Permission object (60)'
+Running post-migrate handlers for application events
+Adding content type 'events | attendees'
+Adding content type 'events | event'
+Adding content type 'events | reviews'
+Adding permission 'Permission object (61)'
+Adding permission 'Permission object (62)'
+Adding permission 'Permission object (63)'
+Adding permission 'Permission object (64)'
+Adding permission 'Permission object (65)'
+Adding permission 'Permission object (66)'
+Adding permission 'Permission object (67)'
+Adding permission 'Permission object (68)'
+Adding permission 'Permission object (69)'
+Adding permission 'Permission object (70)'
+Adding permission 'Permission object (71)'
+Adding permission 'Permission object (72)'
+Running post-migrate handlers for application debugcode
+Adding content type 'debugcode | echomessage'
+Adding permission 'Permission object (73)'
+Adding permission 'Permission object (74)'
+Adding permission 'Permission object (75)'
+Adding permission 'Permission object (76)'
+Running post-migrate handlers for application idea
+Adding content type 'idea | idea'
+Adding permission 'Permission object (77)'
+Adding permission 'Permission object (78)'
+Adding permission 'Permission object (79)'
+Adding permission 'Permission object (80)'
+System check identified no issues (0 silenced).
+test_registration (accounts.tests.RegistrationTestCase) ... is_gk False
+is_tz False
+{'email': 'lynn@t.com', 'id': 1, 'is_gk': False, 'is_tz': False}
+201
+ok
+test_create_gk_tz_user (accounts.tests.UsersManagersTests) ... is_tz True
+is_gk True
+ok
+test_create_gk_user (accounts.tests.UsersManagersTests) ... is_gk True
+ok
+test_create_superuser (accounts.tests.UsersManagersTests) ... is_staff True
+is_superuser True
+is_active True
+ok
+test_create_tz_user (accounts.tests.UsersManagersTests) ... is_tz True
+ok
+test_create_user (accounts.tests.UsersManagersTests) ... ok
+test_gk (accounts.tests.restUserTestCase) ... is_gk True
+is_tz False
+userProfileTestCase setUp: obtain a json web token for the newly created user
+{'refresh': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTU4NzE1NDI1OSwianRpIjoiMjYxYjM4YTZlYjIyNDJjZmE4ODJlMWNmM2NiY2I4ZjYiLCJ1c2VyX2lkIjo3fQ.NuvM8b6dM-KfJnOOIXKyVIpu2wJ8Yc7XgG3Hi4Bwz3Q', 'access': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3MTU0MjU5LCJqdGkiOiI1MmI5Y2MxMTJmNzg0YTU4YTM4ZjY0ZTNhMjc5YjlhOCIsInVzZXJfaWQiOjd9.NMEyBJMOtWtFzbT5Z6yyCblcBWKQA42St_TVhSP49gI'}
+200
+/api/v1/auth/users/me/ response  {'id': 7, 'email': 'gk@a.com', 'is_gk': True, 'is_tz': False}
+ok
+test_userprofile_detail_retrieve (accounts.tests.userProfileTestCase) ... userProfileTestCase setUp: create a new user making a post request to djoser endpoint
+is_gk False
+is_tz False
+userProfileTestCase setUp: obtain a json web token for the newly created user
+{'refresh': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTU4NzE1NDI2MCwianRpIjoiNTgzMDMwMGM1Y2UyNDU2ZDg0YzEzNWIxYWQ1YmJjMTMiLCJ1c2VyX2lkIjo4fQ.5e2g5qgZXzSi6JpWDTKLcqibhA5Pt70pgUZ_hgPR3Hc', 'access': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3MTU0MjYwLCJqdGkiOiJjM2VlZTA3ZTc5M2E0NWFlOGYwNmY3OGU3Y2IyN2VjYiIsInVzZXJfaWQiOjh9.-bV7regERqaMITZRyPecsYBhUsbQCtdGW7QUKosL5Aw'}
+200
+---- test_userprofile_detail_retrieve  response ----
+response not 200
+response not 200
+response not 200
+response not 200
+response not 200
+response not 200
+response not 200
+{'id': 8, 'email': 'mario@a.com', 'description': None, 'location': '', 'date_joined': '2020-04-03T20:10:59.698523Z', 'updated_on': '2020-04-03T20:10:59.698558Z', 'is_creator': False}
+200
+ok
+test_userprofile_list_authenticated (accounts.tests.userProfileTestCase) ... userProfileTestCase setUp: create a new user making a post request to djoser endpoint
+is_gk False
+is_tz False
+userProfileTestCase setUp: obtain a json web token for the newly created user
+{'refresh': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTU4NzE1NDI2MSwianRpIjoiNzNkM2YwYjNjN2YzNDM4MDhhNzcxM2JhYmNiM2IxMDIiLCJ1c2VyX2lkIjo5fQ.MSj_iNIo8hWsLZYzzn5Ain63c8vumE3YKZogIfoSpck', 'access': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3MTU0MjYxLCJqdGkiOiI3NjEzMjQ3OWJjOWY0NjNmYjVjZTk1Y2E0NWFiOGU1MCIsInVzZXJfaWQiOjl9.4yUhz2iyfpNd7VkT7Yoz98MHBqfpsvPZ-SIcbxSWoZo'}
+200
+[OrderedDict([('id', 9), ('email', 'mario@a.com'), ('description', None), ('location', ''), ('date_joined', '2020-04-03T20:11:01.039302Z'), ('updated_on', '2020-04-03T20:11:01.039333Z'), ('is_creator', False)])]
+200
+ok
+test_userprofile_list_unauthenticated (accounts.tests.userProfileTestCase) ... userProfileTestCase setUp: create a new user making a post request to djoser endpoint
+is_gk False
+is_tz False
+userProfileTestCase setUp: obtain a json web token for the newly created user
+{'refresh': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTU4NzE1NDI2MiwianRpIjoiNzJjOWVjMDYwYTI1NDk2MGIyMmNiMzUwNzljMzU4MTYiLCJ1c2VyX2lkIjoxMH0.QkAVEZqhFjVV5XqjSOCGFkSwFcLJHB1hRGnh4_MFn-w', 'access': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3MTU0MjYyLCJqdGkiOiJjZTJlYjUzM2ZiMmI0MDVmYTdmN2MwYTVhODA4YTYwYiIsInVzZXJfaWQiOjEwfQ.0ZbElT6IYZ4Fngdh6D7cSiKQCPkai1b469qWnMsRW5E'}
+200
+{'detail': ErrorDetail(string='Authentication credentials were not provided.', code='not_authenticated')}
+401
+ok
+test_userprofile_profile (accounts.tests.userProfileTestCase) ... userProfileTestCase setUp: create a new user making a post request to djoser endpoint
+is_gk False
+is_tz False
+userProfileTestCase setUp: obtain a json web token for the newly created user
+{'refresh': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTU4NzE1NDI2MywianRpIjoiMDUyN2U4MzA1NGQ5NDBjZjg0ZDZjM2IzNDgzNjVmNDIiLCJ1c2VyX2lkIjoxMX0.rSuQCO7jBWUo6V6UaSPxtcRYHZ090fKs0K6WWdNH20M', 'access': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3MTU0MjYzLCJqdGkiOiJjMDI1OTFiYmYzYmM0YzhmODY0OTQ4MTBkYjAyNmZiNCIsInVzZXJfaWQiOjExfQ.JaLsjox5d2AS1BYtIOy-90isuJWj5lL-OR8OPfxVG6E'}
+200
+---- test_userprofile_profile response ----
+{'id': 11, 'email': 'mario@a.com', 'description': 'I am a very famous game character', 'location': 'nintendo world', 'date_joined': '2020-04-03T20:11:02.811537Z', 'updated_on': '2020-04-03T20:11:03.346401Z', 'is_creator': True}
+200
+ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 8.618s
+
+OK
+Destroying test database for alias 'default' ('test_development_geneesplaats_nl')...

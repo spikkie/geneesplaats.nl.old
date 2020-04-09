@@ -10,7 +10,7 @@ class eventTestCase(userProfileTestCase):
         # create a new user making a post request to djoser endpoint
         self.user=self.client.post('/api/v1/auth/users/',data={'email':'prineOfPersia@a.com','password':'i-keep-jumping'})
         # obtain a json web token for the newly created user
-        response=self.client.post('/api/v1/auth/jwt/create/',data={'email':'prineOfPersia@a.com','password':'i-keep-jumping'})
+        response=self.client.post('/api/v1/accounts/jwt/create/',data={'email':'prineOfPersia@a.com','password':'i-keep-jumping'})
         print(response.data)
         self.token=response.data['access']
         self.api_authentication()

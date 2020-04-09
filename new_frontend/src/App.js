@@ -1,28 +1,25 @@
-import React, { Component } from "react";
-import { Link, Route } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-import Users from "./containers/Users";
-//import Pizza from './containers/Pizza';   //Using beneath import component for lay loading
-import asyncComponent from "./hoc/asyncComponent";
-
-const AsyncPizza = asyncComponent(() => {
-    return import("./containers/Pizza.js");
-});
+import Layout from './hoc/Layout/Layout';
+import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
+import Checkout from './containers/Checkout/Checkout';
+import Orders from './containers/Orders/Orders';
 
 class App extends Component {
-    render() {
-        return (
-            <div>
-                <div>
-                    <Link to="/">Users</Link> | <Link to="/pizza">Pizza</Link>
-                </div>
-                <div>
-                    <Route path="/" exact component={Users} />
-                    <Route path="/pizza" component={AsyncPizza} />
-                </div>
-            </div>
-        );
-    }
+  render () {
+    return (
+      <div>
+        <Layout>
+          <Switch>
+            <Route path="/checkout" component={Checkout} />
+            <Route path="/orders" component={Orders} />
+            <Route path="/" exact component={BurgerBuilder} />
+          </Switch>
+        </Layout>
+      </div>
+    );
+  }
 }
 
 export default App;

@@ -9,7 +9,8 @@ from django.contrib.auth import get_user_model
 # test the user registration endpoint
 class RegistrationTestCase(APITestCase):
     def test_registration(self):
-        data={"email":"lynn@t.com","password":"PASwwordLit"}
+        # data={"email":"lynn@t.com", "password":"PASwwordLit", "re_password": "PASwwordLit"}
+        data={"email":"lynn@t.com", "password":"PASwwordLit", }
         response=self.client.post('/api/v1/auth/users/',data)
         print(response.data)
         print(response.status_code)
@@ -24,9 +25,9 @@ class userProfileTestCase(APITestCase):
         self.user=self.client.post('/api/v1/auth/users/',data={'email':'mario@a.com','password':'i-keep-jumping'})
         # obtain a json web token for the newly created user
         print('userProfileTestCase setUp: obtain a json web token for the newly created user')
-        response=self.client.post('/api/v1/auth/jwt/create/',data={'email':'mario@a.com','password':'i-keep-jumping'})
+        response=self.client.post('/api/v1/accounts/jwt/create/',data={'email':'mario@a.com','password':'i-keep-jumping'})
         if response.status_code != 200:
-            print('response not 200 : ' + response.status_code)
+            print('response not 200 : ' + str(response.status_code))
             return False
         print(response.data)
         print(response.status_code)
@@ -42,7 +43,6 @@ class userProfileTestCase(APITestCase):
         print(response.data)
         print(response.status_code)
         self.assertEqual(response.status_code,status.HTTP_200_OK)
-        #self.assertEqual(response.status_code,status.HTTP_401_UNAUTHORIZED)
 
     # retrieve a list of all user profiles while the request user is unauthenticated
     def test_userprofile_list_unauthenticated(self):
@@ -58,7 +58,6 @@ class userProfileTestCase(APITestCase):
         i = 1
         response = ''
         while True:  
-            print('7777777777777777777777777777777777777777777777777777777777 ' + str(i))  
             response=self.client.get(reverse('profile',kwargs={'pk':i}))
             if response.status_code == 200:
                 break
@@ -70,7 +69,6 @@ class userProfileTestCase(APITestCase):
         print(response.data)
         print(response.status_code)
         self.assertEqual(response.status_code,status.HTTP_200_OK)
-        #self.assertEqual(response.status_code,status.HTTP_401_UNAUTHORIZED)
 
 
     # populate the user profile that was automatically created using the signals
@@ -80,14 +78,13 @@ class userProfileTestCase(APITestCase):
         i = 1
         response = ''
         while True:  
-            print('88888888888888888888888888888888888888' + str(i))  
             response=self.client.put(reverse('profile',kwargs={'pk':i}),data=profile_data)
             if response.status_code == 200:
                 break
-            else:
-                print('response not 200')
-                print(response.data)
-                print(response.status_code)
+            #else:
+                #print('response not 200')
+                #print(response.data)
+                #print(response.status_code)
             i = i + 1  
             if(i > 50):  
                 break  
@@ -95,19 +92,85 @@ class userProfileTestCase(APITestCase):
         print(response.status_code)
         self.assertEqual(response.status_code,status.HTTP_200_OK)
 
-
-
     
+class restUserTestCase(APITestCase):
+    profile_list_url=reverse('all-profiles')
+    def test_gk(self):
+        # create a new gk user making a post request to djoser endpoint
+        self.user=self.client.post('/api/v1/auth/users/',data={'email':'gk@a.com','password':'i-keep-jumping','is_gk': True})
+        response=self.client.post('/api/v1/accounts/jwt/create/',data={'email':'gk@a.com','password':'i-keep-jumping'})
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.token=response.data['access']
+        self.api_authentication()
+        response=self.client.get('/api/v1/auth/users/me/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data["is_gk"],True)
+        self.assertEqual(response.data["is_tz"],False)
+
+
+    def test_tz(self):
+        # create a new tz user making a post request to djoser endpoint
+        self.user=self.client.post('/api/v1/auth/users/',data={'email':'tz@a.com','password':'i-keep-jumping','is_tz': True})
+        response=self.client.post('/api/v1/accounts/jwt/create/',data={'email':'tz@a.com','password':'i-keep-jumping'})
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.token=response.data['access']
+        self.api_authentication()
+        response=self.client.get('/api/v1/auth/users/me/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data["is_tz"],True)
+        self.assertEqual(response.data["is_gk"],False)
+
+
+    def test_gk_tz(self):
+        # create a new gk and tz user making a post request to djoser endpoint
+        self.user=self.client.post('/api/v1/auth/users/',data={'email':'tz@a.com','password':'i-keep-jumping','is_tz': True, 'is_gk': True,})
+        response=self.client.post('/api/v1/accounts/jwt/create/',data={'email':'tz@a.com','password':'i-keep-jumping'})
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.token=response.data['access']
+        self.api_authentication()
+        response=self.client.get('/api/v1/auth/users/me/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data["is_tz"],True)
+        self.assertEqual(response.data["is_gk"],True)
+
+    def test_no_gk_tz(self):
+        # create a new no gk and no tz user making a post request to djoser endpoint
+        self.user=self.client.post('/api/v1/auth/users/',data={'email':'nogktz@a.com','password':'i-keep-jumping'})
+        response=self.client.post('/api/v1/accounts/jwt/create/',data={'email':'nogktz@a.com','password':'i-keep-jumping'})
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.token=response.data['access']
+        self.api_authentication()
+        response=self.client.get('/api/v1/auth/users/me/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data["is_tz"],False)
+        self.assertEqual(response.data["is_gk"],False)
+
+    def api_authentication(self):
+        self.client.credentials(HTTP_AUTHORIZATION='JWT '+self.token)
+
+
+    def test_fav_color(self):
+         #Test fav_color field
+        self.user=self.client.post('/api/v1/auth/users/',data={'email':'tz@a.com','password':'i-keep-jumping','fav_color': 'blue',})
+        response=self.client.post('/api/v1/accounts/jwt/create/',data={'email':'tz@a.com','password':'i-keep-jumping'})
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.token=response.data['access']
+        self.api_authentication()
+        response=self.client.get('/api/v1/auth/users/me/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data["fav_color"],'blue')
+
 
 
 class UsersManagersTests(TestCase):
-
     def test_create_user(self):
         User = get_user_model()
         user = User.objects.create_user(email='normal@user.com', password='foo')
         self.assertEqual(user.email, 'normal@user.com')
         self.assertTrue(user.is_active)
         self.assertFalse(user.is_staff)
+        self.assertFalse(user.is_gk)
+        self.assertFalse(user.is_tz)
         self.assertFalse(user.is_superuser)
         try:
             # username is None for the AbstractUser option
@@ -121,6 +184,22 @@ class UsersManagersTests(TestCase):
             User.objects.create_user(email='')
         with self.assertRaises(ValueError):
             User.objects.create_user(email='', password="foo")
+
+    def test_create_gk_user(self):
+        User = get_user_model()
+        user = User.objects.create_user(email='gk@user.com', password='foo', is_gk=True)
+        self.assertTrue(user.is_gk)
+
+    def test_create_tz_user(self):
+        User = get_user_model()
+        user = User.objects.create_user(email='tz@user.com', password='foo', is_tz=True)
+        self.assertTrue(user.is_tz)
+
+    def test_create_gk_tz_user(self):
+        User = get_user_model()
+        user = User.objects.create_user(email='gk_tz@user.com', password='foo', is_tz=True, is_gk=True)
+        self.assertTrue(user.is_tz)
+        self.assertTrue(user.is_gk)
 
     def test_create_superuser(self):
         User = get_user_model()

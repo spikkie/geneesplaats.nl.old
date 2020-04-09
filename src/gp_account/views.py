@@ -6,7 +6,6 @@ from rest_framework import permissions
 #...
 @api_view(['GET'])
 def get_current_user(request):
-    print("77777777777777")
     serializer = GetFullUserSerializer(request.user)
     return Response(serializer.data)
 

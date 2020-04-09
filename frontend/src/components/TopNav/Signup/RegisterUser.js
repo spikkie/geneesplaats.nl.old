@@ -17,14 +17,12 @@ class RegisterUser extends Component {
         super(props);
 
         this.state = {
-            first_name: "",
-            last_name: "",
-            username: "",
+            name: "",
+            email: "",
             password: "",
             password2: "",
-            display_first_name: false,
-            display_last_name: false,
-            display_username: false,
+            display_name: false,
+            display_email: false,
             display_password: false,
             display_password2: false
         };
@@ -82,33 +80,28 @@ class RegisterUser extends Component {
 
     clearForm = () => {
         this.setState({
-            first_name: "",
-            last_name: "",
-            username: "",
+            name: "",
+            email: "",
             password: "",
             password2: "",
-            display_first_name: false,
-            display_last_name: false,
-            display_username: false,
+            display_name: false,
+            display_email: false,
             display_password: false,
             display_password2: false
         });
     };
     sendRegistration = e => {
         e.preventDefault();
-        const { first_name, last_name, username, password } = this.state;
+        const { first_name, last_name, email, password } = this.state;
         if (this.isValid()) {
-            Axios.post(
-                "http://127.0.0.1:8001/api/v1/gp_account/users/create",
-                {
-                    user: {
-                        first_name: first_name,
-                        last_name: last_name,
-                        username: username,
-                        password: password
-                    }
+            Axios.post("http://127.0.0.1:8001/api/v1/auth/users/", {
+                user: {
+                    name: name,
+                    email: email,
+                    password: password,
+                    password2: password2
                 }
-            )
+            })
                 .then(response => {
                     console.log(response);
                     console.log(response.status + " " + response.statusText);
@@ -118,7 +111,7 @@ class RegisterUser extends Component {
                 });
             this.clearForm();
         } else {
-            // todo print this.state 
+            // todo print this.state
             console.log("Not valid");
         }
     };
@@ -142,37 +135,26 @@ class RegisterUser extends Component {
             <div>
                 <form onSubmit={this.sendRegistration} noValidate>
                     <div>
-                        <label htmlFor="first_name"> First name </label>
+                        <label htmlFor="name"> name </label>
                         <input
                             type="text"
-                            id="first_name"
-                            name="first_name"
-                            value={this.state.first_name}
+                            id="name"
+                            name="name"
+                            value={this.state.name}
                             onChange={this.changeHandler}
                         />
-                        {this.getErrors("first_name", this.state.first_name)}
+                        {this.getErrors("name", this.state.name)}
                     </div>
                     <div>
-                        <label htmlFor="last_name"> Last name </label>
+                        <label htmlFor="email"> email </label>
                         <input
                             type="text"
-                            id="last_name"
-                            name="last_name"
-                            value={this.state.last_name}
+                            id="email"
+                            name="email"
+                            value={this.state.email}
                             onChange={this.changeHandler}
                         />
-                        {this.getErrors("last_name", this.state.last_name)}
-                    </div>
-                    <div>
-                        <label htmlFor="username"> Username </label>
-                        <input
-                            type="text"
-                            id="username"
-                            name="username"
-                            value={this.state.username}
-                            onChange={this.changeHandler}
-                        />
-                        {this.getErrors("username", this.state.username)}
+                        {this.getErrors("email", this.state.email)}
                     </div>
                     <div>
                         <label htmlFor="pass"> Password </label>

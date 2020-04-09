@@ -206,11 +206,17 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
+   'ACCESS_TOKEN_LIFETIME': timedelta(days=14),
+   'REFRESH_TOKEN_LIFETIME': timedelta(days=14),
+   'ROTATE_REFRESH_TOKENS': True,
+#todo
+#https://hackernoon.com/110percent-complete-jwt-authentication-with-django-and-react-2020-iejq34ta
+#We rotate the Refresh tokens so that our users don’t have to log in again if
+# they visit within 14 days, for ease of use. You can blacklist the tokens after
+# rotating them, but we won’t cover it here. 
+
+   'BLACKLIST_AFTER_ROTATION': False,
    'AUTH_HEADER_TYPES': ('JWT',),
-   'USER_CREATE_PASSWORD_RETYPE': True,
-   'JWT_ALLOW_REFRESH': True,
-   'JWT_EXPIRATION_DELTA': timedelta(hours=1),
-   'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=14),
 }
 
 LOGIN_URL = 'login'
@@ -227,11 +233,38 @@ SITE_ID = 1
 
 DJOSER = {
     'LOGIN_FIELD' : 'email',
-    #'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
-    #'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
-    #'ACTIVATION_URL': '#/activate/{uid}/{token}',
-    #'SEND_ACTIVATION_EMAIL': True,
-    #'SERIALIZERS': {},
+
+    "SEND_ACTIVATION_EMAIL": False,    
+    "SEND_CONFIRMATION_EMAIL": False,    
+    "USER_CREATE_PASSWORD_RETYPE": False,    
+    "SET_PASSWORD_RETYPE": False,    
+    "PASSWORD_RESET_CONFIRM_RETYPE": False,    
+    "SET_USERNAME_RETYPE": False,    
+    "USERNAME_RESET_CONFIRM_RETYPE": False, 
+    "PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND": False,    
+    "USERNAME_RESET_SHOW_EMAIL_NOT_FOUND": False,    
+    "PASSWORD_CHANGED_EMAIL_CONFIRMATION": False,    
+    "USERNAME_CHANGED_EMAIL_CONFIRMATION": False, 
+
+    "EMAIL": {
+            "activation": "djoser.email.ActivationEmail",
+            "confirmation":
+            "djoser.email.ConfirmationEmail",
+            "password_reset":
+            "djoser.email.PasswordResetEmail",
+            "password_changed_confirmation":
+            "djoser.email.PasswordChangedConfirmationEmail",
+            "username_changed_confirmation":
+            "djoser.email.UsernameChangedConfirmationEmail",
+            "username_reset":
+            "djoser.email.UsernameResetEmail",
+    },
+
+    "TOKEN_MODEL": None, 
+    'SERIALIZERS': {
+        'user_create': 'accounts.serializers.UserRegistrationSerializer',
+        'current_user': 'accounts.serializers.UserSerializer',
+    },
 }
 
 #todo check why we need LOGIN_REDIRECT_URL
@@ -257,10 +290,3 @@ EMAIL_PORT = 587
 #todo combine with gp_accounts
 AUTH_USER_MODEL = 'accounts.CustomUser'
 #https://django-allauth.readthedocs.io/en/latest/configuration.html
-
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-ACCOUNT_UNIQUE_EMAIL = True

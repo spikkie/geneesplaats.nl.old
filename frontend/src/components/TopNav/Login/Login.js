@@ -58,7 +58,7 @@ class Login extends Component {
         let data = this.state;
         console.log("1111");
         console.log(JSON.stringify(data));
-        fetch("http://127.0.0.1:8001/api/v1/token/", {
+        fetch("http://127.0.0.1:8001/api/v1/accounts/jwt/create/", {
             crossDomain: true,
             withCredentials: true,
             async: true,
