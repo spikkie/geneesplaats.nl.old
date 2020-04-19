@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+{% load i18n %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>collabMap</title>
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web:300,300i,400,400i,600,600i,700,700i,900">
+    <link rel="stylesheet" href="{% static 'core/css/styles.min.css' %}">
+</head>
+
+<body id="contact-bg">
+    <section class="d-flex flex-column justify-content-around">
+        <div style="margin-bottom: 160px;">
+            <div class="container" style="width: 60%;">
+                <div class="row">
+                    <div class="col-xl-12 text-right">
+                        <a class="btn btn-primary reserve-button" role="button" href="{% url 'home' %}">{% blocktrans %}Home{% endblocktrans %}</a>
+                        <a class="btn btn-primary button-2" role="button" href="{% url 'login' %}">{% blocktrans %}LOG IN{% endblocktrans %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;">
+            <div class="container contact-box" style="width: 60%;">
+                <div class="row">
+                    <div class="col-xl-4 offset-xl-1"><p class="contactus">{% blocktrans %}Contact us{% endblocktrans %}</p>
+                        <p class="contact-text">{% blocktrans %}Want to know more about the advantages of the tool?{% endblocktrans %}</p></div>
+                    <div class="col">
+                        <form method="post">
+                            <div class="form-row">
+                                <div class="col">
+                                    <div class="form-group"><input class="form-control" type="text" name="name" placeholder="{% blocktrans %}Name{% endblocktrans %}"></div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <div class="form-group"><input class="form-control" type="email" name="name" placeholder="{% blocktrans %}Email{% endblocktrans %}"></div>
+                                </div>
+                            </div>
+                            <div class="form-group"><textarea class="form-control" name="message" placeholder="{% blocktrans %}Message{% endblocktrans %}" rows="14" style="height: 200px;"></textarea></div>
+                            <div class="form-group text-right"><button class="btn btn-primary submit-btn" type="button">{% blocktrans %}Send{% endblocktrans %}</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- jQuery 2.2.4 -->
+    <script src="{% static 'core/js/jquery.min.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'core/js/bootstrap.min.js' %}"></script>
+</body>
+
+</html>

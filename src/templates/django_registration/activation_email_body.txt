@@ -1,0 +1,7 @@
+Welcome to CollabMap platform!
+
+To finalize your registration, confirm your email account clicking on the following link:
+
+{{site}}/accounts/activate/{{ activation_key }}/
+
+If you didn't sign up in CollabMap, just ignore this message.

@@ -1,0 +1,17 @@
+{% extends "core/base_without_login.html"  %}
+{% load i18n %}
+{% block title%}Sign up{% endblock%}
+
+{% block content %}
+    <section class="d-flex align-items-start align-content-center" id="login">
+        <div class="container mt-5">
+            <h1>Confirmation Email Sent</h1>
+  
+            <p>Thanks for registering! We've sent you an email with instructions on how to finalize your registration.</p>
+
+            <p>If you haven't received the email within an hour or so, check your spam folder. You might instead try contacting the webmaster (luis.garcia@capsus.mx).</p>
+            <a class="btn btn-link" href="{% url 'index' %}">Home</a>
+            <a class="btn btn-link" href="{% url 'login' %}">Login</a>
+        </div>
+    </section>
+{% endblock %}

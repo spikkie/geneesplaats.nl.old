@@ -29,6 +29,8 @@ django-url-checks
 djangorestframework
 djangorestframework-jwt
 djangorestframework-simplejwt
+django-registration
+django_registration
 djoser
 entrypoints
 environ

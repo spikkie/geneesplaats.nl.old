@@ -1,0 +1,101 @@
+import React, { Component } from "react";
+
+import Modal from "../../components/UI/Modal/Modal";
+import Aux from "../Aux/Aux";
+
+const withErrorHandler = (WrappedComponent, axios) => {
+    return class extends Component {
+        state = {
+            error: null
+        };
+
+        componentWillMount() {
+            console.log("[withErrorHandler] ErrorHandler componentWillMount");
+            this.reqInterceptor = axios.interceptors.request.use(
+                req => {
+                    console.log(
+                        "[withErrorHandler] request 111111111111111111111111111111"
+                    );
+                    console.log("[withErrorHandler] request ", req);
+                    // this.setState({ error: null });
+                    this.setState({ error: "initial error" });
+                    return req;
+                },
+                error => {
+                    console.log("[withErrorHandler] error request ");
+                    console.log(
+                        "[withErrorHandler] error request ",
+                        error.response
+                    );
+                    return Promise.reject(error);
+                }
+            );
+
+            this.resInterceptor = axios.interceptors.response.use(
+                // res => res,
+                error => {
+                    console.log(
+                        "[withErrorHandler] error response %0 ",
+                        error
+                    );
+                    console.log(
+                        "[withErrorHandler] error response ",
+                        error.response.data.password[0]
+                    );
+                    this.setState({ error: error.response.data });
+                    return Promise.reject(error);
+                },
+                response => {
+                    console.log(response);
+                    return response;
+                }
+            );
+        }
+
+        componentWillUnmount() {
+            console.log(
+                "[withErrorHandler] ErrorHandler componentWillUnmount"
+            );
+            axios.interceptors.request.eject(this.reqInterceptor);
+            axios.interceptors.response.eject(this.resInterceptor);
+        }
+
+        errorConfirmedHandler = () => {
+            console.log("[withErrorHandler] errorConfirmedHandler");
+            this.setState({ error: null });
+        };
+
+        render() {
+            console.log("[withErrorHandler] ErrorHandler Render");
+
+            // let err = { ...this.state.error };
+            // let list;
+            // console.log("err %0", err);
+
+            // for (let [key, value] of Object.entries(err)) {
+            // console.log(`${key}: ${value}`);
+            // }
+
+            // if (err) {
+            //     if (err.password) {
+            //         // list = err.password.map(item => (
+            //         //     <li key={item.name}>{item.name}</li>
+            //         // ));
+            //     }
+            // }
+            return (
+                <Aux>
+                    <Modal
+                        show={this.state.error}
+                        modalClosed={this.errorConfirmedHandler}
+                    >
+                        {this.state.error ? this.state.error.message : null}
+                    </Modal>
+                    <WrappedComponent {...this.props} />
+                </Aux>
+            );
+        }
+    };
+};
+
+export default withErrorHandler;

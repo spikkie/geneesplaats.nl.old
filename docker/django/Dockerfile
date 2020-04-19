@@ -23,12 +23,13 @@ COPY src .
 COPY requirements  /tmp/requirements
 #Todo development/production
 #RUN python -m pip install -U --no-cache-dir -r /tmp/requirements/development.txt
-RUN python -m pip install -U --no-cache-dir -r /tmp/requirements/production.txt
+RUN python -m pip install -U -r /tmp/requirements/production.txt
 
 COPY docker/django/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 #Additional Installations
 #RUN apt-get -y install psql
+
 
 ENTRYPOINT ["entrypoint.sh"]

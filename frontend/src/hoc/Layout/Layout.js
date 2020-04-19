@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Aux from "../Aux/Aux";
 import classes from "./Layout.css";
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
-import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
+// import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 
 class Layout extends Component {
     state = {
@@ -40,7 +40,7 @@ class Layout extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log("77777777777777777777777777777777777777", state.auth.token);
+    console.log("%0", state.auth.token);
     return {
         isAuthenticated: state.auth.token !== null
     };

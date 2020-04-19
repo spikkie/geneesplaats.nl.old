@@ -71,6 +71,16 @@ urlpatterns = [
 
     #path to our account's app endpoints
     path("api/v1/accounts/",include("accounts.urls")),
+
+    #django registration
+    # path('api/v1/accounts/', include('django_registration.backends.activation.urls')),
+    # django_registration_register is the account-registration view.
+    # django_registration_complete is the post-registration success message.
+    # django_registration_activate is the account-activation view.
+    # django_registration_activation_complete is the post-activation success message.
+
+    # path('accounts/', include('django.contrib.auth.urls')),
+
     path("api/v1/events/",include("events.urls")),
 
     #My Applications

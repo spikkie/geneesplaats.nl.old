@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django_registration',
 
      #https://pypi.org/project/django-cors-headers/
      'corsheaders',
@@ -229,21 +230,22 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-SITE_ID = 1
+SITE_ID = 2
 
 DJOSER = {
     'LOGIN_FIELD' : 'email',
 
-    "SEND_ACTIVATION_EMAIL": False,    
-    "SEND_CONFIRMATION_EMAIL": False,    
-    "USER_CREATE_PASSWORD_RETYPE": False,    
-    "SET_PASSWORD_RETYPE": False,    
-    "PASSWORD_RESET_CONFIRM_RETYPE": False,    
+    "SEND_ACTIVATION_EMAIL": True,    
+    "ACTIVATION_URL": "/auth/activation/{uid}/{token}",
+    "SEND_CONFIRMATION_EMAIL": True,    
+    "USER_CREATE_PASSWORD_RETYPE": True,    
+    "SET_PASSWORD_RETYPE": True,    
+    "PASSWORD_RESET_CONFIRM_RETYPE": True,    
     "SET_USERNAME_RETYPE": False,    
     "USERNAME_RESET_CONFIRM_RETYPE": False, 
     "PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND": False,    
     "USERNAME_RESET_SHOW_EMAIL_NOT_FOUND": False,    
-    "PASSWORD_CHANGED_EMAIL_CONFIRMATION": False,    
+    "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,    
     "USERNAME_CHANGED_EMAIL_CONFIRMATION": False, 
 
     "EMAIL": {
@@ -266,6 +268,9 @@ DJOSER = {
         'current_user': 'accounts.serializers.UserSerializer',
     },
 }
+
+# https://django-registration.readthedocs.io/en/1.0/quickstart.html
+ACCOUNT_ACTIVATION_DAYS = 7
 
 #todo check why we need LOGIN_REDIRECT_URL
 #LOGIN_REDIRECT_URL = '/'

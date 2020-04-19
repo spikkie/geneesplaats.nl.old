@@ -13,7 +13,8 @@ import {
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
-    DropdownItem
+    DropdownItem,
+    NavbarText
 } from "reactstrap";
 
 import { Link } from "react-router-dom";
@@ -67,7 +68,7 @@ class TopNav extends Component {
     // };
 
     render() {
-        const { logged_in, email } = this.state;
+        // const { logged_in, email } = this.state;
         // const IdeaSelections = this.props.ideaData.map(item => {
         //     return (
         //         <DropdownItem key={item.detailKey}>
@@ -119,16 +120,16 @@ class TopNav extends Component {
                                 <NavLink
                                     tag={Link}
                                     to={{
-                                        pathname: "/login",
-                                        state: { login: true }
+                                        pathname: "/auth/login",
+                                        state: { login: true, signup: false }
                                     }}
                                 >
-                                    <i className="fas fa-login"></i> Login
+                                    <i className="fas fa-login"></i> Inloggen
                                 </NavLink>
                             </NavItem>
                         ) : (
                             <NavItem>
-                                <NavLink tag={Link} to="/logout">
+                                <NavLink tag={Link} to="/auth/logout">
                                     <i className="fas fa-logout"></i> Logout
                                 </NavLink>
                             </NavItem>
@@ -138,11 +139,12 @@ class TopNav extends Component {
                                 <NavLink
                                     tag={Link}
                                     to={{
-                                        pathname: "/signup",
-                                        state: { signup: true }
+                                        pathname: "/auth/signup",
+                                        state: { signup: true, login: false }
                                     }}
                                 >
-                                    <i className="fas fa-signup"></i> Signup
+                                    <i className="fas fa-signup"></i>{" "}
+                                    Registreren
                                 </NavLink>
                             </NavItem>
                         ) : null}

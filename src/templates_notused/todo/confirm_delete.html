@@ -1,0 +1,21 @@
+{% extends parent_template|default:"todo/base.html" %}
+
+{% block title %}
+  {{ todo.name }}: delete?
+{% endblock %}
+
+{% block content %}
+  <form
+      action="."
+      method="todo"
+  >
+    {% csrf_token %}
+    <p>
+      Are you sure you want to delete blog todo {{ todo.name }}?
+    </p>
+    <a href="{{ todo.get_absolute_url }}">
+      Cancel
+    </a>
+    <button type="submit">Delete Todo</button>
+  </form>
+{% endblock %}

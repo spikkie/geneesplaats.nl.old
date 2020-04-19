@@ -7,19 +7,31 @@ const initialState = {
     userId: null,
     error: null,
     loading: false,
-    authRedirectPath: "/"
+    authRedirectPath: "/",
+    signupRedirectPath: "/",
+    redirectAfterSignedup: false
 };
 
 const authStart = (state, action) => {
     return updateObject(state, { error: null, loading: true });
 };
 
+const signupStart = (state, action) => {
+    return updateObject(state, { error: null, loading: true });
+};
+
 const authSuccess = (state, action) => {
-    console.log("authSuccess 99999999999999999", action.access);
     return updateObject(state, {
         token: action.access,
         refreshToken: action.refresh,
-        userId: action.userId,
+        error: null,
+        loading: false
+    });
+};
+
+const signupSuccess = (state, action) => {
+    return updateObject(state, {
+        userId: action.id,
         error: null,
         loading: false
     });
@@ -32,8 +44,15 @@ const authFail = (state, action) => {
     });
 };
 
+const signupFail = (state, action) => {
+    return updateObject(state, {
+        error: action.error,
+        loading: false
+    });
+};
+
 const authLogout = (state, action) => {
-    console.log("authLogout 99999999999999999 set token null");
+    console.log("authLogout set token null");
     return updateObject(state, {
         token: null,
         refreshToken: null,
@@ -43,6 +62,18 @@ const authLogout = (state, action) => {
 
 const setAuthRedirectPath = (state, action) => {
     return updateObject(state, { authRedirectPath: action.path });
+};
+
+const setSignupRedirectPath = (state, action) => {
+    return updateObject(state, { signupRedirectPath: action.path });
+};
+
+const setRedirectAfterSignedup = (state, action) => {
+    return updateObject(state, { redirectAfterSignedup: true });
+};
+
+const resetRedirectAfterSignedup = (state, action) => {
+    return updateObject(state, { redirectAfterSignedup: false });
 };
 
 const reducer = (state = initialState, action) => {
@@ -57,6 +88,19 @@ const reducer = (state = initialState, action) => {
             return authLogout(state, action);
         case actionTypes.SET_AUTH_REDIRECT_PATH:
             return setAuthRedirectPath(state, action);
+
+        case actionTypes.SIGNUP_START:
+            return signupStart(state, action);
+        case actionTypes.SIGNUP_SUCCESS:
+            return signupSuccess(state, action);
+        case actionTypes.SIGNUP_FAIL:
+            return signupFail(state, action);
+        case actionTypes.SET_SIGNUP_REDIRECT_PATH:
+            return setSignupRedirectPath(state, action);
+        case actionTypes.SET_REDIRECT_AFTER_SIGNUP:
+            return setRedirectAfterSignedup(state, action);
+        case actionTypes.RESET_REDIRECT_AFTER_SIGNUP:
+            return resetRedirectAfterSignedup(state, action);
         default:
             return state;
     }

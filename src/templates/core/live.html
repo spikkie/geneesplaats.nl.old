@@ -1,0 +1,20 @@
+{% load i18n %}
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header" style="padding:0">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                <i class="fas fa-window-close"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            {% if video_id %}
+                <iframe width="450" height="400" src="https://www.youtube.com/embed/{{video_id}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="450" height="250" src="https://www.youtube.com/live_chat?embed_domain={{domain}}&v={{video_id}}" frameborder="0" allowfullscreen=""></iframe>
+            {% else %}
+            <div class="d-flex align-content-center">
+                <h2>{% blocktrans %}There is no live stream available{% endblocktrans %}</h2>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

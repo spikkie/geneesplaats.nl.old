@@ -2,249 +2,188 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
-import Input from "../../components/UI/Input/Input";
-import Button from "../../components/UI/Button/Button";
-import Spinner from "../../components/UI/Spinner/Spinner";
+import {
+    Container,
+    Col,
+    Row,
+    Button,
+    Form,
+    FormGroup,
+    FormFeedback,
+    FormText,
+    Label,
+    Input,
+    Spinner,
+    CustomInput
+} from "reactstrap";
+
 import classes from "./Auth.css";
 import * as actions from "../../store/actions/index";
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
+import axios from "axios";
 
 class Auth extends Component {
-    // if (this.props.location.state.login) {
-    //         console.log("logged_in ", this.props.location.state.login);
-    // } else if (this.props.location.state.signup) {
-    //         console.log("signup ", this.props.location.state.signup);
-    // }
     constructor(props) {
         super(props);
-        console.log(this.props);
-        console.log(
-            "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
-        );
+        console.log("[Auth] ", this.props);
+
+        this.handleChange = this.handleChange.bind(this);
     }
 
     state = {
-        controls: null,
         isSignup: null,
         loginSelected: null,
-        signupSelected: null
+        signupSelected: null,
+        signupRedirect: false
     };
 
     static getDerivedStateFromProps(props, prevState) {
-        console.log("getDerivedStateFromProps");
-        console.log(props);
-        console.log(prevState);
+        console.log("getDerivedStateFromProps props, %0", props);
+        console.log("getDerivedStateFromProps prevState %0", prevState);
+        const { signup_login } = props.match.params;
         console.log(
-            "-------------",
-            prevState.loginSelected,
-            props.location.state.login
+            "[Auth]getDerivedStateFromProps this.props.match.params signup_login %0 ",
+            signup_login
         );
 
-        if (
-            prevState.loginSelected === null ||
-            props.location.state.login !== prevState.loginSelected
-        ) {
-            if (props.location.state.login) {
-                console.log("login login login");
+        if (prevState.url === null || signup_login !== prevState.url) {
+            if (signup_login === "login") {
+                console.log("[Auth] login login login");
                 return {
-                    controls: {
-                        email: {
-                            elementType: "input",
-                            elementConfig: {
-                                type: "email",
-                                placeholder: "Mail Address",
-                                key: "email"
-                            },
-                            value: "",
-                            validation: {
-                                required: true,
-                                isEmail: true
-                            },
-                            valid: false,
-                            touched: false
-                        },
-                        password: {
-                            lementType: "input",
-                            elementConfig: {
-                                type: "password",
-                                placeholder: "Password",
-                                key: "password"
-                            },
-                            value: "",
-                            validation: {
-                                required: true,
-                                minLength: 6
-                            },
-                            valid: false,
-                            touched: false
-                        }
+                    email: "",
+                    password: "",
+                    validate: {
+                        emailState: ""
                     },
+                    url: signup_login,
                     isSignup: false,
-                    loginSelected: props.location.state.login,
-                    signupSelected: props.location.state.signup
+                    signupRedirect: false
                 };
-            } else if (props.location.state.signup) {
-                console.log("signup signup signup");
+            } else if (signup_login === "signup") {
+                console.log("[Auth] signup signup signup");
                 return {
-                    controls: {
-                        email: {
-                            elementType: "input",
-                            elementConfig: {
-                                type: "email",
-                                placeholder: "Mail Address",
-                                key: "email"
-                            },
-                            value: "",
-                            validation: {
-                                required: true,
-                                isEmail: true
-                            },
-                            valid: false,
-                            touched: false
-                        },
-                        password: {
-                            elementType: "input",
-                            elementConfig: {
-                                type: "password",
-                                placeholder: "Password",
-                                key: "password"
-                            },
-                            value: "",
-                            validation: {
-                                required: true,
-                                minLength: 6
-                            },
-                            valid: false,
-                            touched: false
-                        },
-                        password2: {
-                            elementType: "input",
-                            elementConfig: {
-                                type: "password",
-                                placeholder: "Password",
-                                key: "password2"
-                            },
-                            value: "",
-                            validation: {
-                                required: true,
-                                minLength: 6
-                            },
-                            valid: false,
-                            touched: false
-                        }
+                    name: "",
+                    email: "",
+                    password: "",
+                    confirmPassword: "",
+                    is_gk: "",
+                    is_tz: "",
+                    validate: {
+                        emailState: "",
+                        nameState: ""
                     },
+                    url: signup_login,
                     isSignup: true,
-                    loginSelected: props.location.state.login,
-                    signupSelected: props.location.state.signup
+                    signupRedirect: false
                 };
+            } else {
+                console.log("[Auth] Error getDerivedStateFromProps");
+                return prevState;
             }
         } else {
+            console.log(
+                "getDerivedStateFromProps no url  change, return url  %0 "
+            );
             return null;
         }
     }
 
     componentDidMount() {
-        console.log(
-            "componentDidMount componentDidMount componentDidMount",
-            this.state
-        );
-        // if (!this.props.buildingBurger && this.props.authRedirectPath !== '/') {
+        console.log("[Auth] componentDidMount state %0 ", this.state);
+        console.log("[Auth] componentDidMount props %0 ", this.props);
+
         if (this.props.authRedirectPath !== "/") {
             this.props.onSetAuthRedirectPath();
         }
-    }
-
-    checkValidity(value, rules) {
-        let isValid = true;
-        if (!rules) {
-            return true;
+        if (this.props.signupRedirectPath !== "/") {
+            this.props.onSetSignupRedirectPath();
         }
 
-        if (rules.required) {
-            isValid = value.trim() !== "" && isValid;
-        }
-
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid;
-        }
-
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid;
-        }
-
-        if (rules.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid;
-        }
-
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid;
-        }
-
-        return isValid;
-    }
-
-    inputChangedHandler = (event, controlName) => {
-        const updatedControls = {
-            ...this.state.controls,
-            [controlName]: {
-                ...this.state.controls[controlName],
-                value: event.target.value,
-                valid: this.checkValidity(
-                    event.target.value,
-                    this.state.controls[controlName].validation
-                ),
-                touched: true
-            }
-        };
-        this.setState({ controls: updatedControls });
-    };
-
-    submitHandler = event => {
-        event.preventDefault();
-        this.props.onAuth(
-            this.state.controls.email.value,
-            this.state.controls.password.value,
-            this.state.isSignup
+        const { signup_login } = this.props.match.params;
+        console.log(
+            "[Auth]componentDidMount this.props.match.params signup_login %0 ",
+            signup_login
         );
+    }
+
+    componentWillUnmount() {
+        console.log("5555555555555555555555555555555555555555555555");
+        if (this.props.isSignedup && this.props.isSetRedirectAfterSignedup) {
+            console.log(
+                "333333333333333333 SET redirect onResetRedirectAfterSignedup"
+            );
+            this.props.onResetRedirectAfterSignedup();
+        }
+    }
+
+    validateEmail(e) {
+        const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const { validate } = this.state;
+        if (emailRex.test(e.target.value)) {
+            validate.emailState = "has-success";
+        } else {
+            validate.emailState = "has-danger";
+        }
+        this.setState({ validate });
+    }
+
+    validateName(e) {
+        const nameRex = /^([a-zA-Z0-9-])*$/;
+        const { validate } = this.state;
+        if (nameRex.test(e.target.value)) {
+            validate.nameState = "has-success";
+        } else {
+            validate.nameState = "has-danger";
+        }
+        this.setState({ validate });
+    }
+
+    handleChange = async event => {
+        // console.log("handleChange %0 ", event);
+        const { target } = event;
+        const value =
+            target.type === "checkbox" ? target.checked : target.value;
+        const { name } = target;
+        // consgle.log("[Auth] target %s");
+        // console.log("[Auth] name", name);
+        // console.log("[Auth] target", value);
+        await this.setState({
+            [name]: value
+        });
     };
 
-    // switchAuthModeHandler = () => {
-    //     this.setState(prevState => {
-    //         return { isSignup: !prevState.isSignup };
-    //     });
-    // };
+    submitForm(e) {
+        e.preventDefault();
+        console.log(
+            `Email777777777777777777777777777777777777777: ${this.state.email}`
+        );
+    }
+
+    handleLogin = e => {
+        e.preventDefault();
+        console.log("88888888 %0", e);
+        console.log("state %0", this.state);
+        if (this.state.isSignup) {
+            this.props.onSignup(
+                this.state.name,
+                this.state.email,
+                this.state.password,
+                this.state.confirmPassword,
+                this.state.is_gk,
+                this.state.is_tz
+            );
+        } else {
+            this.props.onAuth(this.state.email, this.state.password);
+        }
+    };
 
     render() {
         console.log(
-            "5555555555555555555555555555555555555555555555555555555555555555555"
+            "------------------- RENDERING  -----------------------------"
         );
-        const formElementsArray = [];
-        for (let key in this.state.controls) {
-            formElementsArray.push({
-                id: key,
-                config: this.state.controls[key]
-            });
-        }
-
-        let form = formElementsArray.map(formElement => (
-            <Input
-                key={formElement.id}
-                elementType={formElement.config.elementType}
-                elementConfig={formElement.config.elementConfig}
-                value={formElement.config.value}
-                invalid={!formElement.config.valid}
-                shouldValidate={formElement.config.validation}
-                touched={formElement.config.touched}
-                changed={event =>
-                    this.inputChangedHandler(event, formElement.id)
-                }
-            />
-        ));
-
-        if (this.props.loading) {
-            form = <Spinner />;
-        }
+        // if (this.props.loading) {
+        //     form = <Spinner />;
+        // }
 
         let errorMessage = null;
 
@@ -257,24 +196,159 @@ class Auth extends Component {
             authRedirect = <Redirect to={this.props.authRedirectPath} />;
         }
 
-        if (this.props.location.state.login) {
-            console.log("logged_in ", this.props.location.state.login);
-        } else if (this.props.location.state.signup) {
-            console.log("signup ", this.props.location.state.signup);
+        let signupRedirect = null;
+        if (this.props.isSignedup && this.props.isSetRedirectAfterSignedup) {
+            signupRedirect = <Redirect to={this.props.signupRedirectPath} />;
+        }
+
+        let signupFormGkTzInput = (
+            <Col key="RadioButtonGkTz">
+                <FormGroup tag="fieldset">
+                    <FormGroup check>
+                        <Label check>
+                            <Input type="radio" name="GkOfTz" defaultChecked />{" "}
+                            als Therapie Zoekende
+                        </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                        <Label check>
+                            <Input type="radio" name="GkOfTz" /> als
+                            Geneeskundige
+                        </Label>
+                    </FormGroup>
+                    <legend>
+                        {/* Kies aanmelden als Therapie Zoekende of Geneeskundige */}
+                    </legend>
+                </FormGroup>
+            </Col>
+        );
+
+        let signupFormNameInput = (
+            <Col key="1">
+                <FormGroup>
+                    <Label>Username</Label>
+                    <Input
+                        //plaintext
+                        type="text"
+                        name="name"
+                        id="jouwNaam"
+                        placeholder="jouw naam"
+                        value={this.state.name}
+                        valid={this.state.validate.nameState === "has-success"}
+                        invalid={
+                            this.state.validate.nameState === "has-danger"
+                        }
+                        onChange={e => {
+                            this.validateName(e);
+                            this.handleChange(e);
+                        }}
+                    />
+                    <FormFeedback valid>Name is ok.</FormFeedback>
+                    <FormFeedback>Please input a correct name.</FormFeedback>
+                    {/* <FormText>Your username is most likely</FormText> */}
+                </FormGroup>
+            </Col>
+        );
+
+        let loginFormEmailInput = (
+            <Col key="2">
+                <FormGroup>
+                    <Label>Email Address</Label>
+                    <Input
+                        type="email"
+                        name="email"
+                        id="exampleEmail"
+                        placeholder="email@email.com"
+                        value={this.state.email}
+                        valid={
+                            this.state.validate.emailState === "has-success"
+                        }
+                        invalid={
+                            this.state.validate.emailState === "has-danger"
+                        }
+                        onChange={e => {
+                            this.validateEmail(e);
+                            this.handleChange(e);
+                        }}
+                    />
+                    <FormFeedback valid>Email is ok.</FormFeedback>
+                    <FormFeedback>Please input a correct email.</FormFeedback>
+                    {/* <FormText> */}
+                    {/*     Your username is most likely your email. */}
+                    {/* </FormText> */}
+                </FormGroup>
+            </Col>
+        );
+
+        let loginFormPasswordInput = (
+            <Col key="3">
+                <FormGroup>
+                    <Label for="Password">Wachtwoord</Label>
+                    <Input
+                        type="password"
+                        name="password"
+                        id="Password"
+                        placeholder="********"
+                        value={this.state.password}
+                        onChange={e => this.handleChange(e)}
+                    />
+                </FormGroup>
+            </Col>
+        );
+
+        let loginFormConfirmPasswordInput = (
+            <Col key="4">
+                <FormGroup>
+                    <Label for="confirmPassword">Bevestig Wachtwoord</Label>
+                    <Input
+                        type="password"
+                        name="confirmPassword"
+                        id="ConfirmPassword"
+                        placeholder="********"
+                        value={this.state.confirmPassword}
+                        onChange={e => this.handleChange(e)}
+                    />
+                </FormGroup>
+            </Col>
+        );
+
+        let useForm = [];
+        let headTitle = "";
+
+        let button = "";
+        if (this.state.url === "login") {
+            headTitle = <h2>Inloggen</h2>;
+            useForm.push(loginFormEmailInput);
+            useForm.push(loginFormPasswordInput);
+            button = <Button onClick={this.handleLogin}>Login</Button>;
+        } else if (this.state.url === "signup") {
+            headTitle = <h2>Aanmelden</h2>;
+            useForm.push(signupFormGkTzInput);
+            useForm.push(signupFormNameInput);
+            useForm.push(loginFormEmailInput);
+            useForm.push(loginFormPasswordInput);
+            useForm.push(loginFormConfirmPasswordInput);
+            button = <Button onClick={this.handleLogin}>Registreren</Button>;
+        } else {
+            console.log("Error set signup or login");
         }
 
         return (
-            <div className={classes.Auth}>
+            <Container className="App">
+                {headTitle}
                 {authRedirect}
+                {signupRedirect}
                 {errorMessage}
-                <form onSubmit={this.submitHandler}>
-                    {form}
-                    <Button btnType="Success">SUBMIT</Button>
-                </form>
-                {/* <Button clicked={this.switchAuthModeHandler} btnType="Danger"> */}
-                {/*     SWITCH TO {this.state.isSignup ? "SIGNIN" : "SIGNUP"} */}
-                {/* </Button> */}
-            </div>
+                {/* <Spinner animation="border" role="status"> */}
+                {/*     <span className="sr-only">Loading...</span> */}
+                {/* </Spinner> */}
+                {/* <Spinner animaoion="border" /> */}
+
+                <Form className="form" onSubmit={this.handleSubmit}>
+                    {useForm}
+                    {button}
+                </Form>
+            </Container>
         );
     }
 }
@@ -284,16 +358,40 @@ const mapStateToProps = state => {
         loading: state.auth.loading,
         error: state.auth.error,
         isAuthenticated: state.auth.token !== null,
-        authRedirectPath: state.auth.authRedirectPath
+        isSignedup: state.auth.userId !== null,
+        authRedirectPath: state.auth.authRedirectPath,
+        signupRedirectPath: state.auth.signupRedirectPath,
+        isSetRedirectAfterSignedup: state.auth.redirectAfterSignedup
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password, isSignup) =>
-            dispatch(actions.auth(email, password, isSignup)),
-        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath("/"))
+        onAuth: (email, password) => dispatch(actions.auth(email, password)),
+        onSignup: (name, email, password, confirmPassword, is_gk, is_tz) =>
+            dispatch(
+                actions.signup(
+                    name,
+                    email,
+                    password,
+                    confirmPassword,
+                    is_gk,
+                    is_tz
+                )
+            ),
+        onSetAuthRedirectPath: () =>
+            dispatch(actions.setAuthRedirectPath("/")),
+        onSetSignupRedirectPath: () =>
+            dispatch(actions.setSignupRedirectPath("/")),
+        onSetRedirectAfterSignedup: () =>
+            dispatch(actions.setRedirectAfterSignedup()),
+        onResetRedirectAfterSignedup: () =>
+            dispatch(actions.resetRedirectAfterSignedup())
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Auth);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withErrorHandler(Auth, axios));
+// )(Auth);

@@ -1,4 +1,5 @@
 *
 !src/**
+!templates/**
 !requirements/**
 !docker/**

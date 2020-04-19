@@ -217,3 +217,10 @@ class UsersManagersTests(TestCase):
         with self.assertRaises(ValueError):
             User.objects.create_superuser(
                 email='super@user.com', password='foo', is_superuser=False)
+
+
+
+
+#activate user
+# curl -X POST http://127.0.0.1:8001/api/v1/auth/users/activation/ --data 'uid=MTQ&token=5fr-601e3f721016227333f4'
+

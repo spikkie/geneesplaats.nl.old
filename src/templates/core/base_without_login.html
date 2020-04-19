@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    {% load static %}
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+        />
+        <title>{% block title %}{% endblock %} - Collabmap</title>
+        <link
+            rel="stylesheet"
+            <!--
+            <!--
+            <!--
+            href="{% static 'core/bootstrap/css/bootstrap.min.css' %}"
+            --
+        />
+        -- /> -- /> />
+        <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web:300,300i,400,400i,600,600i,700,700i,900"> -->
+        <!-- <link rel="stylesheet" href="{% static 'core/css/styles.min.css' %}" /> -->
+        <!-- <link rel="icon" href="{% static 'core/img/favicon.png' %}" /> -->
+        {% block cssfiles %}{% endblock %}
+    </head>
+
+    <body>
+        {% block content %} {% endblock %}
+        <!-- jQuery 3.4.1 -->
+        <script src="{% static 'core/js/jquery.min.js' %}"></script>
+        <!-- Bootstrap -->
+        <script src="{% static 'core/bootstrap/js/bootstrap.min.js' %}"></script>
+        {% block jsfiles %}{% endblock %}
+    </body>
+</html>
