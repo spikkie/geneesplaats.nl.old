@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 
-import './NewPost.css';
+import './NewPost.scss';
 
 class NewPost extends Component {
     state = {

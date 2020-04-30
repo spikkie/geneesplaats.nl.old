@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './SignUpOk.css';
+import './SignUpOk.scss';
 
 const signup_ok = (props) => (
     <div> 

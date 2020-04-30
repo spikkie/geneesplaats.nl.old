@@ -1,0 +1,11 @@
+POSTGRES_DB=development_geneesplaats_nl
+POSTGRES_USER=development_geneesplaats_nl_user
+POSTGRES_PASSWORD=zENYuw1qdwRM
+DATABASE_URL=postgres://development_geneesplaats_nl_user:zENYuw1qdwRM@postgres:5432/development_geneesplaats_nl
+SECRET_KEY=Gztx4dAzefEgFjft0pTunuzJ69xL9q1X9aC0rVMIvz2yVYp16M
+DEBUG=1
+ENVIRONMENT=development
+DOCKERID=spikkie
+POSTGRES_GENEESPLAATS_NL_IMAGE=postgres:12.1-alpine
+POSTGRES_REPOSITORY=postgres_geneesplaats_nl_development
+POSTGRES_GENEESPLAATS_NL_VERSION=latest

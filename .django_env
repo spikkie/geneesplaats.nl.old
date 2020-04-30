@@ -1,0 +1,12 @@
+DEBUG=1
+ENVIRONMENT=development
+DJANGO_EXPOSE_PORT=8002
+DJANGO_ALLOWED_HOSTS='localhost 127.0.0.1 172.21.0.2 [::1]'
+DJANGO_SETTINGS_MODULE=config.settings.development
+DOCKER_ACCESS_TOKEN=85e012d5-22c2-46b6-ada4-472616f692bf 
+DJANGO_COMMAND_COMMENT=Running development server using command: python manage.py runserver 0.0.0.0:8002 -v 3 --traceback --settings=config.settings.development
+DJANGO_COMMAND=python manage.py runserver 0.0.0.0:8002 -v 3 --traceback --settings=config.settings.development
+DOCKERID=spikkie
+DJANGO_REPOSITORY=django_geneesplaats_nl_development
+DJANGO_GENEESPLAATS_NL_IMAGE=spikkie/django_geneesplaats_nl_development
+DJANGO_GENEESPLAATS_NL_VERSION=latest

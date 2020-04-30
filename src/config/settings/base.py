@@ -264,8 +264,9 @@ DJOSER = {
 
     "TOKEN_MODEL": None, 
     'SERIALIZERS': {
-        'user_create': 'accounts.serializers.UserRegistrationSerializer',
-        'current_user': 'accounts.serializers.UserSerializer',
+        'user_create': 'accounts.serializers.MyUserSerializer',
+        'user_create_password_retype': 'accounts.serializers.MyUserCreatePasswordRetypeSerializer',
+        'current_user': 'accounts.serializers.MyUserSerializer',
     },
 }
 

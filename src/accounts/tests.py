@@ -5,12 +5,13 @@ from rest_framework import status
 #from .models import userProfile
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+import json
 
 # test the user registration endpoint
 class RegistrationTestCase(APITestCase):
     def test_registration(self):
         # data={"email":"lynn@t.com", "password":"PASwwordLit", "re_password": "PASwwordLit"}
-        data={"email":"lynn@t.com", "password":"PASwwordLit", }
+        data={"email":"lynn@t.com", "password":"PASwwordLit", "re_password":"PASwwordLit", "is_gk": True }
         response=self.client.post('/api/v1/auth/users/',data)
         print(response.data)
         print(response.status_code)
@@ -20,9 +21,16 @@ class RegistrationTestCase(APITestCase):
 class userProfileTestCase(APITestCase):
     profile_list_url=reverse('all-profiles')
     def setUp(self):
+
+        #define configuration
+        # "SEND_ACTIVATION_EMAIL": True -> False
+        # todo  
+        # create a test to test SEND_ACTIVATION_EMAIL
+
         # create a new user making a post request to djoser endpoint
         print('userProfileTestCase setUp: create a new user making a post request to djoser endpoint')
-        self.user=self.client.post('/api/v1/auth/users/',data={'email':'mario@a.com','password':'i-keep-jumping'})
+        self.user=self.client.post('/api/v1/auth/users/',data={'email':'mario@a.com','password':'i-keep-jumping',
+            're_password':'i-keep-jumping'})
         # obtain a json web token for the newly created user
         print('userProfileTestCase setUp: obtain a json web token for the newly created user')
         response=self.client.post('/api/v1/accounts/jwt/create/',data={'email':'mario@a.com','password':'i-keep-jumping'})
@@ -97,20 +105,21 @@ class restUserTestCase(APITestCase):
     profile_list_url=reverse('all-profiles')
     def test_gk(self):
         # create a new gk user making a post request to djoser endpoint
-        self.user=self.client.post('/api/v1/auth/users/',data={'email':'gk@a.com','password':'i-keep-jumping','is_gk': True})
+        self.user=self.client.post('/api/v1/auth/users/',data={'email':'gk@a.com','password':'i-keep-jumping','re_password':'i-keep-jumping', 'is_gk': True})
         response=self.client.post('/api/v1/accounts/jwt/create/',data={'email':'gk@a.com','password':'i-keep-jumping'})
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         self.token=response.data['access']
         self.api_authentication()
         response=self.client.get('/api/v1/auth/users/me/')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
+        print("7777777777777777777777777777777777777777777777777777777777 restUserTestCase response", response.data)
         self.assertEqual(response.data["is_gk"],True)
         self.assertEqual(response.data["is_tz"],False)
 
 
     def test_tz(self):
         # create a new tz user making a post request to djoser endpoint
-        self.user=self.client.post('/api/v1/auth/users/',data={'email':'tz@a.com','password':'i-keep-jumping','is_tz': True})
+        self.user=self.client.post('/api/v1/auth/users/',data={'email':'tz@a.com','password':'i-keep-jumping','password':'i-keep-jumping','is_tz': True})
         response=self.client.post('/api/v1/accounts/jwt/create/',data={'email':'tz@a.com','password':'i-keep-jumping'})
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         self.token=response.data['access']
@@ -151,7 +160,7 @@ class restUserTestCase(APITestCase):
 
     def test_fav_color(self):
          #Test fav_color field
-        self.user=self.client.post('/api/v1/auth/users/',data={'email':'tz@a.com','password':'i-keep-jumping','fav_color': 'blue',})
+        self.user=self.client.post('/api/v1/auth/users/',data={'email':'tz@a.com','password':'i-keep-jumping', 're_password':'i-keep-jumping', 'fav_color': 'blue',})
         response=self.client.post('/api/v1/accounts/jwt/create/',data={'email':'tz@a.com','password':'i-keep-jumping'})
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         self.token=response.data['access']

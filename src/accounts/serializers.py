@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from .models import userProfile
-from djoser.serializers import UserCreateSerializer as BaseUserRegistrationSerializer
-from djoser.serializers import UserSerializer as BaseUserSerializer
+from .models import userProfile, CustomUser
+from djoser.serializers import UserCreateSerializer, UserCreatePasswordRetypeSerializer 
+from djoser.serializers import UserSerializer
 from djoser.conf import settings
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -12,9 +12,9 @@ User = get_user_model()
 
 #Override Djoser Serializers
 
-class UserSerializer(BaseUserSerializer):
-    class Meta(BaseUserRegistrationSerializer.Meta):
-        model = User
+class MyUserSerializer(UserSerializer):
+    class Meta(UserSerializer.Meta):
+        model = User 
         read_only_fields = (settings.LOGIN_FIELD,)
         fields = tuple(User.REQUIRED_FIELDS) + (
             User._meta.pk.name,
@@ -26,9 +26,21 @@ class UserSerializer(BaseUserSerializer):
        )
 
 
-class UserRegistrationSerializer(BaseUserRegistrationSerializer):
-    class Meta(BaseUserRegistrationSerializer.Meta):
-        model = User
+class MyUserCreateSerializer(UserCreateSerializer):
+    class Meta(UserCreateSerializer.Meta):
+        model = User 
+        fields = tuple(User.REQUIRED_FIELDS) + (    
+            settings.LOGIN_FIELD,    
+            User._meta.pk.name,    
+            "password",    
+            "is_gk",
+            "is_tz",
+            "fav_color",
+        )    
+
+class MyUserCreatePasswordRetypeSerializer(UserCreatePasswordRetypeSerializer):
+    class Meta(UserCreatePasswordRetypeSerializer.Meta):
+        model = User 
         fields = tuple(User.REQUIRED_FIELDS) + (    
             settings.LOGIN_FIELD,    
             User._meta.pk.name,    

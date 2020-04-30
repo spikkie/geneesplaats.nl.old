@@ -3,7 +3,8 @@ import { updateObject } from "../utility";
 
 const initialState = {
     error: null,
-    loading: false
+    loading: false,
+    activated: false
 };
 
 const activationStart = (state, action) => {
@@ -12,10 +13,9 @@ const activationStart = (state, action) => {
 
 const activationSuccess = (state, action) => {
     return updateObject(state, {
-        token: action.access,
-        refreshToken: action.refresh,
         error: null,
-        loading: false
+        loading: false,
+        activated: true
     });
 };
 

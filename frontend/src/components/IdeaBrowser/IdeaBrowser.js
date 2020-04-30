@@ -1,5 +1,5 @@
 import React from 'react';
-import './IdeaBrowser.css';
+import './IdeaBrowser.scss';
 import { Container, Row, Col, Card, CardImg, CardText, CardBody, CardTitle,
 CardSubtitle, NavLink } from 'reactstrap';
 import Numeral from 'numeral';

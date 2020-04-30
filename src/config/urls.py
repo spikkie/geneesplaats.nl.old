@@ -44,9 +44,8 @@ urlpatterns = [
 
     #djoser
     path("api/v1/auth/", include('djoser.urls')),
-    path("api/v1/auth/", include('djoser.urls.authtoken')),
-    #Moved to accounts
-    #path("api/v1/auth/", include('djoser.urls.jwt')),
+    # path("api/v1/auth/", include('djoser.urls.authtoken')),
+    path("api/v1/auth/", include('djoser.urls.jwt')),
 
     # Available Endpoints
     # /users/

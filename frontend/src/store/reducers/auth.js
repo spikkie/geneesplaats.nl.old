@@ -5,26 +5,29 @@ const initialState = {
     token: null,
     refreshToken: null,
     userId: null,
-    error: null,
     loading: false,
     authRedirectPath: "/",
     signupRedirectPath: "/",
-    redirectAfterSignedup: false
+    redirectAfterSignedup: false,
+
+    error: null,
+    message: null,
+    notifiedMessage: false
 };
 
 const authStart = (state, action) => {
-    return updateObject(state, { error: null, loading: true });
+    return updateObject(state, { error: null, message: null, loading: true });
 };
 
 const signupStart = (state, action) => {
-    return updateObject(state, { error: null, loading: true });
+    return updateObject(state, { error: null, message: null, loading: true });
 };
 
 const authSuccess = (state, action) => {
     return updateObject(state, {
         token: action.access,
         refreshToken: action.refresh,
-        error: null,
+        message: action.response,
         loading: false
     });
 };
@@ -32,7 +35,7 @@ const authSuccess = (state, action) => {
 const signupSuccess = (state, action) => {
     return updateObject(state, {
         userId: action.id,
-        error: null,
+        message: action.response,
         loading: false
     });
 };
@@ -41,6 +44,25 @@ const authFail = (state, action) => {
     return updateObject(state, {
         error: action.error,
         loading: false
+    });
+};
+
+const authResetMessage = (state, action) => {
+    return updateObject(state, {
+        error: null,
+        message: null
+    });
+};
+
+const authSetNotifiedError = (state, action) => {
+    return updateObject(state, {
+        notifiedMessage: true
+    });
+};
+
+const authResetNotifiedError = (state, action) => {
+    return updateObject(state, {
+        notifiedMessage: false
     });
 };
 
@@ -84,6 +106,15 @@ const reducer = (state = initialState, action) => {
             return authSuccess(state, action);
         case actionTypes.AUTH_FAIL:
             return authFail(state, action);
+
+        case actionTypes.AUTH_RESET_MESSAGE:
+            return authResetMessage(state, action);
+
+        case actionTypes.AUTH_SET_NOTIFIED_ERROR:
+            return authSetNotifiedError(state, action);
+        case actionTypes.AUTH_RESET_NOTIFIED_ERROR:
+            return authResetNotifiedError(state, action);
+
         case actionTypes.AUTH_LOGOUT:
             return authLogout(state, action);
         case actionTypes.SET_AUTH_REDIRECT_PATH:

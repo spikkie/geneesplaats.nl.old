@@ -1,12 +1,15 @@
-import React from 'react';
-import './Home.css';
-import SiteCarousel from '../SiteCarousel';
-import IdeaBrowser from '../IdeaBrowser';
+import React from "react";
+import "./Home.scss";
+import SiteCarousel from "../SiteCarousel";
+import IdeaBrowser from "../IdeaBrowser";
 
 class Home extends React.Component {
     // constructor(props){
     //     super(props);
     // }
+    //
+
+    componentDidMount() {}
 
     render() {
         if (this.props.ideaData) {
@@ -17,7 +20,12 @@ class Home extends React.Component {
                 </div>
             );
         } else {
-            return null;
+            return (
+                <div>
+                    <h1>Hello, world!</h1>
+                    <h2>It is {new Date().toLocaleTimeString()}.</h2>
+                </div>
+            );
         }
     }
 }

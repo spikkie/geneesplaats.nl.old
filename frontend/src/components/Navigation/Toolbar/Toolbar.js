@@ -1,6 +1,6 @@
 import React from "react";
 
-import classes from "./Toolbar.css";
+import classes from "./Toolbar.scss";
 import Logo from "../../Logo/Logo";
 import NavigationItems from "../NavigationItems/NavigationItems";
 import TopNav from "../../TopNav/TopNav";

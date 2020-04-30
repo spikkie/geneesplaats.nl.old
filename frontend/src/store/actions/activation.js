@@ -12,15 +12,17 @@ export const activationStart = () => {
 export const activationSuccess = (uid, token) => {
     return {
         type: actionTypes.ACTIVATION_SUCCESS,
-        access: token,
-        refresh: token
+        error: null,
+        loading: false,
+        activated: true
     };
 };
 
 export const activationFail = error => {
     return {
         type: actionTypes.ACTIVATION_FAIL,
-        error: error
+        error: error,
+        loading: false
     };
 };
 
@@ -33,14 +35,15 @@ export const activation = (uid, token) => {
             token: token
         };
 
-        console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB %0 ", activationData);
+        console.log(
+            "[Actions Activation] BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB %0 ",
+            activationData
+        );
         const url = "/api/v1/auth/users/activation/";
         axios
             .post(url, activationData)
             .then(response => {
-                console.log(response);
-                var decoded = jwt_decode(response.data.access);
-                console.log(decoded.exp);
+                console.log("[Actions Activation] %0", response);
                 localStorage.setItem("uid", response.data.uid);
                 localStorage.setItem("token", response.data.token);
                 dispatch(

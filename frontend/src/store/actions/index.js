@@ -11,6 +11,9 @@ export {
     setSignupRedirectPath,
     authCheckState,
     signup,
+    authResetMessage,
+    authSetNotifiedError,
+    authResetNotifiedError,
     setRedirectAfterSignedup,
     resetRedirectAfterSignedup
 } from "./auth";

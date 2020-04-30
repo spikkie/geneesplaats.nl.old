@@ -8,7 +8,7 @@ from accounts.tests import userProfileTestCase
 class eventTestCase(userProfileTestCase):
     def setUp(self):
         # create a new user making a post request to djoser endpoint
-        self.user=self.client.post('/api/v1/auth/users/',data={'email':'prineOfPersia@a.com','password':'i-keep-jumping'})
+        self.user=self.client.post('/api/v1/auth/users/',data={'email':'prineOfPersia@a.com','password':'i-keep-jumping', 're_password':'i-keep-jumping'})
         # obtain a json web token for the newly created user
         response=self.client.post('/api/v1/accounts/jwt/create/',data={'email':'prineOfPersia@a.com','password':'i-keep-jumping'})
         print(response.data)

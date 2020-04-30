@@ -40,21 +40,35 @@ then
     >&2 echo "Running collectstatic"
     python manage.py collectstatic --no-input
     >&2 echo "Running makemigrations"
-    python manage.py makemigrations
+    python manage.py makemigrations -v 3
     >&2 echo "Running migrate"
-    python manage.py migrate
+    python manage.py migrate -v 3
 
-    if [ "${PRODUCTION}" = 'true' ]
-    then
-        >&2 echo "production"
-        >&2 echo "Running gunicorn with config.wsgi:application"
-        gunicorn --workers=3 config.wsgi:application --bind :8001
-    else
-        >&2 echo "development"
-        >&2 echo "\n\nStarting development server: 127.0.0.1:8001\n\n"
-        #todo developent/production
-        python manage.py runserver 0.0.0.0:8001
-    fi
+    >&2 echo "environment ${ENVIRONMENT}"
+    >&2 echo "${DJANGO_COMMAND_COMMENT}"
+    ${DJANGO_COMMAND}
+
+
+    # if [ "${ENVIRONMENT}" = 'production' ];then
+    #     >&2 echo "production"
+    #     >&2 echo "Running production server with gunicorn with config.wsgi:application"
+    #     gunicorn --workers=3 config.wsgi:application --bind :8001
+    # elif [ "${ENVIRONMENT}" = 'development' ];then
+    #     >&2 echo "development"
+    #     >&2 echo "\n\nStarting development server: 127.0.0.1:8002\n\n"
+    #     python manage.py runserver 0.0.0.0:8002 --settings=config.settings.development
+    # elif [ "${ENVIRONMENT}" = 'development_test' ];then
+    #     >&2 echo "development_test"
+    #     >&2 echo "\n\nStarting development test server: 127.0.0.1:8003\n\n"
+    #     python manage.py runserver 0.0.0.0:8003 --settings=config.settings.development_test
+    # elif [ "${ENVIRONMENT}" = 'production_test' ];then
+    #     >&2 echo "production_test"
+    #     >&2 echo "\n\nStarting production test server: 127.0.0.1:8004\n\n"
+    #     python manage.py runserver 0.0.0.0:8004 --settings=config.settings.production_test
+    # else
+    #     >&2 echo "Error: ENVIRONMENT ${ENVIRONMENT} not correcta"
+    #     exit 1
+    # fi
 
 else
     >&2 echo "Command detected; running command"

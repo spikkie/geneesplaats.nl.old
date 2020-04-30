@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
+import "./App.scss";
 
 // import { BrowserRouter as Router } from "react-router-dom";
 import { Route, Switch, withRouter, Redirect } from "react-router-dom";
@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import Home from "./components/Home";
 
 import DebugData from "./components/DebugData";
+import Test1 from "./components/Test1/Test1";
 
 import Layout from "./hoc/Layout/Layout";
 import Checkout from "./containers/Checkout/Checkout";
@@ -15,6 +16,9 @@ import Auth from "./containers/Auth/Auth";
 import Activation from "./containers/Auth/Activation/Activation";
 import Logout from "./containers/Auth/Logout/Logout";
 import * as actions from "./store/actions/index";
+
+// Styling / css
+import "./styles/stylesheet.scss";
 
 class App extends Component {
     // constructor(props) {
@@ -26,6 +30,10 @@ class App extends Component {
     // }
 
     componentDidMount() {
+        console.log(
+            "process.env.REACT_APP_TEST %0",
+            process.env.REACT_APP_TEST
+        );
         this.props.onTryAutoSignup();
     }
 
@@ -39,7 +47,9 @@ class App extends Component {
                 />
                 <Route path="/auth/:signup_login" exact component={Auth} />
                 <Route path="/" exact component={Home} />
-                {/* <Route path="/" exact component={BurgerBuilder} /> */}
+
+                <Route path="/test1" exact component={Test1} />
+
                 <Redirect to="/" />
             </Switch>
         );
@@ -49,7 +59,9 @@ class App extends Component {
                 <Switch>
                     <Route path="/auth/checkout" component={Checkout} />
                     <Route path="/auth/logout" component={Logout} />
+
                     <Route path="/debugdata" component={DebugData} />
+                    <Route path="/test1" exact component={Test1} />
                     <Redirect to="/" />
                 </Switch>
             );

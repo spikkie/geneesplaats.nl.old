@@ -1,0 +1,7 @@
+POSTGRES_DB=production_geneesplaats_nl
+POSTGRES_USER=production_geneesplaats_nl_user
+POSTGRES_PASSWORD=lHiYpDVUFT5y
+DATABASE_URL=postgres://production_geneesplaats_nl_user:lHiYpDVUFT5y@postgres:5432/production_geneesplaats_nl
+SECRET_KEY=6xEGIt7VkxunaHiYpdSBt2nosK8nLLs03zkrMeE0bv4cWMRp03
+DEBUG=1
+ENVIRONMENT=production

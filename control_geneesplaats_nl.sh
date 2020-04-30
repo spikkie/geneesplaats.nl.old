@@ -2,22 +2,47 @@
 set -x 
 set -e
 
-Functions=('build' 'force_build' 'deploy' 'up' 'down' 'stop' 'clean' 'kompose_up' 'kompose_convert')
-Environments=('development' 'testing' 'stash' 'production')
+Functions=('build' 'force_build' 'deploy' 'up' 'down' 'stop' 'clean' 'kompose_up' 'kompose_convert', 'test' 'config')
+Environments=('development' 'test' 'stash' 'production')
 
 
 generate_env() {
     echo generate environment
-    #check if we have configuration set
-    if [[ ! -f ./.docker-env-$ENVIRONMENT ]]; then
-        #not set so lets generate it
-        ./generate_docker_env.sh $ENVIRONMENT $RELEASE_VERSION
+    if [[ -f ./.env ]]; then
+        rm ./.env
     fi
+    if [[ -f ./frontend/.env ]]; then
+        rm ./frontend/.env
+    fi
+
+    #check if we have configuration set
+        #not set so lets generate it
+    if [[ ! -f ./.docker-env-postgres-$ENVIRONMENT ]]; then
+        ./generate_docker_postgres_env.sh  $ENVIRONMENT $RELEASE_VERSION
+    fi
+    if [[ ! -f ./.docker-env-react-$ENVIRONMENT ]]; then
+        ./generate_docker_react_env.sh $ENVIRONMENT $RELEASE_VERSION
+    fi
+    if [[ ! -f ./.docker-env-django-$ENVIRONMENT ]]; then
+        ./generate_docker_django_env.sh $ENVIRONMENT $RELEASE_VERSION
+    fi
+    if [[ ! -f ./.docker-env-nginx-$ENVIRONMENT ]]; then
+        ./generate_docker_nginx_env.sh $ENVIRONMENT $RELEASE_VERSION
+    fi
+
     echo generate geneesplaats.nl for $ENVIRONMENT environment -- release $RELEASE_VERSION
 
     echo set environment variabels:
-    cat ./.env
-    . ./.env
+    cat ./.postgres_env
+    cat ./.react_env
+    cat ./.django_env
+    cat ./.nginx_env
+
+    cat ./.postgres_env > ./.env
+    cat ./.django_env >> ./.env
+    cat ./.nginx_env >> ./.env
+    cat ./.react_env >> ./.env
+    cat ./.react_env >> ./frontend/.env
 }
 
 build() {
@@ -79,11 +104,16 @@ kompose_convert() {
     kompose convert -v -f docker-compose-$ENVIRONMENT.yml -o kompose_$ENVIRONMENT
 }
 
-kubectl_apply() {
-    echo kubectl apply 
+test() {
+    echo  docker-compose test
+    # docker exec -it $(ddi) python manage.py test  -v3  --settings=config.settings.production_test
+    docker exec -it $(ddi) python manage.py test  -v3
+}
+
+config() {
+    echo docker-compose -f docker-compose-$ENVIRONMENT.yml config
     generate_env
-    #get all files in directory kompose_$ENVIRONMENT and make a comma separated list out of it
-    kubectl apply -f 
+    docker-compose -f docker-compose-$ENVIRONMENT.yml config
 }
 
 if [[ $# < 2 ]]; then
@@ -135,6 +165,10 @@ elif [[ ${FUNCTION} == 'kompose_up' ]];then
    kompose_up 
 elif [[ ${FUNCTION} == 'kompose_convert' ]];then
    kompose_convert
+elif [[ ${FUNCTION} == 'test' ]];then
+  test 
+elif [[ ${FUNCTION} == 'config' ]];then
+  config 
 else
     echo Error: none of the functions as defined in Functions:
     echo     ${Functions[@]}

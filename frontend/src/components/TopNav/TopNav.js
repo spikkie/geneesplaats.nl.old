@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import styles from "./TopNav.css";
+import styles from "./TopNav.scss";
 
 import {
     Collapse,
@@ -148,6 +148,17 @@ class TopNav extends Component {
                                 </NavLink>
                             </NavItem>
                         ) : null}
+                        <NavItem>
+                            <NavLink
+                                tag={Link}
+                                to={{
+                                    pathname: "/test1",
+                                    state: { test1: true, test2: false }
+                                }}
+                            >
+                                <i className="fas fa-login"></i> test1
+                            </NavLink>
+                        </NavItem>
                     </Nav>
                 </Collapse>
             </Navbar>

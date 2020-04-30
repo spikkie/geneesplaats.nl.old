@@ -1,86 +1,91 @@
-version: "3.7"
-
+version: "3.8"
 
 services:
   postgres:
     restart: always
-    container_name: postgres_geneesplaats_nl_${ENVIRONMENT}
-    image: postgres:${POSTGRES_GENEESPLAATS_NL_VERSION}
-    env_file: ./.env
+    container_name: ${POSTGRES_REPOSITORY}
+    image: ${POSTGRES_GENEESPLAATS_NL_IMAGE}:${POSTGRES_GENEESPLAATS_NL_VERSION}
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - postgres_backup:/backups
     networks:
       - postgres-network
+    env_file:
+      - ./.env
+      - ./.postgres_env
 
   django:
-    container_name: django_geneesplaats_nl_${ENVIRONMENT}
-    image: spikkie/django_geneesplaats_nl:${DJANGO_GENEESPLAATS_NL_VERSION}
+    container_name: ${DJANGO_REPOSITORY}
+    image: ${DJANGO_GENEESPLAATS_NL_IMAGE}:${DJANGO_GENEESPLAATS_NL_VERSION}
     build:
       context: .
       dockerfile: ./docker/django/Dockerfile
     depends_on:
       - postgres
-    env_file: ./.env
     expose:
-      - "8001"
+      - "${DJANGO_EXPOSE_PORT}"
     ports:
-      - "8001:8001"
+      - "${DJANGO_EXPOSE_PORT}:${DJANGO_EXPOSE_PORT}"
     volumes:
-   
       - static_volume:/app/static_cdn/static_root/
       - media_volume:/app/static_cdn/media_root/
  
     networks:
       - postgres-network
       - react-network
+    env_file:
+      - ./.env
+      - ./.django_env
       
   react:
-    container_name: react_geneesplaats_nl_${ENVIRONMENT}
-    image: spikkie/react_geneesplaats_nl:${DJANGO_GENEESPLAATS_NL_VERSION}
+    container_name: ${REACT_REPOSITORY}
+    image: ${REACT_GENEESPLAATS_NL_IMAGE}:${REACT_GENEESPLAATS_NL_VERSION}
     restart: always
     build:
       context: ./frontend
       dockerfile: ../docker/react/Dockerfile
     depends_on:
       - django 
-    env_file: ./.env
+    env_file: ./.react_env
     expose:
-      - 3000    
+      - "${REACT_APP_EXPOSE_PORT}"
     ports:
-      - "3000:3000"
+      - "${REACT_APP_EXPOSE_PORT}:${REACT_APP_EXPOSE_PORT}"
     networks:
       - react-network
+    env_file:
+      - ./.env
+      - ./.react_env
       
   nginx:
     restart: always
-    image: spikkie/nginx_geneesplaats_nl:${NGINX_GENEESPLAATS_NL_VERSION}
-    container_name: nginx_geneesplaats_nl
+    image: ${NGINX_GENEESPLAATS_NL_IMAGE}:${NGINX_GENEESPLAATS_NL_VERSION}
+    # container_name: nginx_geneesplaats_nl
+    container_name: ${NGINX_REPOSITORY}
     build: ./docker/nginx/
-
     #todo
     #volumes:
     #  - ./nginx/:/etc/nginx/conf.d
     #  - ./logs/:/code/logs
-
     volumes:
       - static_volume:/app/static_cdn/static_root/
       - media_volume:/app/static_cdn/media_root/
-    
     ports:
       - 80:80
     depends_on:
       - react
-    env_file: ./.env
+    env_file: ./.nginx_env
     networks:
       - react-network
+    env_file:
+      - ./.env
+      - ./.nginx_env
 
 volumes:
   postgres_data: {}
   postgres_backup: {}
   static_volume: {}
   media_volume: {}
-
 
 networks:
   postgres-network:

@@ -1,5 +1,5 @@
 import React from 'react';
-import './SiteCarousel.css';
+import './SiteCarousel.scss';
 import {
     Carousel,
     CarouselItem,

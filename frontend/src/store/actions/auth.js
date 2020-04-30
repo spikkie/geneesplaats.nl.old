@@ -62,6 +62,28 @@ export const signupFail = error => {
     };
 };
 
+export const authResetMessage = () => {
+    return {
+        type: actionTypes.AUTH_RESET_MESSAGE,
+        error: null,
+        message: null
+    };
+};
+
+export const authSetNotifiedError = () => {
+    return {
+        type: actionTypes.AUTH_SET_NOTIFIED_ERROR,
+        notifiedMessage: true
+    };
+};
+
+export const authResetNotifiedError = () => {
+    return {
+        type: actionTypes.AUTH_RESET_NOTIFIED_ERROR,
+        notifiedMessage: false
+    };
+};
+
 export const checkAuthTimeout = expirationTime => {
     console.log("expirationTime", expirationTime);
     return dispatch => {
