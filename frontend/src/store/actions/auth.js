@@ -18,6 +18,7 @@ export const authSuccess = (token, refreshToken) => {
 };
 
 export const authFail = error => {
+    console.log("1777777777777777777777777777777777777777777777777");
     return {
         type: actionTypes.AUTH_FAIL,
         error: error
@@ -70,14 +71,14 @@ export const authResetMessage = () => {
     };
 };
 
-export const authSetNotifiedError = () => {
+export const authSetNotifiedMessage = () => {
     return {
-        type: actionTypes.AUTH_SET_NOTIFIED_ERROR,
+        type: actionTypes.AUTH_SET_NOTIFIED_MESSAGE,
         notifiedMessage: true
     };
 };
 
-export const authResetNotifiedError = () => {
+export const authResetNotifiedMessage = () => {
     return {
         type: actionTypes.AUTH_RESET_NOTIFIED_ERROR,
         notifiedMessage: false
@@ -162,6 +163,10 @@ export const auth = (email, password) => {
             })
             .catch(err => {
                 //dispatch(authFail(err.response.data.error));
+                console.log(
+                    "2777777777777777777777777777777777777777777777777 %0",
+                    err
+                );
                 dispatch(authFail(err));
                 // todo
             });

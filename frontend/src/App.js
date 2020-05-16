@@ -45,24 +45,24 @@ class App extends Component {
                     exact
                     component={Activation}
                 />
+                <Route path="/test1" exact component={Test1} />
                 <Route path="/auth/:signup_login" exact component={Auth} />
                 <Route path="/" exact component={Home} />
-
-                <Route path="/test1" exact component={Test1} />
-
-                <Redirect to="/" />
             </Switch>
         );
 
         if (this.props.isAuthenticated) {
+            console.log(
+                "5555555555555555555555555555555555555555555555555555555555555"
+            );
             routes = (
                 <Switch>
-                    <Route path="/auth/checkout" component={Checkout} />
+                    {/* <Route path="/auth/checkout" component={Checkout} /> */}
                     <Route path="/auth/logout" component={Logout} />
-
+                    <Route path="/auth/:signup_login" exact component={Auth} />
                     <Route path="/debugdata" component={DebugData} />
                     <Route path="/test1" exact component={Test1} />
-                    <Redirect to="/" />
+                    <Route path="/" exact component={Home} />
                 </Switch>
             );
         }

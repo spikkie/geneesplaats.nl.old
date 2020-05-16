@@ -103,12 +103,6 @@ const withErrorHandler = (WrappedComponent, axios) => {
                                     "Geen geactiveerd account gevonden";
                                 notification.type = "warning";
                                 notification.container = "center";
-                            } else if (error.response.status === 200) {
-                                notification.message = "Authorized";
-                                notification.dutchTitle = "Geautoriseerd";
-                                notification.dutchMessage = "Ingelogd";
-                                notification.type = "success";
-                                notification.container = "center";
                             } else {
                             }
                             break;
@@ -134,6 +128,53 @@ const withErrorHandler = (WrappedComponent, axios) => {
             error.notification = notification;
         }
 
+        handleResponse(response) {
+            //react-notifications-component notification configuration
+            let notification = {
+                titel: "",
+                message: "Network response.",
+                type: "success", // 'default', 'success', 'info', 'warning'
+                container: "bottom-left", // where to position the notifications
+                animationIn: ["animated", "fadeIn"],
+                animationOut: ["animated", "fadeOut"]
+            };
+
+            //Setup response notification
+            if (typeof response !== "undefined") {
+                console.log("[withErrorHandler] response %0", response);
+
+                //Setup Generic Response Messages
+                switch (response.config.url) {
+                    case "/api/v1/accounts/jwt/create/":
+                        if (response.status === 200) {
+                            notification.message = "Authorized";
+                            notification.dutchTitle = "Geautoriseerd";
+                            notification.dutchMessage = "Ingelogd";
+                            notification.type = "success";
+                            notification.container = "center";
+                        } else {
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+                if (response.status === 401) {
+                } else if (response.status === 404) {
+                    notification.message = "API Route is Missing or Undefined";
+                } else if (response.status === 405) {
+                    notification.message = "API Route Method Not Allowed";
+                } else if (response.status === 422) {
+                    //Validation Message
+                } else if (response.status >= 500) {
+                    notification.message = "Server response";
+                }
+            } else {
+            }
+
+            response.notification = notification;
+        }
+
         componentWillMount() {
             this.reqInterceptor = axios.interceptors.request.use(
                 res => {
@@ -150,12 +191,10 @@ const withErrorHandler = (WrappedComponent, axios) => {
             );
 
             this.resInterceptor = axios.interceptors.response.use(
-                res => {
-                    console.log(
-                        "[withErrorHandler] response no error response %0",
-                        res
-                    );
-                    return res;
+                response => {
+                    console.log("[withErrorHandler] response %0", response);
+                    this.handleResponse(response);
+                    return response;
                 },
                 error => {
                     this.handleError(error);

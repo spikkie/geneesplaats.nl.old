@@ -105,15 +105,15 @@ class Auth extends Component {
         });
     }
 
-    showNotification() {
+    showNotification(notification) {
         store.addNotification({
-            title: this.props.error.notification.dutchTitle,
-            message: this.props.error.notification.dutchMessage,
+            title: notification.dutchTitle,
+            message: notification.dutchMessage,
             // type: "success", // 'default', 'success', 'info', 'warning'
-            type: this.props.error.notification.type,
+            type: notification.type,
             // container: "bottom-left", // where to position the notifications
             // container: "center", // where to position the notifications
-            container: this.props.error.notification.container,
+            container: notification.container,
             animationIn: ["animated", "fadeIn"], // animate.css classes that's applied
             animationOut: ["animated", "fadeOut"], // animate.css classes that's applied
             dismiss: {
@@ -169,8 +169,20 @@ class Auth extends Component {
                 this.props.error.notification.type === "success") &&
             !this.props.notifiedMessage
         ) {
-            this.props.onAuthSetNotifiedError();
-            Notification = this.showNotification();
+            this.props.onAuthSetNotifiedMessage();
+            Notification = this.showNotification(this.props.error.notification);
+        }
+
+        if (
+            this.props.response &&
+            (this.props.response.notification.type === "warning" ||
+                this.props.response.notification.type === "success") &&
+            !this.props.notifiedMessage
+        ) {
+            this.props.onAuthSetNotifiedMessage();
+            Notification = this.showNotification(
+                this.props.response.notification
+            );
         }
     }
 
@@ -191,7 +203,6 @@ class Auth extends Component {
         this.setState({ validate });
     }
 
-    ttom;
     validateName(e) {
         const nameRex = /^([a-zA-Z0-9-])*$/;
         const { validate } = this.state;
@@ -336,9 +347,7 @@ class Auth extends Component {
                         placeholder="jouw naam"
                         value={this.state.name}
                         valid={this.state.validate.nameState === "has-success"}
-                        invalid={
-                            this.state.validate.nameState === "has-danger"
-                        }
+                        invalid={this.state.validate.nameState === "has-danger"}
                         onChange={e => {
                             this.validateName(e);
                             this.handleChange(e);
@@ -361,9 +370,7 @@ class Auth extends Component {
                         id="exampleEmail"
                         placeholder="email@email.com"
                         value={this.state.email}
-                        valid={
-                            this.state.validate.emailState === "has-success"
-                        }
+                        valid={this.state.validate.emailState === "has-success"}
                         invalid={
                             this.state.validate.emailState === "has-danger"
                         }
@@ -417,19 +424,44 @@ class Auth extends Component {
         let headTitle = "";
 
         let button = "";
+
+        let enableLoginRegisterButton = false;
         if (this.state.url === "login") {
+            if (this.state.validate.emailState === "has-success") {
+                enableLoginRegisterButton = true;
+            }
             headTitle = <h2>Inloggen</h2>;
             useForm.push(loginFormEmailInput);
             useForm.push(loginFormPasswordInput);
-            button = <Button onClick={this.handleLogin}>Login</Button>;
+            button = (
+                <Button
+                    disabled={!enableLoginRegisterButton}
+                    onClick={this.handleLogin}
+                >
+                    Login
+                </Button>
+            );
         } else if (this.state.url === "signup") {
+            if (
+                this.state.validate.emailState === "has-success" &&
+                this.state.validate.nameState === "has-success"
+            ) {
+                enableLoginRegisterButton = true;
+            }
             headTitle = <h2>Aanmelden</h2>;
             useForm.push(signupFormGkTzInput);
             useForm.push(signupFormNameInput);
             useForm.push(loginFormEmailInput);
             useForm.push(loginFormPasswordInput);
             useForm.push(loginFormConfirmPasswordInput);
-            button = <Button onClick={this.handleLogin}>Registreren</Button>;
+            button = (
+                <Button
+                    disabled={!enableLoginRegisterButton}
+                    onClick={this.handleLogin}
+                >
+                    Registreren
+                </Button>
+            );
         } else {
             console.log("[Auth] Error set signup or login");
         }
@@ -480,8 +512,7 @@ const mapDispatchToProps = dispatch => {
                     is_tz
                 )
             ),
-        onSetAuthRedirectPath: () =>
-            dispatch(actions.setAuthRedirectPath("/")),
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath("/")),
         onSetSignupRedirectPath: () =>
             dispatch(actions.setSignupRedirectPath("/")),
         onSetRedirectAfterSignedup: () =>
@@ -492,9 +523,10 @@ const mapDispatchToProps = dispatch => {
 
         onAuthResetMessage: () => dispatch(actions.authResetMessage()),
 
-        onAuthSetNotifiedError: () => dispatch(actions.authSetNotifiedError()),
+        onAuthSetNotifiedMessage: () =>
+            dispatch(actions.authSetNotifiedMessage()),
         onAuthResetNotifiedError: () =>
-            dispatch(actions.authResetNotifiedError())
+            dispatch(actions.authResetNotifiedMessage())
     };
 };
 

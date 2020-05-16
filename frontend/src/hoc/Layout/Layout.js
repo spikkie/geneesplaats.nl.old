@@ -4,15 +4,14 @@ import ReactNotifications from "react-notifications-component";
 
 import Aux from "../Aux/Aux";
 import classes from "./Layout.scss";
-import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
-// import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
+import TopNav from "../../components/TopNav/TopNav";
 
 class Layout extends Component {
     render() {
         return (
             <Aux>
                 <ReactNotifications />
-                <Toolbar isAuth={this.props.isAuthenticated} />
+                <TopNav isAuthenticated={this.props.isAuthenticated} />
                 <main className={classes.Content}>{this.props.children}</main>
             </Aux>
         );

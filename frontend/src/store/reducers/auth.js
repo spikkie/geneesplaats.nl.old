@@ -54,13 +54,13 @@ const authResetMessage = (state, action) => {
     });
 };
 
-const authSetNotifiedError = (state, action) => {
+const authSetNotifiedMessage = (state, action) => {
     return updateObject(state, {
         notifiedMessage: true
     });
 };
 
-const authResetNotifiedError = (state, action) => {
+const authResetNotifiedMessage = (state, action) => {
     return updateObject(state, {
         notifiedMessage: false
     });
@@ -110,10 +110,10 @@ const reducer = (state = initialState, action) => {
         case actionTypes.AUTH_RESET_MESSAGE:
             return authResetMessage(state, action);
 
-        case actionTypes.AUTH_SET_NOTIFIED_ERROR:
-            return authSetNotifiedError(state, action);
+        case actionTypes.AUTH_SET_NOTIFIED_MESSAGE:
+            return authSetNotifiedMessage(state, action);
         case actionTypes.AUTH_RESET_NOTIFIED_ERROR:
-            return authResetNotifiedError(state, action);
+            return authResetNotifiedMessage(state, action);
 
         case actionTypes.AUTH_LOGOUT:
             return authLogout(state, action);
