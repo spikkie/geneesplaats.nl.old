@@ -1,0 +1,79 @@
+services:
+  postgres:
+    container_name: postgres_geneesplaats_nl_development_dev
+    environment:
+      DATABASE_URL: postgres://development_geneesplaats_nl_user:s1WSbjbgelta@postgres:5432/development_geneesplaats_nl
+      DEBUG: '1'
+      DOCKERID: spikkie
+      ENVIRONMENT: development
+      NODE_ENV: development
+      POSTGRES_DB: development_geneesplaats_nl
+      POSTGRES_GENEESPLAATS_NL_IMAGE: postgres:12.1-alpine
+      POSTGRES_GENEESPLAATS_NL_VERSION: latest
+      POSTGRES_PASSWORD: s1WSbjbgelta
+      POSTGRES_REPOSITORY: postgres_geneesplaats_nl_development
+      POSTGRES_USER: development_geneesplaats_nl_user
+      REACT_APP_BASE_URL: ''
+      REACT_APP_EXPOSE_PORT: '8001'
+      REACT_APP_TEST: TEST
+      REACT_GENEESPLAATS_NL_IMAGE: spikkie/react_geneesplaats_nl_development
+      REACT_GENEESPLAATS_NL_VERSION: latest
+      REACT_REPOSITORY: react_geneesplaats_nl_development
+      SECRET_KEY: nngC9ZO6LCOHqjXo3sqhP4gWHiTLHyCZXaK3iwRq2U7s7gq9pV
+    image: postgres:12.1-alpine
+    ports:
+    - published: 5432
+      target: 5432
+    restart: always
+    volumes:
+    - postgres_data_dev:/var/lib/postgresql/data:rw
+    - postgres_backup_dev:/backups:rw
+  react:
+    build:
+      context: /home/spikkieroot/projects/graphql/graphbook
+      dockerfile: ./docker/dev/Dockerfile
+    container_name: react_geneesplaats_nl_development
+    depends_on:
+    - postgres
+    environment:
+      AWS_ACCESS_KEY_ID: AKIAXV2OR6BHPKAHQK3D
+      AWS_SECRET_ACCESS_KEY: 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
+      DATABASE_URL: postgres://development_geneesplaats_nl_user:s1WSbjbgelta@postgres:5432/development_geneesplaats_nl
+      DEBUG: '1'
+      DOCKERID: spikkie
+      ENVIRONMENT: development
+      JWT_SECRET: awv4BcIzsRysXkhoSAb8t8lNENgXSqBruVlLwd45kGdYjeJHLap9LUJ1t9DTdw36DvLcWs3qEkPyCY6vOyNljlh2Er952h2gDzYwG82rs1qfTzdVIg89KTaQ4SWI1YGY
+      NODE_ENV: development
+      PORT: '8000'
+      POSTGRES_DB: development_geneesplaats_nl
+      POSTGRES_GENEESPLAATS_NL_IMAGE: postgres:12.1-alpine
+      POSTGRES_GENEESPLAATS_NL_VERSION: latest
+      POSTGRES_PASSWORD: s1WSbjbgelta
+      POSTGRES_REPOSITORY: postgres_geneesplaats_nl_development
+      POSTGRES_USER: development_geneesplaats_nl_user
+      REACT_APP_BASE_URL: ''
+      REACT_APP_EXPOSE_PORT: '8001'
+      REACT_APP_TEST: TEST
+      REACT_GENEESPLAATS_NL_IMAGE: spikkie/react_geneesplaats_nl_development
+      REACT_GENEESPLAATS_NL_VERSION: latest
+      REACT_REPOSITORY: react_geneesplaats_nl_development
+      SECRET_KEY: nngC9ZO6LCOHqjXo3sqhP4gWHiTLHyCZXaK3iwRq2U7s7gq9pV
+    expose:
+    - '8001'
+    image: spikkie/react_geneesplaats_nl_development:latest
+    ports:
+    - published: 8001
+      target: 8001
+    restart: always
+    volumes:
+    - source: /home/spikkieroot/projects/graphql/graphbook/src
+      target: /usr/src/app/src
+      type: bind
+    - source: /home/spikkieroot/projects/graphql/graphbook/node_modules
+      target: /usr/src/app/node_modules
+      type: bind
+version: '3.7'
+volumes:
+  postgres_backup_dev: {}
+  postgres_data_dev: {}
+

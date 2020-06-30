@@ -50,6 +50,42 @@ function NumberList(props) {
     return <ul>{listItems}</ul>;
 }
 
+class FlavorForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { value: "coconut" };
+    }
+
+    handleChange = event => {
+        this.setState({ value: event.target.value });
+    };
+    handleSubmit = event => {
+        alert("Your favorite flavor is: " + this.state.value);
+        event.preventDefault();
+    };
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    Pick your favorite flavor:
+                    <select
+                        //{/* multiple={true} */}
+                        value={this.state.value}
+                        onChange={this.handleChange}
+                    >
+                        <option value="grapefruit">Grapefruit</option>
+                        <option value="lime">Lime</option>
+                        <option value="coconut">Coconut</option>
+                        <option value="mango">Mango</option>
+                    </select>
+                </label>
+                <input type="submit" value="Submit" />
+            </form>
+        );
+    }
+}
+
 class Clock extends React.Component {
     constructor(props) {
         super(props);
@@ -117,9 +153,9 @@ class LoginControl extends React.Component {
         }
         return (
             <div>
-                <Greeting isLoggedIn={isLoggedIn} /> {button}{" "}
+                <Greeting isLoggedIn={isLoggedIn} /> {button}
                 <div>
-                    The user is{" "}
+                    The user is
                     <b>{this.state.isLoggedIn ? "currently" : "not"}</b> logged
                     in.
                 </div>
@@ -164,26 +200,218 @@ const NewMessageForm = ({ onSend }) => {
     );
 };
 
-class Calculator extends React.Component {
+const scaleNames = { c: "Celsius", f: "Fahrenheit" };
+class TemperatureInput extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { temperature: "" };
     }
 
     handleChange = e => {
-        this.setState({ temperature: e.target.value });
+        this.props.onTemperatureChange(e.target.value);
     };
 
     render() {
-        const temperature = this.state.temperature;
+        const temperature = this.props.temperature;
+        const scale = this.props.scale;
         return (
             <fieldset>
-                <legend>Enter temperature in Celsius:</legend>
-                <input value={temperature} onChange={this.handleChange} />{" "}
-                <BoilingVerdict celsius={parseFloat(temperature)} />{" "}
+                <legend>Enter temperature in {scaleNames[scale]}:</legend>{" "}
+                <input value={temperature} onChange={this.handleChange} />
             </fieldset>
         );
     }
+}
+
+class Calculator extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { temperature: "", scale: "c" };
+    }
+
+    toCelsius = fahrenheit => {
+        return ((fahrenheit - 32) * 5) / 9;
+    };
+
+    toFahrenheit = celsius => {
+        return (celsius * 9) / 5 + 32;
+    };
+
+    tryConvert = (temperature, convert) => {
+        const input = parseFloat(temperature);
+        if (Number.isNaN(input)) {
+            return "";
+        }
+        const output = convert(input);
+        const rounded = Math.round(output * 1000) / 1000;
+        return rounded.toString();
+    };
+
+    handleCelsiusChange = temperature => {
+        this.setState({ scale: "c", temperature });
+    };
+
+    handleFahrenheitChange = temperature => {
+        this.setState({ scale: "f", temperature });
+    };
+
+    render() {
+        const scale = this.state.scale;
+        const temperature = this.state.temperature;
+        const celsius =
+            scale === "f"
+                ? this.tryConvert(temperature, this.toCelsius)
+                : temperature;
+        const fahrenheit =
+            scale === "c"
+                ? this.tryConvert(temperature, this.toFahrenheit)
+                : temperature;
+        return (
+            <div>
+                <TemperatureInput
+                    scale="c"
+                    temperature={celsius}
+                    onTemperatureChange={this.handleCelsiusChange}
+                />{" "}
+                <TemperatureInput
+                    scale="f"
+                    temperature={fahrenheit}
+                    onTemperatureChange={this.handleFahrenheitChange}
+                />{" "}
+                <BoilingVerdict celsius={parseFloat(celsius)} />{" "}
+            </div>
+        );
+    }
+}
+
+class Reservation extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isGoing: true,
+            numberOfGuests: 2
+        };
+    }
+
+    handleInputChange = event => {
+        const target = event.target;
+        const value = target.name === "isGoing" ? target.checked : target.value;
+        const name = target.name;
+        this.setState({
+            [name]: value
+        });
+    };
+
+    render() {
+        return (
+            <form>
+                <label>
+                    Is going:
+                    <input
+                        name="isGoing"
+                        type="checkbox"
+                        checked={this.state.isGoing}
+                        onChange={this.handleInputChange}
+                    />
+                </label>
+                <br />
+                <label>
+                    Number of guests:
+                    <input
+                        name="numberOfGuests"
+                        type="number"
+                        value={this.state.numberOfGuests}
+                        onChange={this.handleInputChange}
+                    />
+                </label>
+            </form>
+        );
+    }
+}
+
+function FancyBorder(props) {
+    return (
+        <div className={"FancyBorder FancyBorder-" + props.color}>
+            {props.children}
+        </div>
+    );
+}
+function WelcomeDialog() {
+    return (
+        <FancyBorder color="blue">
+            <h1 className="Dialog-title"> Welcome </h1>{" "}
+            <p className="Dialog-message">
+                {" "}
+                Thank you for visiting our spacecraft!{" "}
+            </p>{" "}
+        </FancyBorder>
+    );
+}
+
+function Contacts() {
+    return (
+        <div>
+            <p1>A</p1> <br />
+            <p2>B</p2>
+            <p1>C</p1>
+            <p1>D</p1>
+        </div>
+    );
+}
+function Chat() {
+    return (
+        <div>
+            <p1>Chat A</p1>
+            <p1>Chat B</p1>
+            <p1>Chat C</p1>
+            <p1>Chat D</p1>
+        </div>
+    );
+}
+function SplitPane(props) {
+    return (
+        <div className="SplitPane">
+            <div className="SplitPane-left">{props.left} </div>
+            <div className="SplitPane-right">{props.right} </div>
+        </div>
+    );
+}
+
+// ---------------------------------------------------------
+function Dialog(props) {
+    return (
+        <FancyBorder color="blue">
+            <h1 className="Dialog-title">{props.title}</h1>
+            <p className="Dialog-message">{props.message}</p>
+            {props.children}{" "}
+        </FancyBorder>
+    );
+}
+
+class SignUpDialog extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { login: "" };
+    }
+
+    render() {
+        return (
+            <Dialog
+                title="Mars Exploration Program"
+                message="How should we refer to you?"
+            >
+                <input value={this.state.login} onChange={this.handleChange} />
+                <button onClick={this.handleSignUp}> Sign Me Up! </button>
+            </Dialog>
+        );
+    }
+
+    handleChange = e => {
+        this.setState({ login: e.target.value });
+    };
+
+    handleSignUp = () => {
+        alert(`Welcome aboard, ${this.state.login}!`);
+    };
 }
 
 class Home extends React.Component {
@@ -241,6 +469,20 @@ class Home extends React.Component {
 
                     <Calculator />
                     <NewMessageForm onSend={this.handleSend} />
+                    <ul>
+                        {numbers.map(number => (
+                            <li>nr: {number}</li>
+                        ))}
+                    </ul>
+                    <FlavorForm></FlavorForm>
+                    <Reservation></Reservation>
+                    <p>------------</p>
+                    <p>------------</p>
+                    <WelcomeDialog></WelcomeDialog>
+                    <SplitPane left={<Contacts />} right={<Chat />} />
+                    <p>------------</p>
+                    <p>------------</p>
+                    <SignUpDialog></SignUpDialog>
                 </div>
             );
         }

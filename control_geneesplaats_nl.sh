@@ -55,7 +55,8 @@ build() {
 force_build() {
     generate_env
     echo force_build
-    docker-compose --progress auto --verbose  -f docker-compose-$ENVIRONMENT.yml build --no-cache --force-rm 
+    # docker-compose --progress auto --verbose  -f docker-compose-$ENVIRONMENT.yml build --no-cache --force-rm 
+    docker-compose --verbose  -f docker-compose-$ENVIRONMENT.yml build --no-cache --force-rm 
 }
 
 deploy() {

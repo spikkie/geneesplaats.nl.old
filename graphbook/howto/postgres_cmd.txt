@@ -1,0 +1,20 @@
+docker exec -it 42fa9c3fb56c  psql -Udevelopment_geneesplaats_nl_user -a development_geneesplaats_nl
+docker exec -it 42fa9c3fb56c  psql -Udevelopment_geneesplaats_nl_user -c '\l'
+docker exec -it 42fa9c3fb56c  psql -Udevelopment_geneesplaats_nl_user -a development_geneesplaats_nl -c '\l'
+docker exec -it 42fa9c3fb56c  psql -d development_geneesplaats_nl -U development_geneesplaats_nl_user -W
+
+
+ok
+docker exec -it 379  psql -a development_geneesplaats_nl -U development_geneesplaats_nl_user -c '\l';
+docker exec -it 98   psql -a development_geneesplaats_nl -U development_geneesplaats_nl_user -c 'select * from "Users";'
+docker exec -it 98   psql -a development_geneesplaats_nl -U development_geneesplaats_nl_user -c 'select * from "Posts";'
+
+#The following command connects to a database under a specific user. 
+#After pressing Enter PostgreSQL will ask for the password of the user.
+# you will get a command prompt
+docker exec -it 98  psql -d development_geneesplaats_nl  -U  development_geneesplaats_nl_user  -W
+
+#then 
+#list all tables
+\d   
+

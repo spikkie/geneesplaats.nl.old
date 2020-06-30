@@ -1,0 +1,10 @@
+
+DEBUG=1
+ENVIRONMENT=production
+REACT_APP_EXPOSE_PORT=8000
+REACT_APP_BASE_URL=
+DOCKERID=spikkie
+REACT_REPOSITORY=react_geneesplaats_nl_production
+REACT_GENEESPLAATS_NL_IMAGE=spikkie/react_geneesplaats_nl_production
+REACT_GENEESPLAATS_NL_VERSION=latest
+REACT_APP_TEST=TEST
