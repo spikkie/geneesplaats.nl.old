@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: react
+  name: react
+  namespace: nginx-ingress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: react
+        io.kompose.network/nginx-network: "true"
+        io.kompose.network/postgres-network: "true"
+        io.kompose.service: react
+    spec:
+      containers:
+      - image: spikkie/react_geneesplaats_nl_development
+        name: react-geneesplaats-nl
+        ports:
+        - containerPort: 3000
+
+      restartPolicy: Always
+

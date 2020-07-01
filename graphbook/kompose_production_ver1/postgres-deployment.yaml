@@ -29,6 +29,8 @@ spec:
       - env:
         - name: DATABASE_URL
           value: postgres://production_geneesplaats_nl_user:1qiovWPEcmbJ@postgres:5432/production_geneesplaats_nl
+        - name: PGDATA 
+          value: /var/lib/postgresql/data/pgdata
         - name: DEBUG
           value: "1"
         - name: DOCKERID
@@ -82,4 +84,6 @@ spec:
       - name: postgres-backup-prod
         persistentVolumeClaim:
           claimName: postgres-backup-prod
+      imagePullSecrets:
+        - name: regcred-nginx-ingress
 status: {}
