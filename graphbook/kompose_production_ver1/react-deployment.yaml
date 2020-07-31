@@ -25,6 +25,7 @@ spec:
       labels:
         io.kompose.service: react
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
       - env:
         - name: AWS_ACCESS_KEY_ID
@@ -65,13 +66,13 @@ spec:
         - name: REACT_GENEESPLAATS_NL_IMAGE
           value: spikkie/react_geneesplaats_nl_production
         - name: REACT_GENEESPLAATS_NL_VERSION
-          value: latest
+          value: V0.1-31072020
         - name: REACT_REPOSITORY
           value: react_geneesplaats_nl_production
         - name: SECRET_KEY
           value: nngC9ZO6LCOHqjXo3sqhP4gWHiTLHyCZXaK3iwRq2U7s7gq9pV
-        image: spikkie/react_geneesplaats_nl_production:latest
-        imagePullPolicy: ""
+        image: spikkie/react_geneesplaats_nl_production:V0.1-31072020
+        imagePullPolicy: "Always"
         name: react-geneesplaats-nl-production
         ports:
         - containerPort: 8000
@@ -79,4 +80,7 @@ spec:
       restartPolicy: Always
       serviceAccountName: ""
       volumes: null
+      imagePullSecrets:
+        - name: regcred-nginx-ingress
+
 status: {}
