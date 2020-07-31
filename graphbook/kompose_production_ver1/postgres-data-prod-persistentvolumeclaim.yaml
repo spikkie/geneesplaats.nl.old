@@ -5,6 +5,7 @@ metadata:
   labels:
     io.kompose.service: postgres-data-prod
   name: postgres-data-prod
+  namespace: ingress-nginx
 spec:
   accessModes:
   - ReadWriteOnce

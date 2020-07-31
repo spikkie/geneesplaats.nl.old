@@ -8,6 +8,7 @@ metadata:
   labels:
     io.kompose.service: react
   name: react
+  namespace: ingress-nginx
 spec:
   ports:
   - name: "8000"
@@ -16,3 +17,5 @@ spec:
   selector:
     io.kompose.service: react
   type: NodePort
+  #type: ClusterIP
+  #type: LoadBalancer
