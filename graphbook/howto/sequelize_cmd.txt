@@ -32,3 +32,4 @@ sequelize db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
 sequelize db:migrate:undo:all
 
 
+k exec -it  react-5d8854677d-tcrf5 -c  react-geneesplaats-nl-production  -- sequelize db:migrate

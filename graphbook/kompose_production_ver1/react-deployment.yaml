@@ -8,6 +8,7 @@ metadata:
   labels:
     io.kompose.service: react
   name: react
+  namespace: ingress-nginx
 spec:
   replicas: 1
   selector:
