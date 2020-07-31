@@ -32,3 +32,6 @@ sequelize db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
 sequelize db:migrate:undo:all
 
 
+docker exec -it a2fa4da92be7 sequelize db:migrate
+
+

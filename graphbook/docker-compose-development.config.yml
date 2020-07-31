@@ -30,7 +30,7 @@ services:
     - postgres_backup_dev:/backups:rw
   react:
     build:
-      context: /home/spikkieroot/projects/graphql/graphbook
+      context: /home/spikkieroot/projects/geneesplaats.nl/graphbook
       dockerfile: ./docker/dev/Dockerfile
     container_name: react_geneesplaats_nl_development
     depends_on:
@@ -66,10 +66,10 @@ services:
       target: 8001
     restart: always
     volumes:
-    - source: /home/spikkieroot/projects/graphql/graphbook/src
+    - source: /home/spikkieroot/projects/geneesplaats.nl/graphbook/src
       target: /usr/src/app/src
       type: bind
-    - source: /home/spikkieroot/projects/graphql/graphbook/node_modules
+    - source: /home/spikkieroot/projects/geneesplaats.nl/graphbook/node_modules
       target: /usr/src/app/node_modules
       type: bind
 version: '3.7'

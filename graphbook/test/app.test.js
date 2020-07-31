@@ -23,7 +23,7 @@ const { window } = dom;
 global.window = window;
 global.document = window.document;
 
-describe("Graphbook application test", function () {
+describe("GraphQlGeneesplaats application test", function () {
     var app;
     var authToken;
     this.timeout(50000);
@@ -146,7 +146,10 @@ describe("Graphbook application test", function () {
     describe("frontend", function () {
         it("renders and switches to the login or register form", function (done) {
             const httpLink = createUploadLink({
-                uri: "http://localhost:8000/graphql",
+                uri:
+                    "http://localhost:" + process.env.PORT
+                        ? process.env.PORT
+                        : 8000 + "/graphql",
                 credentials: "same-origin"
             });
             const client = new ApolloClient({
@@ -154,7 +157,7 @@ describe("Graphbook application test", function () {
                 cache: new InMemoryCache()
             });
 
-            class Graphbook extends React.Component {
+            class GraphQlGeneesplaats extends React.Component {
                 render() {
                     return (
                         <App
@@ -167,7 +170,7 @@ describe("Graphbook application test", function () {
                 }
             }
 
-            const wrapper = mount(<Graphbook />);
+            const wrapper = mount(<GraphQlGeneesplaats />);
 
             expect(wrapper.html()).to.contain(
                 "<a>Want to sign up? Click here</a>"
@@ -201,7 +204,7 @@ describe("Graphbook application test", function () {
                 cache: new InMemoryCache()
             });
 
-            class Graphbook extends React.Component {
+            class GraphQlGeneesplaats extends React.Component {
                 render() {
                     return (
                         <App
@@ -214,7 +217,7 @@ describe("Graphbook application test", function () {
                 }
             }
 
-            const wrapper = mount(<Graphbook />);
+            const wrapper = mount(<GraphQlGeneesplaats />);
             setTimeout(function () {
                 expect(wrapper.html()).to.contain(
                     '<div class="user"><img><span>mochatest</span></div>'

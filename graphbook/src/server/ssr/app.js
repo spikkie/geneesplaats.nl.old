@@ -17,10 +17,10 @@ class App extends Component {
         return (
             <div>
                 <Helmet>
-                    <title>Graphbook - Feed 777</title>
+                    <title>Geneesplaats.nl</title>
                     <meta
                         name="description"
-                        content="777777777777777777777777777Newsfeed of all your friends on Graphbook"
+                        content="Geneesplaats"
                     />
                 </Helmet>
                 <Router

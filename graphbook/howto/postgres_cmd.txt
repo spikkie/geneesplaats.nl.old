@@ -18,3 +18,10 @@ docker exec -it 98  psql -d development_geneesplaats_nl  -U  development_geneesp
 #list all tables
 \d   
 
+#-----------
+# Kubernetes  production google cloud
+#------------
+
+k exec -it   postgres-8647c8f64b-8xs8x -c postgres-geneesplaats-nl-production-prod -- psql -a production_geneesplaats_nl -U production_geneesplaats_nl_user -c '\l';
+
+k exec -it   postgres-8647c8f64b-8xs8x -c postgres-geneesplaats-nl-production-prod -- psql -a production_geneesplaats_nl -U production_geneesplaats_nl_user -c 'delete from "Posts" where id=7';

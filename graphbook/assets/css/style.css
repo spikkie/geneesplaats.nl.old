@@ -460,3 +460,18 @@ button.uploadAvatar {
 .Toastify__toast-container--top-left {
     top: 4em !important;
 }
+
+/* Clock.js */
+.clock {
+    position: relative;
+    border-radius: 0.5em;
+    margin: 10px auto;
+    font-family: "Open Sans", sans-serif;
+    text-align: center;
+    font-size: 40px;
+    color: var(--textColor);
+    line-height: 2em;
+    background: #eee;
+    /* Old browsers */
+    background: var(--firstColor);
+}
