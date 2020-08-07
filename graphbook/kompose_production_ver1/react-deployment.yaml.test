@@ -66,12 +66,12 @@ spec:
         - name: REACT_GENEESPLAATS_NL_IMAGE
           value: spikkie/react_geneesplaats_nl_production
         - name: REACT_GENEESPLAATS_NL_VERSION
-          value: V0.1.14
+          value: abc4
         - name: REACT_REPOSITORY
           value: react_geneesplaats_nl_production
         - name: SECRET_KEY
           value: nngC9ZO6LCOHqjXo3sqhP4gWHiTLHyCZXaK3iwRq2U7s7gq9pV
-        image: spikkie/react_geneesplaats_nl_production:V0.1.14
+        image: spikkie/react_geneesplaats_nl_production:abc4
         imagePullPolicy: "Always"
         name: react-geneesplaats-nl-production
         ports:

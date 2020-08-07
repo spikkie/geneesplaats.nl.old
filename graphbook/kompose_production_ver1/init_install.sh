@@ -24,6 +24,5 @@ echo testing
 ./i/apply_services.sh
 ./i/apply_ingress.sh
 
-sleep 60
-./i/init_database.sh
+echo ./i/init_database.sh
 

@@ -34,7 +34,7 @@ spec:
       - test.geneesplaats.nl
       # This assumes tls-secret exists and the SSL
       # certificate contains a CN for foo.bar.com
-      #secretName: geneesplaats-nl-letsencrypt-secret-production
+      secretName: geneesplaats-nl-letsencrypt-secret-production
       #secretName: geneesplaats-nl-letsencrypt-secret-staging
       secretName: test-geneesplaats-nl-tls
 
@@ -42,7 +42,7 @@ spec:
   - host: test.geneesplaats.nl
     http:
       paths:
-      - path: /*
+      - path: /.*
         backend:
           serviceName: react
           servicePort: 8000
