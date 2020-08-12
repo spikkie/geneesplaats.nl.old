@@ -13,6 +13,7 @@ echo install cert manager
 ./i/install-kube-ctl-cert-man.sh
 ./i/install-cert-manager.sh
 
+sleep 20
 echo testing
 ./i/test-cert-manager.sh
 
@@ -23,6 +24,5 @@ echo testing
 ./i/apply_services.sh
 ./i/apply_ingress.sh
 
-sleep 10
-./i/init_database.sh
+echo ./i/init_database.sh
 
