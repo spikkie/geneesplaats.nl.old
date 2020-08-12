@@ -9,7 +9,7 @@ metadata:
     #ingressclass.kubernetes.io/is-default-class: "true"
     #kubernetes.io/ingress.global-static-ip-name: "geneesplaats-nl-static-ip"
     #kubernetes.io/ingress.global-static-ip-name: geneesplaats-nl-europe-west4-static-ip
-    kubernetes.io/ingress.global-static-ip-name: geneesplaats-nl-global-static-ip
+    kubernetes.io/ingress.global-static-ip-name: test-geneesplaats-nl-global-static-ip
     cert-manager.io/issuer: "geneesplaats-nl-letsencrypt-production"
     #cert-manager.io/cluster-issuer: geneesplaats-nl-letsencrypt-staging
     # controls whether the ingress is modified ‘in-place’,
