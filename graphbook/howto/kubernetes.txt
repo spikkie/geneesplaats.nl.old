@@ -26,4 +26,7 @@ echo $TOKEN_VALUE
 kubectl exec test-701078429-s5kca -- curl --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -H  "Authorization: Bearer $TOKEN_VALUE" https://10.0.0.1
 
 
+#kubectl config
+kubectl config current-context
+
 

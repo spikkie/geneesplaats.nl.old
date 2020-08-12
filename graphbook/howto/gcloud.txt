@@ -59,6 +59,26 @@ kubectl delete -f $(ls  -p *.yaml  | grep -v / | tr '\n' ','  | sed 's/.$//')
 
 
 #---
+After having created a cluster we have to create a kubeconfig entry for the
+project 
+
+We do this with command :
+
+gcloud container clusters get-credentials geneesplaat-nl-jx --zone europe-west4-a --project geneesplaats-nl-jx
+
+
+Fetching cluster endpoint and auth data.
+kubeconfig entry generated for geneesplaat-nl-jx.
+
+
+we can also find this command when we go to google cloud dashboard
+https://console.cloud.google.com/home/dashboard?folder=&organizationId=&project=geneesplaats-nl-jx
+
+go to Kubernetes engine 
+Connect to the cluster 
+
+
+
 #---
 #---
 #---
