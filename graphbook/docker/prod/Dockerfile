@@ -5,6 +5,8 @@ COPY .babelrc ./
 COPY package*.json ./
 COPY webpack.server.build.config.js ./
 COPY webpack.client.build.config.js ./
+COPY webpack.server.config.js ./
+COPY webpack.client.config.js ./
 COPY src src
 COPY assets assets
 RUN npm install

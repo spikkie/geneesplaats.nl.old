@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Error from "./error";
 import LoginMutation from "./mutations/login";
 import RegisterMutation from "./mutations/signup";
+import BrowserInfo from "./browserInfo";
 
 class LoginForm extends Component {
     state = {
@@ -17,6 +18,7 @@ class LoginForm extends Component {
             }
         });
     };
+
     render() {
         const { error } = this.props;
         return (
@@ -103,9 +105,25 @@ class RegisterForm extends Component {
 }
 
 export default class LoginRegisterForm extends Component {
-    state = {
-        showLogin: true
+    constructor(props) {
+        super(props);
+        this.state = { showLogin: true };
+    }
+
+    toggleLoginSignup = e => {
+        e.preventDefault();
+        console.log(this.state);
+        console.log(this.props);
+        console.log(e.target);
+        console.log(e.type);
+        // console.dir(e);
+        // console.table(e);
+        // console.log(util.inspect(e, {showHidden: false, depth: null}));
+        // console.log(JSON.stringify(e, null, 4));
+        // alert(this.props);
+        this.setState(state => ({ showLogin: !state.showLogin }));
     };
+
     render() {
         const { changeLoginState } = this.props;
         const { showLogin } = this.state;
@@ -116,9 +134,46 @@ export default class LoginRegisterForm extends Component {
                         <LoginMutation changeLoginState={changeLoginState}>
                             <LoginForm />
                         </LoginMutation>
-                        <a onClick={() => this.setState({ showLogin: false })}>
-                            Want to sign up? Click here
+                        <a
+                            onclick=""
+                            style={{cursor: "pointer"}}
+                            className="LoginSignUpSelector"
+                            onTouchEnd={this.toggleLoginSignup}
+                            onTouchStart={this.toggleLoginSignup}
+                            onClick={this.toggleLoginSignup}
+                            // onTouchEnd={() => {
+                            //     this.setState({ showLogin: true });
+                            // }}
+                        >
+                            Want to sign up 0.1.14? Click here
                         </a>
+                        <button
+                            onclick=""
+                            style={{cursor: "pointer"}}
+                            className="LoginSignUpSelector"
+                            onTouchEnd={this.toggleLoginSignup}
+                            onTouchStart={this.toggleLoginSignup}
+                            onClick={this.toggleLoginSignup}
+                            // onTouchEnd={() => {
+                            //     this.setState({ showLogin: true });
+                            // }}
+                        >
+                            Want to sign up 0.1.14? Click here
+                        </button>
+                        <h2
+                            onclick=""
+                            style={{cursor: "pointer"}}
+                            className="LoginSignUpSelector"
+                            onTouchEnd={this.toggleLoginSignup}
+                            onTouchStart={this.toggleLoginSignup}
+                            onClick={this.toggleLoginSignup}
+                            // onTouchEnd={() => {
+                            //     this.setState({ showLogin: true });
+                            // }}
+                        >
+                            Want to sign up 0.1.14? Click here
+                        </h2>
+                        <BrowserInfo />
                     </div>
                 )}
                 {!showLogin && (
@@ -126,9 +181,44 @@ export default class LoginRegisterForm extends Component {
                         <RegisterMutation changeLoginState={changeLoginState}>
                             <RegisterForm />
                         </RegisterMutation>
-                        <a onClick={() => this.setState({ showLogin: true })}>
-                            Want to login? Click here2
+                        <a onclick=""
+                            style={{cursor: "pointer"}}
+                            className="LoginSignUpSelector"
+                            onTouchEnd={this.toggleLoginSignup}
+                            onClick={this.toggleLoginSignup}
+                            // onTouchEnd={() => {
+                            //     this.setState({ showLogin: true });
+                            // }}
+                        >
+                            Want to login 0.1.14? Click here2
                         </a>
+                        <button
+                            style={{cursor: "pointer"}}
+                            onclick=""
+                            className="LoginSignUpSelector"
+                            onTouchEnd={this.toggleLoginSignup}
+                            onTouchStart={this.toggleLoginSignup}
+                            onClick={this.toggleLoginSignup}
+                            // onTouchEnd={() => {
+                            //     this.setState({ showLogin: true });
+                            // }}
+                        >
+                            Want to login 0.1.14? Click here2
+                        </button>
+                        <h2
+                            style={{cursor: "pointer"}}
+                            onclick=""
+                            className="LoginSignUpSelector"
+                            onTouchEnd={this.toggleLoginSignup}
+                            onTouchStart={this.toggleLoginSignup}
+                            onClick={this.toggleLoginSignup}
+                            // onTouchEnd={() => {
+                            //     this.setState({ showLogin: true });
+                            // }}
+                        >
+                            Want to login 0.1.14? Click here2
+                        </h2>
+                        <BrowserInfo />
                     </div>
                 )}
             </div>

@@ -42,6 +42,7 @@ build() {
     echo build
     # docker-compose -f docker-compose-$ENVIRONMENT.yml build
     docker-compose -f docker-compose-$ENVIRONMENT.yml build
+    docker-compose -f docker-compose-$ENVIRONMENT.yml push
 }
 
 force_build() {
@@ -49,6 +50,7 @@ force_build() {
     echo force_build
     # docker-compose --progress auto --verbose  -f docker-compose-$ENVIRONMENT.yml build --no-cache --force-rm 
     docker-compose --verbose  -f docker-compose-$ENVIRONMENT.yml build --no-cache --force-rm 
+    docker-compose -f docker-compose-$ENVIRONMENT.yml push
 }
 
 deploy() {

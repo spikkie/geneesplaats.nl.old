@@ -475,3 +475,8 @@ button.uploadAvatar {
     /* Old browsers */
     background: var(--firstColor);
 }
+
+/* client/components/loginregister.js */
+.LoginSignUpSelector {
+    cursor: pointer;
+}

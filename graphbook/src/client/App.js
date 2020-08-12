@@ -31,7 +31,7 @@ class App extends Component {
         return (
             <div>
                 <Helmet>
-                    <title>GraphQlGeneesplaats - Feed</title>
+                    <title>Geneesplaats.nl</title>
                     <meta name="description" content="Geneesplaats.nl" />
                 </Helmet>
                 <Router

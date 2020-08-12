@@ -2,4 +2,4 @@
 set -x
 set -e
 
-gcloud auth activate-service-account --key-file=/home/spikkie/spikkie-service-account.json
+gcloud auth activate-service-account --key-file=/home/$USER/spikkie-service-account.json
